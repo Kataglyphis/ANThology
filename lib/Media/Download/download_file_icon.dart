@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jotrockenmitlockenrepo/Decoration/centered_box_decoration.dart';
 import 'package:jotrockenmitlockenrepo/Media/Download/download_button.dart';
 import 'package:jotrockenmitlockenrepo/Media/Files/file.dart';
 
@@ -8,22 +9,18 @@ class FileDownloadIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color selectedColor = Theme.of(context).primaryColor;
+    Color selectedColor = Theme.of(context).colorScheme.primary;
     return AspectRatio(
       aspectRatio: 1,
       child: FittedBox(
         child: SizedBox(
           width: 70,
           height: 70,
-          child: DecoratedBox(
-            decoration: BoxDecoration(
-              color: selectedColor,
-              borderRadius: const BorderRadius.all(Radius.circular(20)),
-            ),
-            child: Center(
-                child: DownloadButton(
-                    assetFullPath: document.baseDir + document.title)),
-          ),
+          child: CenteredBoxDecoration(
+              child: Center(
+                  child: DownloadButton(
+                      assetFullPath: document.baseDir + document.title)),
+              color: selectedColor),
         ),
       ),
     );

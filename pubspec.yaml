@@ -1,11 +1,11 @@
 name: jotrockenmitlockenrepo
 description: "Central modular code for my flutter/dart projects."
-version: 1.0.2
+version: 1.0.4
 homepage: https://jotrockenmitlocken.de
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
-  flutter: ">=3.19.4"
+  flutter: ">=3.22.0"
 
 dependencies:
   flutter:

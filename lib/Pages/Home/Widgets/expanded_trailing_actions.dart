@@ -54,10 +54,12 @@ class ExpandedTrailingActions extends StatelessWidget {
               ],
             ),
           const Divider(),
-          ExpandedColorSeedAction(
-            handleColorSelect: appAttributes.handleColorSelect,
-            colorSelected: appAttributes.colorSelected,
-          ),
+          if (buttonNames.color != null &&
+              appAttributes.handleColorSelect != null)
+            ExpandedColorSeedAction(
+              handleColorSelect: appAttributes.handleColorSelect,
+              colorSelected: appAttributes.colorSelected,
+            ),
         ],
       ),
     );
