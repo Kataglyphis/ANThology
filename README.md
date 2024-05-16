@@ -2,7 +2,7 @@
   <br>
   <a href="https://jotrockenmitlocken.de"><img src="images/logo.png" alt="logo" width="200"></a>
   <br>
-  Cataglyphis template
+  JotrockenmitlockenRepo
   <br>
 </h1>
 
@@ -13,7 +13,7 @@
   <a href="https://jotrockenmitlocken.de"><img src="images/glm_logo.png" alt="VulkanEngine" width="200"></a>
 </h1> -->
 
-<h4 align="center">A template <a href="https://jotrockenmitlocken.de" target="_blank"></a>.</h4>
+<h4 align="center">Reusable dart code provided as a package for building beautiful cross-platform apps<a href="https://jotrockenmitlocken.de" target="_blank"></a>.</h4>
 
 <!-- [![Linux build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml)
 [![Windows build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml)
