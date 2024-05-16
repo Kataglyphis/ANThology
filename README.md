@@ -1,6 +1,6 @@
 <h1 align="center">
   <br>
-  <a href="https://jotrockenmitlocken.de"><img src="images/logo.png" alt="logo" width="200"></a>
+  <a href="https://jonasheinle.de"><img src="images/logo.png" alt="logo" width="200"></a>
   <br>
   JotrockenmitlockenRepo
   <br>
@@ -8,17 +8,17 @@
 
 <!-- <h1 align="center">
   <br>
-  <a href="https://jotrockenmitlocken.de"><img src="images/vulkan-logo.png" alt="VulkanEngine" width="200"></a>
-  <a href="https://jotrockenmitlocken.de"><img src="images/Engine_logo.png" alt="VulkanEngine" width="200"></a>
-  <a href="https://jotrockenmitlocken.de"><img src="images/glm_logo.png" alt="VulkanEngine" width="200"></a>
+  <a href="https://jonasheinle.de"><img src="images/vulkan-logo.png" alt="VulkanEngine" width="200"></a>
+  <a href="https://jonasheinle.de"><img src="images/Engine_logo.png" alt="VulkanEngine" width="200"></a>
+  <a href="https://jonasheinle.de"><img src="images/glm_logo.png" alt="VulkanEngine" width="200"></a>
 </h1> -->
 
-<h4 align="center">Reusable dart code provided as a package for building beautiful cross-platform apps<a href="https://jotrockenmitlocken.de" target="_blank"></a>.</h4>
+<h4 align="center">Reusable dart code provided as a package for building beautiful cross-platform apps<a href="https://jonasheinle.de" target="_blank"></a>.</h4>
 
 <!-- [![Linux build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml)
 [![Windows build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml)
 [![TopLang](https://img.shields.io/github/languages/top/Kataglyphis/GraphicsEngineVulkan)]() -->
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/donate/?hosted_button_id=BX9AVVES2P9LN)
+[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/JonasHeinle)
 [![Twitter](https://img.shields.io/twitter/follow/Cataglyphis_?style=social)](https://twitter.com/Cataglyphis_)
 
 <p align="center">
@@ -66,14 +66,14 @@
 
 <!-- <h1 align="center">
   <br>
-  <a href="https://jotrockenmitlocken.de"><img src="images/Screenshot1.png" alt="VulkanEngine" width="400"></a>
-  <a href="https://jotrockenmitlocken.de"><img src="images/Screenshot2.png" alt="VulkanEngine" width="400"></a>
-  <a href="https://jotrockenmitlocken.de"><img src="images/Screenshot3.png" alt="VulkanEngine" width="700"></a>
+  <a href="https://jonasheinle.de"><img src="images/Screenshot1.png" alt="VulkanEngine" width="400"></a>
+  <a href="https://jonasheinle.de"><img src="images/Screenshot2.png" alt="VulkanEngine" width="400"></a>
+  <a href="https://jonasheinle.de"><img src="images/Screenshot3.png" alt="VulkanEngine" width="700"></a>
 </h1> -->
 
-<!-- [![Kataglyphis Engine][product-screenshot1]](https://jotrockenmitlocken.de)
-[![Kataglyphis Engine][product-screenshot2]](https://jotrockenmitlocken.de)
-[![Kataglyphis Engine][product-screenshot3]](https://jotrockenmitlocken.de) -->
+<!-- [![Kataglyphis Engine][product-screenshot1]](https://jonasheinle.de)
+[![Kataglyphis Engine][product-screenshot2]](https://jonasheinle.de)
+[![Kataglyphis Engine][product-screenshot3]](https://jonasheinle.de) -->
 
 This project is a template. 
 
@@ -106,7 +106,7 @@ This enumeration also includes submodules.
 
 1. Clone the repo
    ```sh
-   git clone --recurse-submodules git@github.com:Kataglyphis/....git
+   git clone --recurse-submodules git@github.com:Kataglyphis/jotrockenmitlockenrepo.git
    ```
 
 ## Tests
