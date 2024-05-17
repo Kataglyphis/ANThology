@@ -1,4 +1,4 @@
-import 'dart:html' as html;
+import 'package:web/web.dart' as web;
 
 import 'package:flutter/foundation.dart';
 
@@ -6,5 +6,5 @@ void myPluginOpen(String url) {
   if (kReleaseMode) {
     url = "assets/$url";
   }
-  html.window.open(url, "_blank");
+  web.window.open(url, "_blank");
 }
