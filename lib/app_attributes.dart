@@ -9,8 +9,6 @@ import 'package:jotrockenmitlockenrepo/constants.dart';
 import 'package:jotrockenmitlockenrepo/user_settings.dart';
 
 class AppAttributes {
-  String appTitle;
-
   UserSettings userSettings;
   AppSettings appSettings;
   List<MyTwoCentsConfig> twoCentsConfigs;
@@ -37,7 +35,6 @@ class AppAttributes {
   AppAttributes(
       {required this.footerConfig,
       required this.homeConfig,
-      required this.appTitle,
       required this.appSettings,
       required this.userSettings,
       required this.blockSettings,
