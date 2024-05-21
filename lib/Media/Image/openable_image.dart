@@ -7,7 +7,7 @@ class OpenableImage extends StatefulWidget {
   OpenableImage({
     super.key,
     required this.displayedImage,
-    this.placeholderImage = "assets/images/Summy&Thundy_compressed.png",
+    this.placeholderImage = "assets/images/cats/Summy&Thundy_compressed.png",
     this.imageCaptioning,
     this.captioningStyle,
     this.disableOpen = false,
