@@ -45,10 +45,12 @@ class HomeState extends State<Home> {
     widget.handleChangedPageIndex(widget.navigationShell.currentIndex);
   }
 
-  PreferredSizeWidget _createAppBar() {
+  PreferredSizeWidget _createAppBar(Locale current_locale) {
     var buttonNames = widget.appAttributes.homeConfig.getButtonNames(context);
     return AppBar(
-      title: Text(widget.appAttributes.appName),
+      title: (current_locale == const Locale('de'))
+          ? Text(widget.appAttributes.appSettings.appNameDe)
+          : Text(widget.appAttributes.appSettings.appNameEn),
       actions: !widget.appAttributes.showMediumSizeLayout &&
               !widget.appAttributes.showLargeSizeLayout
           ? [
@@ -110,7 +112,7 @@ class HomeState extends State<Home> {
                     scaffoldKey: widget.scaffoldKey,
                     animationController: widget.controller,
                     railAnimation: widget.appAttributes.railAnimation,
-                    appBar: _createAppBar(),
+                    appBar: _createAppBar(Localizations.localeOf(context)),
                     body: Expanded(
                       child: widget.navigationShell,
                     ),

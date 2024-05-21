@@ -4,14 +4,15 @@ import 'package:jotrockenmitlockenrepo/Pages/Home/home_config.dart';
 import 'package:jotrockenmitlockenrepo/Pages/blog_page_config.dart';
 import 'package:jotrockenmitlockenrepo/Pages/my_two_cents_config.dart';
 import 'package:jotrockenmitlockenrepo/Routing/screen_configurations.dart';
+import 'package:jotrockenmitlockenrepo/app_settings.dart';
 import 'package:jotrockenmitlockenrepo/constants.dart';
 import 'package:jotrockenmitlockenrepo/user_settings.dart';
 
 class AppAttributes {
   String appTitle;
-  String appName;
 
   UserSettings userSettings;
+  AppSettings appSettings;
   List<MyTwoCentsConfig> twoCentsConfigs;
   List<BlogPageConfig> blockSettings;
   FooterConfig footerConfig;
@@ -37,7 +38,7 @@ class AppAttributes {
       {required this.footerConfig,
       required this.homeConfig,
       required this.appTitle,
-      required this.appName,
+      required this.appSettings,
       required this.userSettings,
       required this.blockSettings,
       required this.twoCentsConfigs,
