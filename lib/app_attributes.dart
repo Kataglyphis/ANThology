@@ -16,7 +16,6 @@ class AppAttributes {
   FooterConfig footerConfig;
   HomeConfig homeConfig;
 
-  List<Locale> supportedLanguages;
   ScreenConfigurations screenConfigurations;
 
   CurvedAnimation railAnimation;
@@ -39,7 +38,6 @@ class AppAttributes {
       required this.userSettings,
       required this.blockSettings,
       required this.twoCentsConfigs,
-      required this.supportedLanguages,
       required this.screenConfigurations,
       required this.railAnimation,
       required this.showMediumSizeLayout,

@@ -12,6 +12,7 @@ abstract class DataList<T extends TableData> extends StatefulWidget {
       required this.description,
       required this.data,
       required this.dataCategories,
+      required this.entryRedirectText,
       this.sortColumnIndex = 0,
       this.sortOnLoaded = false,
       this.isAscending = false});
@@ -19,6 +20,7 @@ abstract class DataList<T extends TableData> extends StatefulWidget {
   List<String> dataCategories;
   final String title;
   final String description;
+  final String entryRedirectText;
   bool sortOnLoaded;
   int sortColumnIndex;
   bool isAscending;
@@ -37,6 +39,7 @@ abstract class DataListState<T extends TableData, U extends DataList>
       dataCategories: widget.dataCategories,
       data: widget.data,
       title: widget.title,
+      entryRedirectText: widget.entryRedirectText,
       description: widget.description,
       sortColumnIndex: widget.sortColumnIndex,
       isAscending: widget.isAscending,

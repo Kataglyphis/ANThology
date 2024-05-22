@@ -20,7 +20,8 @@ class TrailingActionsState extends State<TrailingActions> {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         if (buttonNames.language != null &&
-            widget.appAttributes.handleLanguageChange != null)
+            widget.appAttributes.handleLanguageChange != null &&
+            widget.appAttributes.appSettings.supportedLocales!.length >= 2)
           Flexible(
             child: LanguageButton(
               handleLanguageChange: widget.appAttributes.handleLanguageChange!,

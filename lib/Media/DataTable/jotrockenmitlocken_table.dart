@@ -34,11 +34,13 @@ class JotrockenmitlockenTable<T extends TableData> extends StatefulWidget {
     required this.data,
     required this.spacing,
     required this.dataCellContentStrategies,
+    required this.entryRedirectText,
     this.sortColumnIndex = 0,
     this.sortOnLoaded = false,
     this.isAscending = false,
   });
   final String title;
+  String entryRedirectText;
   final List<double> spacing;
   final List<String> dataCategories;
   List<DataCellContentStrategies> dataCellContentStrategies;
@@ -83,9 +85,7 @@ class JotrockenmitlockenTableState<T extends TableData>
                     },
                     child: Text(
                       textAlign: TextAlign.center,
-                      (Localizations.localeOf(context) == const Locale('de'))
-                          ? "Lese mehr darüber"
-                          : "Read more",
+                      widget.entryRedirectText,
                     )),
           ),
         );

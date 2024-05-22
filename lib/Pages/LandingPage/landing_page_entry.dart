@@ -14,9 +14,7 @@ import 'package:jotrockenmitlockenrepo/Url/external_link_config.dart';
 class LandingPageEntry extends StatefulWidget {
   const LandingPageEntry({
     super.key,
-    required this.currentLocale,
-    required this.labelEN,
-    required this.labelDE,
+    required this.label,
     required this.routerPath,
     required this.headline,
     required this.imagePath,
@@ -28,14 +26,12 @@ class LandingPageEntry extends StatefulWidget {
     required this.fileBaseDir,
     this.imageCaptioning,
   });
-  final String labelEN;
-  final String labelDE;
+  final String label;
   final String routerPath;
   final String headline;
   final String imagePath;
   final String description;
   final ExternalLinkConfig githubRepo;
-  final Locale currentLocale;
   final String? imageCaptioning;
   final String lastModified;
   final String fileTitle;
@@ -119,10 +115,7 @@ class LandingPageEntryState extends State<LandingPageEntry> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ComponentGroupDecoration(
-              label: (widget.currentLocale == const Locale("de"))
-                  ? widget.labelDE
-                  : widget.labelEN,
-              children: <Widget>[...undecoratedChilds]),
+              label: widget.label, children: <Widget>[...undecoratedChilds]),
         ],
       ),
     );

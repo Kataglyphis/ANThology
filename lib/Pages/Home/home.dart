@@ -55,7 +55,9 @@ class HomeState extends State<Home> {
               !widget.appAttributes.showLargeSizeLayout
           ? [
               if (buttonNames.language != null &&
-                  widget.appAttributes.handleLanguageChange != null)
+                  widget.appAttributes.handleLanguageChange != null &&
+                  widget.appAttributes.appSettings.supportedLocales!.length >=
+                      2)
                 LanguageButton(
                   handleLanguageChange:
                       widget.appAttributes.handleLanguageChange!,
@@ -82,16 +84,20 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    List<Locale> supportedLang = widget.appAttributes.supportedLanguages;
+    List<Locale> supportedLang = widget
+        .appAttributes.appSettings.supportedLocales!
+        .map((element) => Locale(element))
+        .toList();
     assert(supportedLang.length <= 2 && supportedLang.isNotEmpty,
         "For now only max. 2 different lang are supported. And you need at least 1 :)");
     Locale currentLocale = supportedLang[0];
     if (widget.appAttributes.useOtherLanguageMode != null) {
-      if (supportedLang.length == 2 &&
-              (Localizations.localeOf(context) == supportedLang[0] &&
-                  widget.appAttributes.useOtherLanguageMode!) ||
-          (Localizations.localeOf(context) == supportedLang[1])) {
-        currentLocale = supportedLang[1];
+      if (supportedLang.length == 2) {
+        if ((Localizations.localeOf(context) == supportedLang[0] &&
+                widget.appAttributes.useOtherLanguageMode!) ||
+            (Localizations.localeOf(context) == supportedLang[1])) {
+          currentLocale = supportedLang[1];
+        }
       }
     }
     return Localizations.override(

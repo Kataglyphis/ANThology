@@ -13,10 +13,12 @@ abstract class CsvDataList extends StatefulWidget {
       required this.dataFilePath,
       required this.title,
       required this.description,
+      required this.entryRedirectText,
       this.sortColumnIndex = 0,
       this.sortOnLoaded = false,
       this.isAscending = false});
   final String title;
+  final String entryRedirectText;
   final String dataFilePath;
   final String description;
   bool sortOnLoaded;
@@ -59,6 +61,7 @@ abstract class CsvDataListState<T extends TableData, U extends CsvDataList>
               dataCategories: dataCategories,
               data: csvData,
               title: widget.title,
+              entryRedirectText: widget.entryRedirectText,
               description: widget.description,
               sortColumnIndex: widget.sortColumnIndex,
               isAscending: widget.isAscending,

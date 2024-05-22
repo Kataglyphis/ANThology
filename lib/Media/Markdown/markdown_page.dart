@@ -131,7 +131,7 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
                           markdownPageWidth: MediaQuery.of(context).size.width,
                           colorSelectedBg: Theme.of(context)
                               .colorScheme
-                              .surfaceVariant
+                              .surfaceContainerHighest
                               .withOpacity(0.3),
                           colorSelectedPrimary:
                               Theme.of(context).colorScheme.primary,

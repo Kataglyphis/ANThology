@@ -86,7 +86,7 @@ class CodeElementBuilder extends MarkdownElementBuilder {
                   color: (markdownPageWidth > narrowScreenWidthThreshold)
                       ? Theme.of(context)
                           .colorScheme
-                          .surfaceVariant
+                          .surfaceContainerHighest
                           .withOpacity(0.3)
                       : null,
                   child: CenteredBoxDecoration(
