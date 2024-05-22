@@ -14,7 +14,7 @@ abstract class ScreenConfigurations {
   List<BlogPageConfig> getBlogPagesConfig();
   List<MyTwoCentsConfig> getMediaCriticsPagesConfig();
 
-  bool disableFooter();
+  // bool disableFooter();
 
   List<NavigationDestination> getAppBarDestinations(BuildContext context) {
     var result = getNavRailPagesConfig()
