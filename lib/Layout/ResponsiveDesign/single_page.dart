@@ -3,7 +3,6 @@ import 'package:jotrockenmitlockenrepo/Decoration/col_divider.dart';
 import 'package:jotrockenmitlockenrepo/Layout/Widgets/Scrolling/first_component_list.dart';
 import 'package:jotrockenmitlockenrepo/Pages/Footer/footer.dart';
 import 'package:jotrockenmitlockenrepo/app_attributes.dart';
-import 'package:jotrockenmitlockenrepo/app_settings.dart';
 
 class SinglePage extends StatefulWidget {
   final List<Widget> children;
