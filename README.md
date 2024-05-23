@@ -13,11 +13,11 @@
   <a href="https://jonasheinle.de"><img src="images/glm_logo.png" alt="VulkanEngine" width="200"></a>
 </h1> -->
 
-<h4 align="center">Reusable dart code provided as a package for building beautiful cross-platform apps<a href="https://jonasheinle.de" target="_blank"></a>.</h4>
+<h4 align="center">Reusable dart code provided as a package for building beautiful cross-platform apps. Give your project a huge kickstart by using this repo as a starting point.<a href="https://jonasheinle.de" target="_blank"></a>.</h4>
 
 <!-- [![Linux build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml)
-[![Windows build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml)
-[![TopLang](https://img.shields.io/github/languages/top/Kataglyphis/GraphicsEngineVulkan)]() -->
+[![Windows build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml)-->
+[![TopLang](https://img.shields.io/github/languages/top/Kataglyphis/jotrockenmitlockenrepo)]() 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/JonasHeinle)
 [![Twitter](https://img.shields.io/twitter/follow/Cataglyphis_?style=social)](https://twitter.com/Cataglyphis_)
 
@@ -64,6 +64,12 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
+The aim of this project is to leverage other projects in their needs for
+native UI development (Linux/Windows/Web/Android/iOS).
+
+### Projects using this projects
+* By using this repo my personal web blog [jonasheinle.de](https://jonasheinle.de) is able to build a beautiful web native responsive app ( see my repo [jotrockenmitlocken](https://github.com/Kataglyphis/jotrockenmitlocken/))
+
 <!-- <h1 align="center">
   <br>
   <a href="https://jonasheinle.de"><img src="images/Screenshot1.png" alt="VulkanEngine" width="400"></a>
@@ -75,19 +81,12 @@
 [![Kataglyphis Engine][product-screenshot2]](https://jonasheinle.de)
 [![Kataglyphis Engine][product-screenshot3]](https://jonasheinle.de) -->
 
-This project is a template. 
-
 ### Key Features
 
 <!-- ❌  -->
-<!-- |          Feature                    |   Implement Status |
+|          Feature                    |   Implement Status |
 | ------------------------------------| :----------------: |
-| Rasterizer                          |         ✔️         |
-| Raytracing                          |         ✔️         |
-| Path tracing                        |         ✔️         |
-| PBR support (UE4,disney,... etc.)   |         ✔️         |
-| .obj Model loading                  |         ✔️         |
-| Mip Mapping                         |         ✔️         | -->
+| Easy cross-platform layout creation |         ✔️         | 
 
 ### Dependencies
 This enumeration also includes submodules.
@@ -136,9 +135,10 @@ Contributions are what make the open source community such an amazing place to b
 <!-- CONTACT -->
 ## Contact
 
-Jonas Heinle - [@Cataglyphis_](https://twitter.com/Cataglyphis_) - jonasheinle@googlemail.com
+Jonas Heinle - [@Cataglyphis_](https://twitter.com/Cataglyphis_) </br>
+Get in touch: contact@jonasheinle.de
 
-Project Link: [https://github.com/Kataglyphis/...](https://github.com/Kataglyphis/...)
+Project Link: [https://github.com/Kataglyphis/jotrockenmitlockenrepo](https://github.com/Kataglyphis/jotrockenmitlockenrepo)
 
 
 <!-- ACKNOWLEDGEMENTS -->
