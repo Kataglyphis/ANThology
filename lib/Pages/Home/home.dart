@@ -114,8 +114,6 @@ class HomeState extends State<Home> {
                     showFooter: (widget.appAttributes.showLargeSizeLayout ||
                             widget.appAttributes.showMediumSizeLayout) &&
                         !widget.appAttributes.appSettings.disableFooter,
-                    // !widget.appAttributes.screenConfigurations
-                    //     .disableFooter(),
                     scaffoldKey: widget.scaffoldKey,
                     animationController: widget.controller,
                     railAnimation: widget.appAttributes.railAnimation,
