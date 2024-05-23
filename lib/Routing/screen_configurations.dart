@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:jotrockenmitlockenrepo/Pages/Footer/footer_page_config.dart';
-import 'package:jotrockenmitlockenrepo/Pages/blog_page_config.dart';
-import 'package:jotrockenmitlockenrepo/Pages/my_two_cents_config.dart';
 import 'package:jotrockenmitlockenrepo/Pages/navbar_page_config.dart';
 import 'package:jotrockenmitlockenrepo/Pages/stateful_branch_info_provider.dart';
 
 abstract class ScreenConfigurations {
-  List<StatefulBranchInfoProvider> getErrorPagesConfig();
-  List<StatefulBranchInfoProvider> getDataPagesConfig();
   List<StatefulBranchInfoProvider> getAllPagesConfigs();
+  List<StatefulBranchInfoProvider> getErrorPagesConfig();
   List<NavBarPageConfig> getNavRailPagesConfig();
   List<FooterPageConfig> getFooterPagesConfig();
-  List<BlogPageConfig> getBlogPagesConfig();
-  List<MyTwoCentsConfig> getMediaCriticsPagesConfig();
 
   List<NavigationDestination> getAppBarDestinations(BuildContext context) {
     var result = getNavRailPagesConfig()
