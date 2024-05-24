@@ -20,7 +20,9 @@ class CopyButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       ),
       child: Text(
-        "Copy",
+        (Localizations.localeOf(context) == const Locale('de'))
+            ? "Kopieren"
+            : "Copy",
         style: Theme.of(context).textTheme.titleMedium,
       ),
     );

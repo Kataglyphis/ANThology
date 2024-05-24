@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'download_stub.dart' if (dart.library.html) 'download_web.dart';
+import 'download_stub.dart' if (dart.library.js_interop) 'download_web.dart';
 
 class DownloadButton extends StatelessWidget {
   final String assetFullPath;

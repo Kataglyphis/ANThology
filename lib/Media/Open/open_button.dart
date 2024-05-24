@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'open_stub.dart' if (dart.library.html) 'open_web.dart';
-
+// import 'open_stub.dart' if (dart.library.html) 'open_web.dart';
+import 'open_stub.dart' if (dart.library.js_interop) 'open_web.dart';
 import 'package:mime/mime.dart';
 
 class OpenButton extends StatelessWidget {
@@ -36,7 +36,9 @@ class OpenButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       ),
       child: Text(
-        "Open",
+        (Localizations.localeOf(context) == const Locale('de'))
+            ? "Öffnen"
+            : "Open",
         style: Theme.of(context).textTheme.titleMedium,
       ),
     );

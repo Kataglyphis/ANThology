@@ -42,7 +42,6 @@ class HomeState extends State<Home> {
   @override
   void didUpdateWidget(Home oldWidget) {
     super.didUpdateWidget(oldWidget);
-    widget.handleChangedPageIndex(widget.navigationShell.currentIndex);
   }
 
   PreferredSizeWidget _createAppBar(Locale current_locale) {

@@ -8,8 +8,6 @@ import 'package:jotrockenmitlockenrepo/app_attributes.dart';
 import 'package:jotrockenmitlockenrepo/Pages/stateful_branch_info_provider.dart';
 
 abstract class RoutesCreator {
-  // int currentPageIndex = 0;
-
   final _rootNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: "_rootNavigatorKey");
 
@@ -44,9 +42,6 @@ abstract class RoutesCreator {
             // to be able access the state of the shell and to navigate to other
             // branches in a stateful way.
             return Home(
-                // handleChangedPageIndex: (index) {
-                //   currentPageIndex = index;
-                // },
                 handleChangedPageIndex: handleChangedPageIndex,
                 scaffoldKey: scaffoldKey,
                 footer: getFooter(appAttributes),
