@@ -132,6 +132,7 @@ class HomeState extends State<Home> {
                           ? widget.navigationShell.currentIndex
                           : currentNavBarIndex,
                       onDestinationSelected: (index) {
+                        widget.handleChangedPageIndex(index);
                         currentNavBarIndex = index;
                         widget.navigationShell.goBranch(currentNavBarIndex);
                       },

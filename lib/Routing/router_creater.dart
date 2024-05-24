@@ -8,7 +8,7 @@ import 'package:jotrockenmitlockenrepo/app_attributes.dart';
 import 'package:jotrockenmitlockenrepo/Pages/stateful_branch_info_provider.dart';
 
 abstract class RoutesCreator {
-  int currentPageIndex = 0;
+  // int currentPageIndex = 0;
 
   final _rootNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: "_rootNavigatorKey");
@@ -16,7 +16,8 @@ abstract class RoutesCreator {
   final GlobalKey<ScaffoldState> scaffoldKey =
       GlobalKey<ScaffoldState>(debugLabel: "scaffoldKey");
 
-  String _getInitialLocation(AppAttributes appAttributes) {
+  String _getInitialLocation(
+      AppAttributes appAttributes, int currentPageIndex) {
     List<(Widget, StatefulBranchInfoProvider)> allPages =
         getAllPagesWithConfigs(appAttributes);
     return allPages[currentPageIndex].$2.getRoutingName();
@@ -27,10 +28,13 @@ abstract class RoutesCreator {
   Footer getFooter(AppAttributes appAttributes);
 
   GoRouter getRouterConfig(
-      AppAttributes appAttributes, AnimationController controller) {
+      AppAttributes appAttributes,
+      AnimationController controller,
+      final void Function(int value) handleChangedPageIndex,
+      int currentPageIndex) {
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
-      initialLocation: _getInitialLocation(appAttributes),
+      initialLocation: _getInitialLocation(appAttributes, currentPageIndex),
       routes: <RouteBase>[
         StatefulShellRoute.indexedStack(
           builder: (BuildContext context, GoRouterState state,
@@ -40,9 +44,10 @@ abstract class RoutesCreator {
             // to be able access the state of the shell and to navigate to other
             // branches in a stateful way.
             return Home(
-                handleChangedPageIndex: (index) {
-                  currentPageIndex = index;
-                },
+                // handleChangedPageIndex: (index) {
+                //   currentPageIndex = index;
+                // },
+                handleChangedPageIndex: handleChangedPageIndex,
                 scaffoldKey: scaffoldKey,
                 footer: getFooter(appAttributes),
                 appAttributes: appAttributes,
