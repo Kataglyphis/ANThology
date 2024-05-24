@@ -43,6 +43,7 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
     // Path to the markup file
     assert(widget.filePathDe != '' || widget.filePathEn != '',
         'You must provide at least one correct file path!');
+    developer.log('You must provide at least one correct file path!');
     try {
       // Read file content
       if (widget.currentLocale == const Locale('de') &&
