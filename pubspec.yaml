@@ -1,7 +1,7 @@
 name: jotrockenmitlockenrepo
 description: "Central modular code for my flutter/dart projects."
 version: 1.0.4
-homepage: https://jotrockenmitlocken.de
+homepage: https://jonasheinle.de
 
 environment:
   sdk: ">=3.4.0 <4.0.0"

@@ -65,7 +65,8 @@
 ## About The Project
 
 The aim of this project is to leverage other projects in their needs for
-native UI development (Linux/Windows/Web/Android/iOS).
+native UI development (Linux/Windows/Web/Android/iOS).</br>
+Supports english and german right now.
 
 ### Projects using this projects
 * By using this repo my personal web blog [jonasheinle.de](https://jonasheinle.de) is able to build a beautiful web native responsive app ( see my repo [jotrockenmitlocken](https://github.com/Kataglyphis/jotrockenmitlocken/))
@@ -87,12 +88,18 @@ native UI development (Linux/Windows/Web/Android/iOS).
 |          Feature                    |   Implement Status |
 | ------------------------------------| :----------------: |
 | Easy cross-platform layout creation |         ✔️         | 
+| Media handling(open, download)      |         ✔️         |
+| Markdown rendering                  |         ✔️         |
+| Widget decoration                   |         ✔️         |
+| EMail handling                      |         ✔️         |
+| Image handling                      |         ✔️         |
+| Responsive table creation           |         ✔️         |
+| Social Media Icons                  |         ✔️         |
 
 ### Dependencies
-This enumeration also includes submodules.
-<!-- * [Vulkan 1.3](https://www.vulkan.org/) -->
+Watch the `pubspec.yaml` file.
 
-### Useful tools
+<!-- ### Useful tools -->
 
 <!-- * [cppcheck](https://cppcheck.sourceforge.io/) -->
 
@@ -100,6 +107,7 @@ This enumeration also includes submodules.
 ## Getting Started
 
 ### Prerequisites
+[Install Flutter/Dart](https://docs.flutter.dev/get-started/install)
 
 ### Installation
 
@@ -108,7 +116,7 @@ This enumeration also includes submodules.
    git clone --recurse-submodules git@github.com:Kataglyphis/jotrockenmitlockenrepo.git
    ```
 
-## Tests
+<!-- ## Tests -->
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -131,7 +139,7 @@ Contributions are what make the open source community such an amazing place to b
 
 <!-- LICENSE -->
 ## License
-
+MIT
 <!-- CONTACT -->
 ## Contact
 
