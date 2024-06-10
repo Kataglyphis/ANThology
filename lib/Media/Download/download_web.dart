@@ -1,5 +1,5 @@
-import 'package:web/web.dart' as web;
-import 'package:flutter/foundation.dart';
+import 'package:web/web.dart';
+// import 'package:flutter/foundation.dart';
 
 String trimAfterLastSlash(String input) {
   int lastSlashIndex = input.lastIndexOf('/');
@@ -12,11 +12,15 @@ String trimAfterLastSlash(String input) {
 }
 
 void myPluginDownload(String url) {
-  if (kReleaseMode) {
-    url = "assets/$url";
-  }
-  web.HTMLAnchorElement anchorElement = web.HTMLAnchorElement();
-  anchorElement.download = trimAfterLastSlash(url);
-  anchorElement.href = url;
-  anchorElement.click();
+  // if (kReleaseMode) {
+  //   url = "assets/$url";
+  // }
+  HTMLAnchorElement()
+    ..href = url
+    ..download = trimAfterLastSlash(url)
+    ..click();
+  // HTMLAnchorElement anchorElement = web.HTMLAnchorElement();
+  // anchorElement.download = trimAfterLastSlash(url);
+  // anchorElement.href = url;
+  // anchorElement.click();
 }
