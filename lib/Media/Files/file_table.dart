@@ -42,31 +42,33 @@ class FileTableState extends State<FileTable> {
       tablePadding = 8;
     }
     var colDivider = const SizedBox(height: 10);
-    return Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          colDivider,
-          Text(
-            widget.title,
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.headlineLarge,
-          ),
-          colDivider,
-          SizedBox(
-            width: getDocumentTableWidth(),
-            child: CenteredBoxDecoration(
-              borderRadius: 8,
-              borderWidth: 4,
-              color: Theme.of(context).colorScheme.primary,
-              insets: EdgeInsets.all(tablePadding),
-              child: Column(
-                  children: List.generate(widget.docs.length,
-                      (index) => _buildListItem(context, index),
-                      growable: true)),
-            ),
-          ),
-        ]);
+    return widget.docs.isEmpty
+        ? SizedBox()
+        : Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+                colDivider,
+                Text(
+                  widget.title,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.headlineLarge,
+                ),
+                colDivider,
+                SizedBox(
+                  width: getDocumentTableWidth(),
+                  child: CenteredBoxDecoration(
+                    borderRadius: 8,
+                    borderWidth: 4,
+                    color: Theme.of(context).colorScheme.primary,
+                    insets: EdgeInsets.all(tablePadding),
+                    child: Column(
+                        children: List.generate(widget.docs.length,
+                            (index) => _buildListItem(context, index),
+                            growable: true)),
+                  ),
+                ),
+              ]);
   }
 
   Widget _buildListItem(BuildContext context, int index) {
