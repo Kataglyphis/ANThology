@@ -61,7 +61,7 @@ abstract class CsvDataListState<T extends TableData, U extends CsvDataList>
           if (data.hasData) {
             List<T> csvData = data.requireData.$1;
             List<String> dataCategories = data.requireData.$2;
-
+            //maybe now
             double currentWidth = MediaQuery.of(context).size.width;
             bool isMobileDevice = currentWidth <= narrowScreenWidthThreshold;
             return JotrockenmitlockenTable(
