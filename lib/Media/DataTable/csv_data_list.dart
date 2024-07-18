@@ -8,6 +8,8 @@ import 'package:jotrockenmitlockenrepo/Media/DataTable/table_data.dart';
 import 'package:flutter/services.dart';
 import 'dart:developer';
 
+import 'package:jotrockenmitlockenrepo/constants.dart';
+
 abstract class CsvDataList extends StatefulWidget {
   CsvDataList(
       {super.key,
@@ -60,6 +62,8 @@ abstract class CsvDataListState<T extends TableData, U extends CsvDataList>
             List<T> csvData = data.requireData.$1;
             List<String> dataCategories = data.requireData.$2;
 
+            double currentWidth = MediaQuery.of(context).size.width;
+            bool isMobileDevice = currentWidth <= narrowScreenWidthThreshold;
             return JotrockenmitlockenTable(
               dataCategories: dataCategories,
               data: csvData,
@@ -69,7 +73,7 @@ abstract class CsvDataListState<T extends TableData, U extends CsvDataList>
               sortColumnIndex: widget.sortColumnIndex,
               isAscending: widget.isAscending,
               sortOnLoaded: widget.sortOnLoaded,
-              spacing: getSpacing(),
+              spacing: getSpacing(isMobileDevice),
               dataCellContentStrategies: getDataCellContentStrategies(),
             );
           } else if (data.hasError) {
