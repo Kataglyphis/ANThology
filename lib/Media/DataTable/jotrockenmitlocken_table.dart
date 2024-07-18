@@ -95,16 +95,17 @@ class JotrockenmitlockenTableState<T extends TableData>
 
   @override
   Widget build(BuildContext context) {
+    double currentWidth = MediaQuery.of(context).size.width;
+    double dataTableWidth = (currentWidth >= largeWidthBreakpoint)
+        ? currentWidth * 0.8
+        : currentWidth * 0.9;
+
     if (widget.sortOnLoaded) {
       widget.data.sort((data1, data2) => _compareString(
           widget.isAscending,
           data1.getCells()[widget.sortColumnIndex],
           data2.getCells()[widget.sortColumnIndex]));
     }
-    double currentWidth = MediaQuery.of(context).size.width;
-    double dataTableWidth = (currentWidth >= largeWidthBreakpoint)
-        ? currentWidth * 0.8
-        : currentWidth * 0.9;
     final DataTableSource dataTableSource =
         _MyDataTableSource(getDataRows(widget.data, dataTableWidth));
     return Column(

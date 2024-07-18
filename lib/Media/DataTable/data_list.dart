@@ -5,6 +5,8 @@ import 'package:jotrockenmitlockenrepo/Media/DataTable/jotrockenmitlocken_table_
 import 'package:jotrockenmitlockenrepo/Media/DataTable/table_data.dart';
 import 'dart:developer';
 
+import 'package:jotrockenmitlockenrepo/constants.dart';
+
 abstract class DataList<T extends TableData> extends StatefulWidget {
   DataList(
       {super.key,
@@ -35,6 +37,8 @@ abstract class DataListState<T extends TableData, U extends DataList>
 
   @override
   Widget build(BuildContext context) {
+    double currentWidth = MediaQuery.of(context).size.width;
+    bool isMobileDevice = currentWidth <= narrowScreenWidthThreshold;
     return JotrockenmitlockenTable(
       dataCategories: widget.dataCategories,
       data: widget.data,
@@ -44,7 +48,7 @@ abstract class DataListState<T extends TableData, U extends DataList>
       sortColumnIndex: widget.sortColumnIndex,
       isAscending: widget.isAscending,
       sortOnLoaded: widget.sortOnLoaded,
-      spacing: getSpacing(),
+      spacing: getSpacing(isMobileDevice),
       dataCellContentStrategies: getDataCellContentStrategies(),
     );
   }
