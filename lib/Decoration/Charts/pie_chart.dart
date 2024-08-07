@@ -63,63 +63,63 @@ class PieChartWidgetState extends State<PieChartWidget> {
           .toList();
     }
 
-    return Expanded(
-      child: Column(
-        children: [
-          Text(
-            widget.title,
-            style: Theme.of(context).textTheme.headlineSmall,
+    return Column(
+      children: [
+        Text(
+          widget.title,
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        const SizedBox(height: 40),
+        Expanded(
+          child: AspectRatio(
+            aspectRatio: isMobileDevice ? 1 : 16 / 9,
+            child: PieChart(
+              PieChartData(
+                pieTouchData: PieTouchData(
+                  touchCallback: (FlTouchEvent event, pieTouchResponse) {
+                    setState(() {
+                      if (!event.isInterestedForInteractions ||
+                          pieTouchResponse == null ||
+                          pieTouchResponse.touchedSection == null) {
+                        touchedIndex = -1;
+                        return;
+                      }
+                      touchedIndex =
+                          pieTouchResponse.touchedSection!.touchedSectionIndex;
+                    });
+                  },
+                ),
+                sections: getSections(),
+                centerSpaceRadius: 40,
+              ),
+              swapAnimationDuration: widget.animate
+                  ? const Duration(milliseconds: 1000)
+                  : Duration.zero,
+              swapAnimationCurve: Curves.easeInOut,
+            ),
           ),
-          const SizedBox(height: 40),
-          //   AspectRatio(
-          //     aspectRatio: isMobileDevice ? 1 : 16 / 9,
-          //     child: PieChart(
-          //       PieChartData(
-          //         pieTouchData: PieTouchData(
-          //           touchCallback: (FlTouchEvent event, pieTouchResponse) {
-          //             setState(() {
-          //               if (!event.isInterestedForInteractions ||
-          //                   pieTouchResponse == null ||
-          //                   pieTouchResponse.touchedSection == null) {
-          //                 touchedIndex = -1;
-          //                 return;
-          //               }
-          //               touchedIndex =
-          //                   pieTouchResponse.touchedSection!.touchedSectionIndex;
-          //             });
-          //           },
-          //         ),
-          //         sections: getSections(),
-          //         centerSpaceRadius: 40,
-          //       ),
-          //       swapAnimationDuration: widget.animate
-          //           ? const Duration(milliseconds: 1000)
-          //           : Duration.zero,
-          //       swapAnimationCurve: Curves.easeInOut,
-          //     ),
-          //   ),
-          //   if (isMobileDevice)
-          //     Wrap(
-          //       spacing: 10,
-          //       runSpacing: 10,
-          //       children: chartData
-          //           .map((data) => Row(
-          //                 mainAxisSize: MainAxisSize.min,
-          //                 children: [
-          //                   Container(
-          //                     width: 10,
-          //                     height: 10,
-          //                     color: Colors.primaries[chartData.indexOf(data) %
-          //                         Colors.primaries.length],
-          //                   ),
-          //                   const SizedBox(width: 5),
-          //                   Text(data.x),
-          //                 ],
-          //               ))
-          //           .toList(),
-          //     ),
-        ],
-      ),
+        ),
+        if (isMobileDevice)
+          Wrap(
+            spacing: 10,
+            runSpacing: 10,
+            children: chartData
+                .map((data) => Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 10,
+                          height: 10,
+                          color: Colors.primaries[chartData.indexOf(data) %
+                              Colors.primaries.length],
+                        ),
+                        const SizedBox(width: 5),
+                        Text(data.x),
+                      ],
+                    ))
+                .toList(),
+          ),
+      ],
     );
   }
 }
