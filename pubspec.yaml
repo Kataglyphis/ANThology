@@ -18,7 +18,8 @@ dependencies:
   flutter_math_fork: ^0.7.2
   flutter_highlighter: ^0.1.1
   font_awesome_flutter: ^10.7.0
-  syncfusion_flutter_charts: ^26.1.40
+  fl_chart: ^0.68.0
+  # syncfusion_flutter_charts: ^26.2.8
   mime: ^1.0.5
 
 dev_dependencies:
