@@ -26,7 +26,7 @@ class _MyDataTableSource extends DataTableSource {
 }
 
 class JotrockenmitlockenTable<T extends TableData> extends StatefulWidget {
-  JotrockenmitlockenTable({
+  const JotrockenmitlockenTable({
     super.key,
     required this.dataCategories,
     required this.title,
@@ -40,15 +40,15 @@ class JotrockenmitlockenTable<T extends TableData> extends StatefulWidget {
     this.isAscending = false,
   });
   final String title;
-  String entryRedirectText;
+  final String entryRedirectText;
   final List<double> spacing;
   final List<String> dataCategories;
-  List<DataCellContentStrategies> dataCellContentStrategies;
+  final List<DataCellContentStrategies> dataCellContentStrategies;
   final List<T> data;
   final String description;
-  bool sortOnLoaded;
-  int sortColumnIndex;
-  bool isAscending;
+  final bool sortOnLoaded;
+  final int sortColumnIndex;
+  final bool isAscending;
   @override
   JotrockenmitlockenTableState<T> createState() =>
       JotrockenmitlockenTableState<T>();
@@ -56,6 +56,23 @@ class JotrockenmitlockenTable<T extends TableData> extends StatefulWidget {
 
 class JotrockenmitlockenTableState<T extends TableData>
     extends State<JotrockenmitlockenTable<T>> {
+  late int sortColumnIndex;
+  late bool isAscending;
+
+  @override
+  void initState() {
+    super.initState();
+    sortColumnIndex = widget.sortColumnIndex;
+    isAscending = widget.isAscending;
+
+    if (widget.sortOnLoaded) {
+      widget.data.sort((data1, data2) => _compareString(
+          isAscending,
+          data1.getCells()[sortColumnIndex],
+          data2.getCells()[sortColumnIndex]));
+    }
+  }
+
   int _compareString(bool ascending, String value1, String value2) {
     return ascending ? value1.compareTo(value2) : value2.compareTo(value1);
   }
@@ -102,7 +119,7 @@ class JotrockenmitlockenTableState<T extends TableData>
 
     if (widget.sortOnLoaded) {
       widget.data.sort((data1, data2) => _compareString(
-          widget.isAscending,
+          isAscending,
           data1.getCells()[widget.sortColumnIndex],
           data2.getCells()[widget.sortColumnIndex]));
     }
@@ -132,20 +149,20 @@ class JotrockenmitlockenTableState<T extends TableData>
               color: Theme.of(context).colorScheme.primary,
               child: PaginatedDataTable(
                 dataRowMaxHeight: double.infinity,
-                sortColumnIndex: widget.sortColumnIndex,
-                sortAscending: widget.isAscending,
+                sortColumnIndex: sortColumnIndex,
+                sortAscending: isAscending,
                 columns: widget.dataCategories
                     .map((String column) => DataColumn(
                           label: Text(column),
                           onSort: (int columnIndex, bool ascending) {
                             setState(() {
                               widget.data.sort((data1, data2) => _compareString(
-                                  widget.isAscending,
+                                  isAscending,
                                   data1.getCells()[columnIndex],
                                   data2.getCells()[columnIndex]));
 
-                              widget.sortColumnIndex = columnIndex;
-                              widget.isAscending = ascending;
+                              sortColumnIndex = columnIndex;
+                              isAscending = ascending;
                             });
                           },
                         ))

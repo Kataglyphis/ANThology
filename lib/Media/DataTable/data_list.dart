@@ -7,7 +7,7 @@ import 'package:jotrockenmitlockenrepo/Media/DataTable/table_data.dart';
 import 'package:jotrockenmitlockenrepo/constants.dart';
 
 abstract class DataList<T extends TableData> extends StatefulWidget {
-  DataList(
+  const DataList(
       {super.key,
       required this.title,
       required this.description,
@@ -17,14 +17,14 @@ abstract class DataList<T extends TableData> extends StatefulWidget {
       this.sortColumnIndex = 0,
       this.sortOnLoaded = false,
       this.isAscending = false});
-  List<T> data;
-  List<String> dataCategories;
+  final List<T> data;
+  final List<String> dataCategories;
   final String title;
   final String description;
   final String entryRedirectText;
-  bool sortOnLoaded;
-  int sortColumnIndex;
-  bool isAscending;
+  final bool sortOnLoaded;
+  final int sortColumnIndex;
+  final bool isAscending;
 }
 
 abstract class DataListState<T extends TableData, U extends DataList>

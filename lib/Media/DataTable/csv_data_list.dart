@@ -10,7 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:jotrockenmitlockenrepo/constants.dart';
 
 abstract class CsvDataList extends StatefulWidget {
-  CsvDataList(
+  const CsvDataList(
       {super.key,
       required this.dataFilePath,
       required this.title,
@@ -23,9 +23,9 @@ abstract class CsvDataList extends StatefulWidget {
   final String entryRedirectText;
   final String dataFilePath;
   final String description;
-  bool sortOnLoaded;
-  int sortColumnIndex;
-  bool isAscending;
+  final bool sortOnLoaded;
+  final int sortColumnIndex;
+  final bool isAscending;
 }
 
 abstract class CsvDataListState<T extends TableData, U extends CsvDataList>
