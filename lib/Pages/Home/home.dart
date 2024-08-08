@@ -44,10 +44,10 @@ class HomeState extends State<Home> {
     super.didUpdateWidget(oldWidget);
   }
 
-  PreferredSizeWidget _createAppBar(Locale current_locale) {
+  PreferredSizeWidget _createAppBar(Locale currentLocale) {
     var buttonNames = widget.appAttributes.homeConfig.getButtonNames(context);
     return AppBar(
-      title: (current_locale == const Locale('de'))
+      title: (currentLocale == const Locale('de'))
           ? Text(widget.appAttributes.appSettings.appNameDe)
           : Text(widget.appAttributes.appSettings.appNameEn),
       actions: !widget.appAttributes.showMediumSizeLayout &&

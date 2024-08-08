@@ -58,7 +58,7 @@ class LandingPageEntryState extends State<LandingPageEntry> {
           ),
           colDivider,
           Text(
-            "${widget.description}",
+            widget.description,
             style: Theme.of(context).textTheme.titleSmall,
           ),
         ],

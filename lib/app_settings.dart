@@ -6,7 +6,7 @@ class AppSettings {
     required this.appTitleEn,
     required this.disableFooter,
     //this.supportedLocales
-  }) {}
+  });
   AppSettings.fromJsonFile(Map<String, dynamic> appSettingsJson)
       : appNameDe = appSettingsJson['appNameDe'] as String,
         appNameEn = appSettingsJson['appNameEn'] as String,

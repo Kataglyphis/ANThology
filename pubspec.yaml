@@ -22,6 +22,7 @@ dependencies:
   # syncfusion_flutter_charts: ^26.2.8
   mime: ^1.0.5
 
+  web: any
 dev_dependencies:
   mockito: ^5.4.4
   flutter_test:

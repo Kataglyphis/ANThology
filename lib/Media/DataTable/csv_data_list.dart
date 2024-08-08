@@ -6,7 +6,6 @@ import 'package:jotrockenmitlockenrepo/Media/DataTable/jotrockenmitlocken_table.
 import 'package:jotrockenmitlockenrepo/Media/DataTable/jotrockenmitlocken_table_info_provider.dart';
 import 'package:jotrockenmitlockenrepo/Media/DataTable/table_data.dart';
 import 'package:flutter/services.dart';
-import 'dart:developer';
 
 import 'package:jotrockenmitlockenrepo/constants.dart';
 

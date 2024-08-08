@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:jotrockenmitlockenrepo/Media/DataTable/jotrockenmitlocken_table.dart';
 import 'package:jotrockenmitlockenrepo/Media/DataTable/jotrockenmitlocken_table_info_provider.dart';
 import 'package:jotrockenmitlockenrepo/Media/DataTable/table_data.dart';
-import 'dart:developer';
 
 import 'package:jotrockenmitlockenrepo/constants.dart';
 

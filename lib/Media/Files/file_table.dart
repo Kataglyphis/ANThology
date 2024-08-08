@@ -43,7 +43,7 @@ class FileTableState extends State<FileTable> {
     }
     var colDivider = const SizedBox(height: 10);
     return widget.docs.isEmpty
-        ? SizedBox()
+        ? const SizedBox()
         : Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
