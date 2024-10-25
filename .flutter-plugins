@@ -1,20 +1,9 @@
 # This is a generated file; do not edit or check into version control.
-<<<<<<< HEAD
-integration_test=C:\\Users\\JSH\\flutter\\packages\\integration_test\\
-url_launcher=C:\\Users\\JSH\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher-6.3.0\\
-url_launcher_android=C:\\Users\\JSH\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_android-6.3.10\\
-url_launcher_ios=C:\\Users\\JSH\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_ios-6.3.1\\
-url_launcher_linux=C:\\Users\\JSH\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_linux-3.2.0\\
-url_launcher_macos=C:\\Users\\JSH\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_macos-3.2.1\\
-url_launcher_web=C:\\Users\\JSH\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_web-2.3.3\\
-url_launcher_windows=C:\\Users\\JSH\\AppData\\Local\\Pub\\Cache\\hosted\\pub.dev\\url_launcher_windows-3.1.2\\
-=======
 integration_test=/home/jones/snap/flutter/common/flutter/packages/integration_test/
-url_launcher=/home/jones/.pub-cache/hosted/pub.dev/url_launcher-6.3.0/
-url_launcher_android=/home/jones/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.10/
+url_launcher=/home/jones/.pub-cache/hosted/pub.dev/url_launcher-6.3.1/
+url_launcher_android=/home/jones/.pub-cache/hosted/pub.dev/url_launcher_android-6.3.13/
 url_launcher_ios=/home/jones/.pub-cache/hosted/pub.dev/url_launcher_ios-6.3.1/
 url_launcher_linux=/home/jones/.pub-cache/hosted/pub.dev/url_launcher_linux-3.2.0/
-url_launcher_macos=/home/jones/.pub-cache/hosted/pub.dev/url_launcher_macos-3.2.0/
+url_launcher_macos=/home/jones/.pub-cache/hosted/pub.dev/url_launcher_macos-3.2.1/
 url_launcher_web=/home/jones/.pub-cache/hosted/pub.dev/url_launcher_web-2.3.3/
-url_launcher_windows=/home/jones/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.2/
->>>>>>> 9ca80df8c8afbcfec5480ca8d747d7ea8bde17f4
+url_launcher_windows=/home/jones/.pub-cache/hosted/pub.dev/url_launcher_windows-3.1.3/
