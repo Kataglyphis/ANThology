@@ -20,6 +20,7 @@
 [![TopLang](https://img.shields.io/github/languages/top/Kataglyphis/jotrockenmitlockenrepo)]() 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/JonasHeinle)
 [![Twitter](https://img.shields.io/twitter/follow/Cataglyphis_?style=social)](https://twitter.com/Cataglyphis_)
+[![YouTube](https://img.shields.io/youtube/channel/subscribers/UC3LZiH4sZzzaVBCUV8knYeg?style=social)](https://www.youtube.com/channel/UC3LZiH4sZzzaVBCUV8knYeg)
 
 <p align="center">
   <a href="#about-the-project">About The Project</a> •
@@ -70,6 +71,8 @@ Supports english and german right now.
 
 ### Projects using this projects
 * By using this repo my personal web blog [jonasheinle.de](https://jonasheinle.de) is able to build a beautiful web native responsive app ( see my repo [jotrockenmitlocken](https://github.com/Kataglyphis/jotrockenmitlocken/))
+* My [Inference Engine](https://github.com/Kataglyphis/Kataglyphis-Inference-Engine/) uses this package for multi-platform 
+  UI support when running AI :smile:
 
 <!-- <h1 align="center">
   <br>
