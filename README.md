@@ -121,6 +121,14 @@ Watch the `pubspec.yaml` file.
 
 <!-- ## Tests -->
 
+### Tipps 
+If strange things happen try this steps:
+```sh
+flutter clean
+flutter pub get
+flutter build linux
+```
+
 <!-- ROADMAP -->
 ## Roadmap
 Upcoming :)
