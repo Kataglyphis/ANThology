@@ -73,7 +73,13 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+    final config = isDark
+        ? MarkdownConfig.darkConfig
+        : MarkdownConfig.defaultConfig;
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         rowDivider,
         FutureBuilder<String>(
@@ -82,23 +88,19 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
             if (snapshot.hasData) {
               return SizedBox(
                 width: getMarkdownPageWidth(),
-                child: MarkdownWidget(
-                  data: snapshot.data!,
-                  // styleConfig: StyleConfig(
-                  //   markdownTheme: widget.useLightMode
-                  //       ? MarkdownTheme.lightTheme
-                  //       : MarkdownTheme.darkTheme,
-                  // Customize further, e.g.:
-                  // pConfig: PConfig(textStyle: Theme.of(context).textTheme.bodyMedium),
-                  // codeConfig: CodeConfig(...),
-                  // tableConfig: TableConfig(...),
-                  // imgBuilder: (String url, attributes) => ...
-                  // ),
-                  // Add custom inlineSyntaxList or custom WidgetGenerators if needed:
-                  // markdownGeneratorConfig: MarkdownGeneratorConfig(
-                  //   inlineSyntaxList: [/* Custom syntax (e.g. LaTeX) */],
-                  //   generators: [/* Custom builders  */],
-                  // ),
+                child: Center(
+                  child: MarkdownWidget(
+                    shrinkWrap: true,
+                    data: snapshot.data!,
+
+                    config: config.copy(
+                      configs: [
+                        isDark
+                            ? PreConfig.darkConfig.copy()
+                            : PreConfig().copy(),
+                      ],
+                    ),
+                  ),
                 ),
               );
             } else if (snapshot.hasError) {
