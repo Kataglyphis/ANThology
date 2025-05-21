@@ -1,25 +1,19 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:jotrockenmitlockenrepo/Media/Markdown/ElementBuilder/centered_image_builder.dart';
-import 'package:jotrockenmitlockenrepo/Media/Markdown/ElementBuilder/code_element_builder.dart';
-import 'package:jotrockenmitlockenrepo/Media/Markdown/ElementBuilder/latex_element_builder.dart';
-import 'package:jotrockenmitlockenrepo/Media/Markdown/ElementBuilder/latex_inline_syntax.dart';
-import 'package:jotrockenmitlockenrepo/Media/Markdown/ElementBuilder/table_element_builder.dart';
-import 'package:jotrockenmitlockenrepo/Media/Markdown/ElementBuilder/centered_head_builder.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/row_divider.dart';
-import 'package:markdown/markdown.dart' as md;
-import 'package:flutter/services.dart' show rootBundle;
-import 'package:jotrockenmitlockenrepo/constants.dart';
 import 'dart:developer' as developer;
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart' show rootBundle;
+import 'package:markdown_widget/markdown_widget.dart';
+import 'package:jotrockenmitlockenrepo/Decoration/row_divider.dart';
+import 'package:jotrockenmitlockenrepo/constants.dart';
 
 class MarkdownFilePage extends StatefulWidget {
-  const MarkdownFilePage(
-      {super.key,
-      required this.currentLocale,
-      required this.filePathDe,
-      required this.filePathEn,
-      this.imageDirectory = 'assets/images/',
-      required this.useLightMode});
+  const MarkdownFilePage({
+    Key? key,
+    required this.currentLocale,
+    required this.filePathDe,
+    required this.filePathEn,
+    this.imageDirectory = 'assets/images/',
+    required this.useLightMode,
+  }) : super(key: key);
 
   final Locale currentLocale;
   final String filePathDe;
@@ -33,6 +27,7 @@ class MarkdownFilePage extends StatefulWidget {
 
 class MarkdownFilePageState extends State<MarkdownFilePage> {
   late Future<String> _markupFileContent;
+
   @override
   void initState() {
     super.initState();
@@ -40,25 +35,21 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
   }
 
   Future<String> _readMarkupFile() async {
-    // Path to the markup file
-    assert(widget.filePathDe != '' || widget.filePathEn != '',
-        'You must provide at least one correct file path!');
-    developer.log('You must provide at least one correct file path!');
+    // Read the corresponding file depending on the current locale
     try {
-      // Read file content
       if (widget.currentLocale == const Locale('de') &&
-          widget.filePathDe != '') {
+          widget.filePathDe.isNotEmpty) {
         return await rootBundle.loadString(widget.filePathDe);
       } else if (widget.currentLocale == const Locale('de') &&
-          widget.filePathEn != '') {
+          widget.filePathEn.isNotEmpty) {
         return await rootBundle.loadString(widget.filePathEn);
       } else if (widget.currentLocale == const Locale('en') &&
-          widget.filePathEn != '') {
+          widget.filePathEn.isNotEmpty) {
         return await rootBundle.loadString(widget.filePathEn);
       } else if (widget.currentLocale == const Locale('en') &&
-          widget.filePathDe != '') {
+          widget.filePathDe.isNotEmpty) {
         return await rootBundle.loadString(widget.filePathDe);
-      } else if (widget.filePathDe != '') {
+      } else if (widget.filePathDe.isNotEmpty) {
         return await rootBundle.loadString(widget.filePathDe);
       } else {
         return await rootBundle.loadString(widget.filePathEn);
@@ -70,7 +61,7 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
   }
 
   double getMarkdownPageWidth() {
-    var currentWidth = MediaQuery.of(context).size.width;
+    final currentWidth = MediaQuery.of(context).size.width;
     if (currentWidth <= narrowScreenWidthThreshold) {
       return currentWidth * 0.9;
     } else if (currentWidth <= mediumWidthBreakpoint) {
@@ -83,82 +74,42 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
+      children: [
         rowDivider,
-        FutureBuilder(
+        FutureBuilder<String>(
           future: _markupFileContent,
-          builder: (context, data) {
-            if (data.hasData) {
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
               return SizedBox(
-                  width: getMarkdownPageWidth(),
-                  child: Center(
-                      child: MarkdownBody(
-                    // shrinkWrap: false,
-                    // fitContent: false,
-                    selectable: true,
-                    data: data.requireData,
-                    styleSheet: MarkdownStyleSheet(
-                        blockquoteAlign: WrapAlignment.start,
-                        blockquotePadding:
-                            const EdgeInsets.fromLTRB(20, 2, 2, 2),
-                        blockquoteDecoration: BoxDecoration(
-                            border: BorderDirectional(
-                              start: BorderSide(
-                                  width: 12, color: Colors.blueAccent.shade100),
-                            ),
-                            color: Colors.blueAccent,
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8))),
-                        h1: Theme.of(context).textTheme.headlineLarge,
-                        h2: Theme.of(context).textTheme.headlineMedium,
-                        code: Theme.of(context).textTheme.bodyMedium,
-                        h2Align: WrapAlignment.center,
-                        img: Theme.of(context).textTheme.headlineLarge),
-                    styleSheetTheme: MarkdownStyleSheetBaseTheme.material,
-                    imageDirectory: widget.imageDirectory,
-                    builders: <String, MarkdownElementBuilder>{
-                      'latex': LatexElementBuilder(
-                        textScaleFactor: 1.4,
-                      ),
-                      'img': CenteredImageBuilder(
-                        colorSelected: Theme.of(context).colorScheme.primary,
-                        imageDir: widget.imageDirectory,
-                      ),
-                      'h1': CenteredHeaderBuilder(),
-                      'table': TableElementBuilder(),
-                      'code': CodeElementBuilder(
-                          markdownPageWidth: MediaQuery.of(context).size.width,
-                          colorSelectedBg: Theme.of(context)
-                              .colorScheme
-                              .surfaceContainerHighest
-                              .withOpacity(0.3),
-                          colorSelectedPrimary:
-                              Theme.of(context).colorScheme.primary,
-                          useLightMode: widget.useLightMode),
-                    },
-                    extensionSet: md.ExtensionSet(
-                      <md.BlockSyntax>[
-                        ...md.ExtensionSet.gitHubFlavored.blockSyntaxes,
-                        ...md.ExtensionSet.gitHubWeb.blockSyntaxes,
-                      ],
-                      <md.InlineSyntax>[
-                        md.EmojiSyntax(),
-                        LatexInlineSyntax(),
-                        ...md.ExtensionSet.gitHubWeb.inlineSyntaxes
-                      ],
-                    ),
-                  )));
-            } else if (data.hasError) {
-              return Center(child: Text("${data.error}"));
+                width: getMarkdownPageWidth(),
+                child: MarkdownWidget(
+                  data: snapshot.data!,
+                  // styleConfig: StyleConfig(
+                  //   markdownTheme: widget.useLightMode
+                  //       ? MarkdownTheme.lightTheme
+                  //       : MarkdownTheme.darkTheme,
+                  // Customize further, e.g.:
+                  // pConfig: PConfig(textStyle: Theme.of(context).textTheme.bodyMedium),
+                  // codeConfig: CodeConfig(...),
+                  // tableConfig: TableConfig(...),
+                  // imgBuilder: (String url, attributes) => ...
+                  // ),
+                  // Add custom inlineSyntaxList or custom WidgetGenerators if needed:
+                  // markdownGeneratorConfig: MarkdownGeneratorConfig(
+                  //   inlineSyntaxList: [/* Custom syntax (e.g. LaTeX) */],
+                  //   generators: [/* Custom builders  */],
+                  // ),
+                ),
+              );
+            } else if (snapshot.hasError) {
+              return Text('${snapshot.error}');
             } else {
               return const CircularProgressIndicator();
             }
           },
         ),
         const SizedBox(height: 10),
-      ], //
+      ],
     );
   }
 }
