@@ -15,8 +15,6 @@ dependencies:
   go_router: ^15.1.2
   markdown: ^7.3.0
   markdown_widget: ^2.3.2+8
-  # flutter_markdown: ^0.7.7+1
-  # flutter_math_fork: ^0.7.3
   flutter_highlighter: ^0.1.1
   font_awesome_flutter: ^10.8.0
   fl_chart: ^1.0.0

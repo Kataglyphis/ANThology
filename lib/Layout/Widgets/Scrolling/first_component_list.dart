@@ -24,8 +24,15 @@ class _FirstComponentListState extends State<FirstComponentList> {
       resultingChildWidgetsLeftPage =
           widget.childWidgetsLeftPage + widget.childWidgetsRightPage;
     }
-    return ListView(
-      children: resultingChildWidgetsLeftPage,
+    return SingleChildScrollView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: resultingChildWidgetsLeftPage,
+      ),
     ); //ScrollableList(childWidgets: resultingChildWidgetsLeftPage);
+    // return ListView(
+    //   children: resultingChildWidgetsLeftPage,
+    // ); //ScrollableList(childWidgets: resultingChildWidgetsLeftPage);
   }
 }

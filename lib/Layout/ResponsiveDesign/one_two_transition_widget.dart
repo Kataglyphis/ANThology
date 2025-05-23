@@ -13,15 +13,16 @@ class OneTwoTransitionPage extends StatefulWidget {
   final bool showLargeSizeLayout;
   final CurvedAnimation railAnimation;
 
-  const OneTwoTransitionPage(
-      {super.key,
-      required this.childWidgetsLeftPage,
-      required this.childWidgetsRightPage,
-      required this.footer,
-      required this.appAttributes,
-      required this.showMediumSizeLayout,
-      required this.showLargeSizeLayout,
-      required this.railAnimation});
+  const OneTwoTransitionPage({
+    super.key,
+    required this.childWidgetsLeftPage,
+    required this.childWidgetsRightPage,
+    required this.footer,
+    required this.appAttributes,
+    required this.showMediumSizeLayout,
+    required this.showLargeSizeLayout,
+    required this.railAnimation,
+  });
   @override
   State<StatefulWidget> createState() => OneTwoTransitionPageState();
 }
@@ -37,15 +38,25 @@ class OneTwoTransitionPageState extends State<OneTwoTransitionPage> {
         childWidgetsLeftPage: widget.childWidgetsLeftPage,
         childWidgetsRightPage:
             (widget.showMediumSizeLayout || widget.showLargeSizeLayout) ||
-                    widget.appAttributes.appSettings.disableFooter
-                ? widget.childWidgetsRightPage
-                : widget.childWidgetsRightPage + [widget.footer],
+                widget.appAttributes.appSettings.disableFooter
+            ? widget.childWidgetsRightPage
+            : widget.childWidgetsRightPage + [widget.footer],
       ),
-      two: ListView(
-        //ScrollableList(childWidgets:
-        padding: const EdgeInsetsDirectional.only(end: 10.0),
-        children: widget.childWidgetsRightPage,
+      two: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsetsDirectional.only(end: 10.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: widget.childWidgetsRightPage,
+          ),
+        ),
       ),
+      // ListView(
+      //   //ScrollableList(childWidgets:
+      //   padding: const EdgeInsetsDirectional.only(end: 10.0),
+      //   children: widget.childWidgetsRightPage,
+      // ),
     );
   }
 }

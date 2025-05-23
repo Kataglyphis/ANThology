@@ -11,13 +11,14 @@ class SinglePage extends StatefulWidget {
   final bool showLargeSizeLayout;
   final AppAttributes appAttributes;
 
-  const SinglePage(
-      {super.key,
-      required this.children,
-      required this.footer,
-      required this.appAttributes,
-      required this.showMediumSizeLayout,
-      required this.showLargeSizeLayout});
+  const SinglePage({
+    super.key,
+    required this.children,
+    required this.footer,
+    required this.appAttributes,
+    required this.showMediumSizeLayout,
+    required this.showLargeSizeLayout,
+  });
   @override
   State<StatefulWidget> createState() => SinglePageState();
 }
@@ -31,14 +32,15 @@ class SinglePageState extends State<SinglePage> {
         Expanded(
           child: FirstComponentList(
             showSecondList: false,
-            childWidgetsLeftPage: [...widget.children] +
+            childWidgetsLeftPage:
+                [...widget.children] +
                 [
                   colDivider,
                   if (!widget.showMediumSizeLayout &&
                       !widget.showLargeSizeLayout &&
                       !widget.appAttributes.appSettings.disableFooter) ...[
-                    widget.footer
-                  ]
+                    widget.footer,
+                  ],
                 ],
             childWidgetsRightPage: const [],
           ),
