@@ -1,0 +1,35 @@
+name: Deploy docs on website
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  build:
+    name: 🚀 Deploy website on push
+    #runs-on: windows-latest
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4.2.2
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5.6.0
+        with:
+          python-version: "3.11"
+      - name: Setup Flutter SDK
+        uses: flutter-actions/setup-flutter@v4.0
+        with:
+          channel: stable
+          version: 3.32.2
+      
+      - name: Build docs 
+        run: |
+          dart doc
+
+      - name: 📂 Sync files to doc domain
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.DOC_WEBSITE_SERVER }}
+          username: ${{ secrets.DOC_WEBSITE_USER }}
+          password: ${{ secrets.DOC_WEBSITE_PW }}
+          local-dir: "./doc/api/"
