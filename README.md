@@ -13,7 +13,9 @@
   <a href="https://jonasheinle.de"><img src="images/glm_logo.png" alt="VulkanEngine" width="200"></a>
 </h1> -->
 
-<h4 align="center">Reusable dart code provided as a package for building beautiful cross-platform apps. Give your project a huge kickstart by using this repo as a starting point. Official [docs](https://omnifronteer.jonasheinle.de/) <a href="https://jonasheinle.de" target="_blank"></a>.</h4>
+<h4 align="center">Reusable dart code provided as a package for building beautiful cross-platform apps. Give your project a huge kickstart by using this repo as a starting point. 
+<a href="https://jonasheinle.de" target="_blank"></a>.</h4>
+For official docs follow this [link](https://omnifronteer.jonasheinle.de/) 
 
 <!-- [![Linux build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml)
 [![Windows build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml)-->
