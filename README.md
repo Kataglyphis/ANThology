@@ -20,6 +20,7 @@ For official docs follow this [link](https://omnifronteer.jonasheinle.de/)
 
 <!-- [![Linux build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml)
 [![Windows build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml)-->
+[![Deploy docs on website](https://github.com/Kataglyphis/jotrockenmitlockenrepo/actions/workflows/dart.yml/badge.svg)](https://github.com/Kataglyphis/jotrockenmitlockenrepo/actions/workflows/dart.yml)
 [![TopLang](https://img.shields.io/github/languages/top/Kataglyphis/jotrockenmitlockenrepo)]() 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/JonasHeinle)
 [![Twitter](https://img.shields.io/twitter/follow/Cataglyphis_?style=social)](https://twitter.com/Cataglyphis_)
