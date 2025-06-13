@@ -91,17 +91,26 @@ Supports english and german right now.
 
 ### Key Features
 
-<!-- ❌  -->
-|          Feature                    |   Implement Status |
-| ------------------------------------| :----------------: |
-| Easy cross-platform layout creation |         ✔️         | 
-| Media handling(open, download)      |         ✔️         |
-| Markdown rendering                  |         ✔️         |
-| Widget decoration                   |         ✔️         |
-| EMail handling                      |         ✔️         |
-| Image handling                      |         ✔️         |
-| Responsive table creation           |         ✔️         |
-| Social Media Icons                  |         ✔️         |
+<div align="center">
+
+|         Category                  |                 Feature                                      |  Implement Status  |
+|---------------------------------------|-------------------------------------------------------------|:------------------:|
+|  **Layout**                      | Easy cross-platform layout creation    |         ✔️         |
+|  **Media & Files**          | Media handling (open, download)        |         ✔️         |
+|                                            | Image handling                                        |         ✔️         |
+|  **Rendering**                | Markdown rendering                               |         ✔️         |
+|                                            | Responsive table creation                      |         ✔️         |
+|  **UI Elements**             | Widget decoration                                    |         ✔️         |
+|                                            | Social Media Icons                                  |         ✔️         |
+|  **Communication**       | EMail handling                                        |         ✔️         |
+
+</div>
+
+**Legend:**  
+- ✔️ – completed  
+- 🔶 – in progress  
+- ❌ – not started
+
 
 ### Dependencies
 Watch the `pubspec.yaml` file.
