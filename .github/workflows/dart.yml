@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: 🚚 Get latest code
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5.0.0
       - name: Set up Python 3.11
         uses: actions/setup-python@v5.6.0
         with:
@@ -20,7 +20,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v4.0
         with:
           channel: stable
-          version: 3.32.8
+          version: 3.35.2
       
       - name: Build docs 
         run: |
