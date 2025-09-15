@@ -20,7 +20,7 @@ jobs:
         uses: flutter-actions/setup-flutter@v4.0
         with:
           channel: stable
-          version: 3.35.2
+          version: 3.35.3
       
       - name: Build docs 
         run: |
