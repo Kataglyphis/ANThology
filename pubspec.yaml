@@ -5,7 +5,7 @@ homepage: https://jonasheinle.de
 
 environment:
   sdk: ">=3.9.2 <4.0.0"
-  flutter: ">=3.35.3"
+  flutter: ">=3.35.4"
 
 dependencies:
   flutter:
@@ -17,7 +17,7 @@ dependencies:
   markdown_widget: ^2.3.2+8
   flutter_highlighter: ^0.1.1
   font_awesome_flutter: ^10.10.0
-  fl_chart: ^1.1.0
+  fl_chart: ^1.1.1
   mime: ^2.0.0
   web: ^1.1.1
 
