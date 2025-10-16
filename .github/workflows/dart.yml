@@ -17,10 +17,10 @@ jobs:
         with:
           python-version: "3.13"
       - name: Setup Flutter SDK
-        uses: flutter-actions/setup-flutter@v4.0
+        uses: flutter-actions/setup-flutter@v4.1
         with:
           channel: stable
-          version: 3.35.4
+          version: 3.35.6
       
       - name: Build docs 
         run: |
