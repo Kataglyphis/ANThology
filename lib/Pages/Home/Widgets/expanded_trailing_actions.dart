@@ -34,10 +34,11 @@ class ExpandedTrailingActions extends StatelessWidget {
                   Text(buttonNames.language!),
                   Expanded(child: Container()),
                   Switch(
-                      value: appAttributes.useOtherLanguageMode!,
-                      onChanged: (value) {
-                        appAttributes.handleLanguageChange!();
-                      })
+                    value: appAttributes.useOtherLanguageMode!,
+                    onChanged: (value) {
+                      appAttributes.handleLanguageChange!();
+                    },
+                  ),
                 ],
               ),
           const Divider(),
@@ -48,10 +49,11 @@ class ExpandedTrailingActions extends StatelessWidget {
                 Expanded(child: Container()),
                 if (appAttributes.handleBrightnessChange != null)
                   Switch(
-                      value: appAttributes.useLightMode,
-                      onChanged: (value) {
-                        appAttributes.handleBrightnessChange!(value);
-                      })
+                    value: appAttributes.useLightMode,
+                    onChanged: (value) {
+                      appAttributes.handleBrightnessChange!(value);
+                    },
+                  ),
               ],
             ),
           const Divider(),

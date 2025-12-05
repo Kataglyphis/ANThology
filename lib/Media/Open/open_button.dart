@@ -5,10 +5,7 @@ import 'package:mime/mime.dart';
 
 class OpenButton extends StatelessWidget {
   final String assetFullPath;
-  const OpenButton({
-    super.key,
-    required this.assetFullPath,
-  });
+  const OpenButton({super.key, required this.assetFullPath});
 
   void _onPressed() async {
     myPluginOpen(assetFullPath);

@@ -7,8 +7,11 @@ import 'package:jotrockenmitlockenrepo/constants.dart';
 import 'package:jotrockenmitlockenrepo/user_settings.dart';
 
 class FooterExternalLinks extends StatefulWidget {
-  const FooterExternalLinks(
-      {super.key, required this.footerConfig, required this.userSettings});
+  const FooterExternalLinks({
+    super.key,
+    required this.footerConfig,
+    required this.userSettings,
+  });
   final FooterConfig footerConfig;
   final UserSettings userSettings;
   @override
@@ -25,43 +28,42 @@ class FooterExternalLinksState extends State<FooterExternalLinks> {
       align = MainAxisAlignment.center;
     }
 
-    List<ExternalLinkConfig> externalLinksConfig =
-        widget.footerConfig.getExternalLinks(context);
+    List<ExternalLinkConfig> externalLinksConfig = widget.footerConfig
+        .getExternalLinks(context);
     List<TextButton> footerExternalLinksButtons = externalLinksConfig
-        .map((externalLinkConfig) => (TextButton(
-              onPressed: () {
-                BrowserHelper.launchInBrowser(externalLinkConfig);
-              },
-              style: Theme.of(context).textButtonTheme.style,
-              child: Text(
-                externalLinkConfig.host,
-              ),
-            )))
+        .map(
+          (externalLinkConfig) => (TextButton(
+            onPressed: () {
+              BrowserHelper.launchInBrowser(externalLinkConfig);
+            },
+            style: Theme.of(context).textButtonTheme.style,
+            child: Text(externalLinkConfig.host),
+          )),
+        )
         .toList();
 
     return Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          Row(
-            mainAxisAlignment: align,
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Text(
-                textAlign: TextAlign.center,
-                widget.footerConfig.getExternalLinksTitle(context),
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
-            ],
-          ),
-          AdaptiveGrid(
-            maxgridWidgetsPerRow: maxExternalLinksTextButtonsPerRow,
-            gridWidgets: footerExternalLinksButtons,
-            rowAlignment: align,
-          ),
-        ]);
+      mainAxisAlignment: MainAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: align,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Text(
+              textAlign: TextAlign.center,
+              widget.footerConfig.getExternalLinksTitle(context),
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
+          ],
+        ),
+        AdaptiveGrid(
+          maxgridWidgetsPerRow: maxExternalLinksTextButtonsPerRow,
+          gridWidgets: footerExternalLinksButtons,
+          rowAlignment: align,
+        ),
+      ],
+    );
   }
 }

@@ -20,10 +20,7 @@ abstract class ScreenConfigurations {
     var result = getAppBarDestinations(context)
         .map(
           (destination) => NavigationRailDestination(
-            icon: Tooltip(
-              message: destination.label,
-              child: destination.icon,
-            ),
+            icon: Tooltip(message: destination.label, child: destination.icon),
             selectedIcon: Tooltip(
               message: destination.label,
               child: destination.selectedIcon,

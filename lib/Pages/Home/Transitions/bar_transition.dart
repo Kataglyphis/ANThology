@@ -3,12 +3,13 @@ import 'package:jotrockenmitlockenrepo/Layout/Widgets/Animations/offset_animatio
 import 'package:jotrockenmitlockenrepo/Layout/Widgets/Animations/size_animation.dart';
 
 class BarTransition extends StatefulWidget {
-  const BarTransition(
-      {super.key,
-      required this.animation,
-      required this.railAnimation,
-      required this.backgroundColor,
-      required this.child});
+  const BarTransition({
+    super.key,
+    required this.animation,
+    required this.railAnimation,
+    required this.backgroundColor,
+    required this.child,
+  });
 
   final Animation<double> animation;
   final CurvedAnimation railAnimation;

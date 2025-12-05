@@ -42,10 +42,7 @@ class _OneTwoTransitionState extends State<OneTwoTransition> {
   Widget build(BuildContext context) {
     return Row(
       children: <Widget>[
-        Flexible(
-          flex: mediumWidthBreakpoint.toInt(),
-          child: widget.one,
-        ),
+        Flexible(flex: mediumWidthBreakpoint.toInt(), child: widget.one),
         if (widthAnimation.value.toInt() > 0) ...[
           Flexible(
             flex: widthAnimation.value.toInt(),
@@ -53,7 +50,7 @@ class _OneTwoTransitionState extends State<OneTwoTransition> {
               translation: offsetAnimation.value,
               child: widget.two,
             ),
-          )
+          ),
         ],
       ],
     );

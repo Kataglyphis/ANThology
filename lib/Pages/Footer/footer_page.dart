@@ -9,12 +9,13 @@ class FooterPage extends StatefulWidget {
   final Footer footer;
   final String filePathDe;
   final String filePathEn;
-  const FooterPage(
-      {super.key,
-      required this.appAttributes,
-      required this.footer,
-      required this.filePathDe,
-      required this.filePathEn});
+  const FooterPage({
+    super.key,
+    required this.appAttributes,
+    required this.footer,
+    required this.filePathDe,
+    required this.filePathEn,
+  });
   @override
   State<StatefulWidget> createState() => FooterPageState();
 }
@@ -33,7 +34,7 @@ class FooterPageState extends State<FooterPage> {
           filePathDe: widget.filePathDe,
           filePathEn: widget.filePathEn,
           useLightMode: widget.appAttributes.useLightMode,
-        )
+        ),
       ],
     );
   }

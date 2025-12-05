@@ -5,10 +5,7 @@ import 'dart:developer' as developer;
 class BrowserHelper {
   static Future<void> launchInBrowser(ExternalLinkConfig link) async {
     final Uri url = Uri(scheme: 'https', host: link.host, path: link.path);
-    if (!await launchUrl(
-      url,
-      mode: LaunchMode.externalApplication,
-    )) {
+    if (!await launchUrl(url, mode: LaunchMode.externalApplication)) {
       developer.log('Could not launch $url');
     }
   }

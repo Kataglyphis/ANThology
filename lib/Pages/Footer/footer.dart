@@ -29,20 +29,13 @@ class FooterState extends State<Footer> {
   final double footerHeight = 150.0;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     var currentWidth = MediaQuery.of(context).size.width;
     if (currentWidth < mediumWidthBreakpoint) {
       return Column(
         children: [
           rowDivider,
-          FooterPagesTextButtons(
-            footerPagesConfig: widget.footerPagesConfigs,
-          ),
+          FooterPagesTextButtons(footerPagesConfig: widget.footerPagesConfigs),
           rowDivider,
           FooterSocialIconsAndLiability(
             footerConfig: widget.footerConfig,
@@ -68,7 +61,8 @@ class FooterState extends State<Footer> {
               children: [
                 colDivider,
                 FooterPagesTextButtons(
-                    footerPagesConfig: widget.footerPagesConfigs),
+                  footerPagesConfig: widget.footerPagesConfigs,
+                ),
                 colDivider,
                 FooterSocialIconsAndLiability(
                   footerConfig: widget.footerConfig,

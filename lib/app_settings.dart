@@ -8,15 +8,16 @@ class AppSettings {
     //this.supportedLocales
   });
   AppSettings.fromJsonFile(Map<String, dynamic> appSettingsJson)
-      : appNameDe = appSettingsJson['appNameDe'] as String,
-        appNameEn = appSettingsJson['appNameEn'] as String,
-        appTitleDe = appSettingsJson['appTitleDe'] as String,
-        appTitleEn = appSettingsJson['appTitleEn'] as String,
-        disableFooter = appSettingsJson['disableFooter'] as bool {
+    : appNameDe = appSettingsJson['appNameDe'] as String,
+      appNameEn = appSettingsJson['appNameEn'] as String,
+      appTitleDe = appSettingsJson['appTitleDe'] as String,
+      appTitleEn = appSettingsJson['appTitleEn'] as String,
+      disableFooter = appSettingsJson['disableFooter'] as bool {
     List<dynamic> supportedLocalesAsJsonMap =
         appSettingsJson['supportedLocales'] as List<dynamic>;
-    supportedLocales =
-        supportedLocalesAsJsonMap.map((element) => element.toString()).toList();
+    supportedLocales = supportedLocalesAsJsonMap
+        .map((element) => element.toString())
+        .toList();
   }
 
   String appNameDe;

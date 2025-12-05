@@ -5,8 +5,11 @@ import 'package:jotrockenmitlockenrepo/constants.dart';
 import 'package:jotrockenmitlockenrepo/user_settings.dart';
 
 class FooterSocialIconsAndLiability extends StatefulWidget {
-  const FooterSocialIconsAndLiability(
-      {super.key, required this.footerConfig, required this.userSettings});
+  const FooterSocialIconsAndLiability({
+    super.key,
+    required this.footerConfig,
+    required this.userSettings,
+  });
   final FooterConfig footerConfig;
   final UserSettings userSettings;
   @override
@@ -32,15 +35,16 @@ class FooterSocialIconsAndLiabilityState
         Padding(
           padding: const EdgeInsets.all(1),
           child: Row(
-              mainAxisAlignment: align,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  widget.footerConfig.getLiabilityText(context),
-                  style: Theme.of(context).textTheme.labelSmall,
-                ),
-              ]),
-        )
+            mainAxisAlignment: align,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                widget.footerConfig.getLiabilityText(context),
+                style: Theme.of(context).textTheme.labelSmall,
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

@@ -68,45 +68,43 @@ class _OpenableImageState extends State<OpenableImage> {
     }
 
     return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            constraints: BoxConstraints(
-              maxWidth: imageWidth,
-            ),
-            child: Stack(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                  child: CenteredBoxDecoration(
-                    color: Theme.of(context).colorScheme.primary,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(0),
-                      child: widget.ourMainImage,
-                    ),
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Container(
+          constraints: BoxConstraints(maxWidth: imageWidth),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                child: CenteredBoxDecoration(
+                  color: Theme.of(context).colorScheme.primary,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(0),
+                    child: widget.ourMainImage,
                   ),
                 ),
-                if (!widget.disableOpen)
-                  Align(
-                      alignment: Alignment.topRight,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
-                        child: OpenButton(
-                          assetFullPath: widget.displayedImage,
-                        ),
-                      )),
-              ],
-            ),
+              ),
+              if (!widget.disableOpen)
+                Align(
+                  alignment: Alignment.topRight,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                    child: OpenButton(assetFullPath: widget.displayedImage),
+                  ),
+                ),
+            ],
           ),
-          if (widget.imageCaptioning != null) ...[
-            rowDivider,
-            Text(
-              widget.imageCaptioning!,
-              textAlign: TextAlign.center,
-              style: widget.captioningStyle,
-            ),
-          ]
-        ]);
+        ),
+        if (widget.imageCaptioning != null) ...[
+          rowDivider,
+          Text(
+            widget.imageCaptioning!,
+            textAlign: TextAlign.center,
+            style: widget.captioningStyle,
+          ),
+        ],
+      ],
+    );
   }
 }

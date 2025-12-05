@@ -4,11 +4,12 @@ import 'package:jotrockenmitlockenrepo/constants.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class PieChartWidget extends StatefulWidget {
-  const PieChartWidget(
-      {super.key,
-      required this.chartConfig,
-      required this.title,
-      this.animate = true});
+  const PieChartWidget({
+    super.key,
+    required this.chartConfig,
+    required this.title,
+    this.animate = true,
+  });
   final Map<String, double> chartConfig;
   final String title;
   final bool animate;
@@ -38,8 +39,9 @@ class PieChartWidgetState extends State<PieChartWidget> {
                 ? Theme.of(context).textTheme.labelLarge!.fontSize!
                 : Theme.of(context).textTheme.labelLarge!.fontSize!;
 
-            double radius =
-                isTouched ? currentWidth * 0.12 : currentWidth * 0.1;
+            double radius = isTouched
+                ? currentWidth * 0.12
+                : currentWidth * 0.1;
 
             if (isMobileDevice) {
               radius = isTouched ? currentWidth * 0.45 : currentWidth * 0.35;
@@ -65,10 +67,7 @@ class PieChartWidgetState extends State<PieChartWidget> {
 
     return Column(
       children: [
-        Text(
-          widget.title,
-          style: Theme.of(context).textTheme.headlineSmall,
-        ),
+        Text(widget.title, style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: 40),
         Expanded(
           child: AspectRatio(
@@ -104,19 +103,22 @@ class PieChartWidgetState extends State<PieChartWidget> {
             spacing: 10,
             runSpacing: 10,
             children: chartData
-                .map((data) => Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 10,
-                          height: 10,
-                          color: Colors.primaries[chartData.indexOf(data) %
-                              Colors.primaries.length],
-                        ),
-                        const SizedBox(width: 5),
-                        Text(data.x),
-                      ],
-                    ))
+                .map(
+                  (data) => Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        width: 10,
+                        height: 10,
+                        color:
+                            Colors.primaries[chartData.indexOf(data) %
+                                Colors.primaries.length],
+                      ),
+                      const SizedBox(width: 5),
+                      Text(data.x),
+                    ],
+                  ),
+                )
                 .toList(),
           ),
       ],

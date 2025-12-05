@@ -7,27 +7,25 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:jotrockenmitlockenrepo/constants.dart';
 
 class SocialMediaWidgets extends StatelessWidget {
-  const SocialMediaWidgets({
-    super.key,
-    required this.socialMediaLinksConfig,
-  });
+  const SocialMediaWidgets({super.key, required this.socialMediaLinksConfig});
 
   final Map<String, ExternalLinkConfig> socialMediaLinksConfig;
 
   List<Widget> buildSocialMediaChildren() {
     List<Widget> socialMediaIconsWithSpacing = [];
     socialMediaLinksConfig.forEach(
-        (key, socialMediaLinkConfig) => (socialMediaIconsWithSpacing.addAll([
-              Padding(
-                padding: const EdgeInsets.all(2.5),
-                child: IconButton(
-                  icon: FaIcon(socialMediaIcons[key]),
-                  onPressed: () {
-                    BrowserHelper.launchInBrowser(socialMediaLinkConfig);
-                  },
-                ),
-              ),
-            ])));
+      (key, socialMediaLinkConfig) => (socialMediaIconsWithSpacing.addAll([
+        Padding(
+          padding: const EdgeInsets.all(2.5),
+          child: IconButton(
+            icon: FaIcon(socialMediaIcons[key]),
+            onPressed: () {
+              BrowserHelper.launchInBrowser(socialMediaLinkConfig);
+            },
+          ),
+        ),
+      ])),
+    );
     return socialMediaIconsWithSpacing;
   }
 

@@ -1,12 +1,10 @@
 import 'package:flutter/rendering.dart';
 
 class RenderCacheHeight extends RenderProxyBox {
-  RenderCacheHeight({
-    required List<double?> heights,
-    required int index,
-  })  : _heights = heights,
-        _index = index,
-        super();
+  RenderCacheHeight({required List<double?> heights, required int index})
+    : _heights = heights,
+      _index = index,
+      super();
 
   List<double?> _heights;
   List<double?> get heights => _heights;

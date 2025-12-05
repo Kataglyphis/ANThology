@@ -8,53 +8,64 @@ import 'package:jotrockenmitlockenrepo/app_attributes.dart';
 import 'package:jotrockenmitlockenrepo/Pages/stateful_branch_info_provider.dart';
 
 abstract class RoutesCreator {
-  final _rootNavigatorKey =
-      GlobalKey<NavigatorState>(debugLabel: "_rootNavigatorKey");
+  final _rootNavigatorKey = GlobalKey<NavigatorState>(
+    debugLabel: "_rootNavigatorKey",
+  );
 
-  final GlobalKey<ScaffoldState> scaffoldKey =
-      GlobalKey<ScaffoldState>(debugLabel: "scaffoldKey");
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>(
+    debugLabel: "scaffoldKey",
+  );
 
   String _getInitialLocation(
-      AppAttributes appAttributes, int currentPageIndex) {
+    AppAttributes appAttributes,
+    int currentPageIndex,
+  ) {
     List<(Widget, StatefulBranchInfoProvider)> allPages =
         getAllPagesWithConfigs(appAttributes);
     return allPages[currentPageIndex].$2.getRoutingName();
   }
 
   List<(Widget, StatefulBranchInfoProvider)> getAllPagesWithConfigs(
-      AppAttributes appAttributes);
+    AppAttributes appAttributes,
+  );
   Footer getFooter(AppAttributes appAttributes);
 
   GoRouter getRouterConfig(
-      AppAttributes appAttributes,
-      AnimationController controller,
-      final void Function(int value) handleChangedPageIndex,
-      int currentPageIndex) {
+    AppAttributes appAttributes,
+    AnimationController controller,
+    final void Function(int value) handleChangedPageIndex,
+    int currentPageIndex,
+  ) {
     return GoRouter(
       navigatorKey: _rootNavigatorKey,
       initialLocation: _getInitialLocation(appAttributes, currentPageIndex),
       routes: <RouteBase>[
         StatefulShellRoute.indexedStack(
-          builder: (BuildContext context, GoRouterState state,
-              StatefulNavigationShell navigationShell) {
-            // Return the widget that implements the custom shell (in this case
-            // using a BottomNavigationBar). The StatefulNavigationShell is passed
-            // to be able access the state of the shell and to navigate to other
-            // branches in a stateful way.
-            return Home(
-                handleChangedPageIndex: handleChangedPageIndex,
-                scaffoldKey: scaffoldKey,
-                footer: getFooter(appAttributes),
-                appAttributes: appAttributes,
-                controller: controller,
-                navigationShell: navigationShell);
-          },
+          builder:
+              (
+                BuildContext context,
+                GoRouterState state,
+                StatefulNavigationShell navigationShell,
+              ) {
+                // Return the widget that implements the custom shell (in this case
+                // using a BottomNavigationBar). The StatefulNavigationShell is passed
+                // to be able access the state of the shell and to navigate to other
+                // branches in a stateful way.
+                return Home(
+                  handleChangedPageIndex: handleChangedPageIndex,
+                  scaffoldKey: scaffoldKey,
+                  footer: getFooter(appAttributes),
+                  appAttributes: appAttributes,
+                  controller: controller,
+                  navigationShell: navigationShell,
+                );
+              },
           branches: createBranches(appAttributes),
-        )
+        ),
       ],
       redirect: (BuildContext context, GoRouterState state) {
-        var allValidRoutes =
-            appAttributes.screenConfigurations.getAllValidRoutes();
+        var allValidRoutes = appAttributes.screenConfigurations
+            .getAllValidRoutes();
         if (!allValidRoutes.contains(state.fullPath)) {
           return appAttributes.screenConfigurations
               .getErrorPagesConfig()
@@ -68,15 +79,15 @@ abstract class RoutesCreator {
   }
 
   GoRoute buildGoRouteForSPA(
-      (Widget, StatefulBranchInfoProvider) allPagesWithConfigs,
-      AppAttributes appAttributes) {
+    (Widget, StatefulBranchInfoProvider) allPagesWithConfigs,
+    AppAttributes appAttributes,
+  ) {
     return GoRoute(
-        path: allPagesWithConfigs.$2.getRoutingName(),
-        pageBuilder: (context, state) {
-          return NoTransitionPage(
-            child: allPagesWithConfigs.$1,
-          );
-        });
+      path: allPagesWithConfigs.$2.getRoutingName(),
+      pageBuilder: (context, state) {
+        return NoTransitionPage(child: allPagesWithConfigs.$1);
+      },
+    );
   }
 
   List<StatefulShellBranch> createStatefulShellBranches(
@@ -90,10 +101,7 @@ abstract class RoutesCreator {
       branches.add(
         StatefulShellBranch(
           routes: <RouteBase>[
-            buildGoRouteForSPA(
-              pageWithConfig,
-              appAttributes,
-            )
+            buildGoRouteForSPA(pageWithConfig, appAttributes),
           ],
         ),
       );

@@ -3,10 +3,7 @@ import 'package:flutter/services.dart';
 
 class CopyButton extends StatelessWidget {
   final String text;
-  const CopyButton({
-    super.key,
-    required this.text,
-  });
+  const CopyButton({super.key, required this.text});
 
   void _onPressed() async {
     await Clipboard.setData(ClipboardData(text: text));

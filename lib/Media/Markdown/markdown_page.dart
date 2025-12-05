@@ -7,13 +7,13 @@ import 'package:jotrockenmitlockenrepo/constants.dart';
 
 class MarkdownFilePage extends StatefulWidget {
   const MarkdownFilePage({
-    Key? key,
+    super.key,
     required this.currentLocale,
     required this.filePathDe,
     required this.filePathEn,
     this.imageDirectory = 'assets/images/',
     required this.useLightMode,
-  }) : super(key: key);
+  });
 
   final Locale currentLocale;
   final String filePathDe;

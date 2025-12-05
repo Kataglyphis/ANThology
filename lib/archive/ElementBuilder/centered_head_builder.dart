@@ -12,9 +12,7 @@ class CenteredHeaderBuilder extends MarkdownElementBuilder {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Flexible(child: Text(text.text, style: preferredStyle)),
-            const SizedBox(
-              height: 80,
-            )
+            const SizedBox(height: 80),
           ],
         ),
       ),

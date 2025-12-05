@@ -7,16 +7,17 @@ import 'package:jotrockenmitlockenrepo/Media/DataTable/table_data.dart';
 import 'package:jotrockenmitlockenrepo/constants.dart';
 
 abstract class DataList<T extends TableData> extends StatefulWidget {
-  const DataList(
-      {super.key,
-      required this.title,
-      required this.description,
-      required this.data,
-      required this.dataCategories,
-      required this.entryRedirectText,
-      this.sortColumnIndex = 0,
-      this.sortOnLoaded = false,
-      this.isAscending = false});
+  const DataList({
+    super.key,
+    required this.title,
+    required this.description,
+    required this.data,
+    required this.dataCategories,
+    required this.entryRedirectText,
+    this.sortColumnIndex = 0,
+    this.sortOnLoaded = false,
+    this.isAscending = false,
+  });
   final List<T> data;
   final List<String> dataCategories;
   final String title;
@@ -28,12 +29,8 @@ abstract class DataList<T extends TableData> extends StatefulWidget {
 }
 
 abstract class DataListState<T extends TableData, U extends DataList>
-    extends State<U> with JotrockenmitlockenTableInfoProvider {
-  @override
-  void initState() {
-    super.initState();
-  }
-
+    extends State<U>
+    with JotrockenmitlockenTableInfoProvider {
   @override
   Widget build(BuildContext context) {
     double currentWidth = MediaQuery.of(context).size.width;

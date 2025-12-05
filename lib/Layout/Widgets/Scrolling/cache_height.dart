@@ -23,15 +23,14 @@ class CacheHeight extends SingleChildRenderObjectWidget {
 
   @override
   RenderObject createRenderObject(BuildContext context) {
-    return RenderCacheHeight(
-      heights: heights,
-      index: index,
-    );
+    return RenderCacheHeight(heights: heights, index: index);
   }
 
   @override
   void updateRenderObject(
-      BuildContext context, RenderCacheHeight renderObject) {
+    BuildContext context,
+    RenderCacheHeight renderObject,
+  ) {
     renderObject
       ..heights = heights
       ..index = index;

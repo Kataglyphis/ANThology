@@ -21,6 +21,7 @@ dependencies:
   mime: ^2.0.0
   web: ^1.1.1
 
+  flutter_markdown: any
 dev_dependencies:
   mockito: ^5.5.1
   flutter_test:

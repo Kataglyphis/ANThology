@@ -27,19 +27,20 @@ class AppAttributes {
   ColorSeed colorSelected;
   final void Function(int value)? handleColorSelect;
 
-  AppAttributes(
-      {required this.footerConfig,
-      required this.homeConfig,
-      required this.appSettings,
-      required this.userSettings,
-      required this.screenConfigurations,
-      required this.railAnimation,
-      required this.showMediumSizeLayout,
-      required this.showLargeSizeLayout,
-      this.useOtherLanguageMode,
-      required this.colorSelected,
-      required this.useLightMode,
-      this.handleBrightnessChange,
-      this.handleColorSelect,
-      this.handleLanguageChange});
+  AppAttributes({
+    required this.footerConfig,
+    required this.homeConfig,
+    required this.appSettings,
+    required this.userSettings,
+    required this.screenConfigurations,
+    required this.railAnimation,
+    required this.showMediumSizeLayout,
+    required this.showLargeSizeLayout,
+    this.useOtherLanguageMode,
+    required this.colorSelected,
+    required this.useLightMode,
+    this.handleBrightnessChange,
+    this.handleColorSelect,
+    this.handleLanguageChange,
+  });
 }

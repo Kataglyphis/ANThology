@@ -17,10 +17,13 @@ class FileDownloadIcon extends StatelessWidget {
           width: 70,
           height: 70,
           child: CenteredBoxDecoration(
-              color: selectedColor,
-              child: Center(
-                  child: DownloadButton(
-                      assetFullPath: document.baseDir + document.title))),
+            color: selectedColor,
+            child: Center(
+              child: DownloadButton(
+                assetFullPath: document.baseDir + document.title,
+              ),
+            ),
+          ),
         ),
       ),
     );

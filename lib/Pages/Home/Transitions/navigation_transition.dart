@@ -48,10 +48,7 @@ class _NavigationTransitionState extends State<NavigationTransition> {
     railAnimation = widget.railAnimation;
 
     barAnimation = ReverseAnimation(
-      CurvedAnimation(
-        parent: controller,
-        curve: const Interval(0.0, 0.5),
-      ),
+      CurvedAnimation(parent: controller, curve: const Interval(0.0, 0.5)),
     );
   }
 

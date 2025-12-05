@@ -89,10 +89,12 @@ class LandingPageEntryState extends State<LandingPageEntry> {
       rowDivider,
       IntrinsicWidth(
         child: FileTile(
-            currentDocument: File(
-                title: widget.fileTitle,
-                additionalInfo: widget.fileAdditionalInfo,
-                baseDir: widget.fileBaseDir)),
+          currentDocument: File(
+            title: widget.fileTitle,
+            additionalInfo: widget.fileAdditionalInfo,
+            baseDir: widget.fileBaseDir,
+          ),
+        ),
       ),
       rowDivider,
       Padding(
@@ -114,7 +116,9 @@ class LandingPageEntryState extends State<LandingPageEntry> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ComponentGroupDecoration(
-              label: widget.label, children: <Widget>[...undecoratedChilds]),
+            label: widget.label,
+            children: <Widget>[...undecoratedChilds],
+          ),
         ],
       ),
     );

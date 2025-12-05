@@ -21,17 +21,20 @@ class FooterPagesTextButtonsState extends State<FooterPagesTextButtons> {
       align = MainAxisAlignment.center;
     }
     List<TextButton> footerPagesButtons = widget.footerPagesConfig
-        .map((footerPageConfig) => (TextButton(
-              style: TextButton.styleFrom(
-                  textStyle: Theme.of(context).textTheme.bodyMedium),
-              onPressed: () {
-                context.go(footerPageConfig.getRoutingName());
-              },
-              child: Text(
-                textAlign: TextAlign.center,
-                footerPageConfig.getHeading(context),
-              ),
-            )))
+        .map(
+          (footerPageConfig) => (TextButton(
+            style: TextButton.styleFrom(
+              textStyle: Theme.of(context).textTheme.bodyMedium,
+            ),
+            onPressed: () {
+              context.go(footerPageConfig.getRoutingName());
+            },
+            child: Text(
+              textAlign: TextAlign.center,
+              footerPageConfig.getHeading(context),
+            ),
+          )),
+        )
         .toList();
 
     return AdaptiveGrid(

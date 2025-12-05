@@ -4,10 +4,7 @@ import 'package:jotrockenmitlockenrepo/Media/Image/openable_image.dart';
 import 'package:markdown/markdown.dart' as md;
 
 class CenteredImageBuilder extends MarkdownElementBuilder {
-  CenteredImageBuilder({
-    required this.colorSelected,
-    required this.imageDir,
-  });
+  CenteredImageBuilder({required this.colorSelected, required this.imageDir});
   Color colorSelected;
   String imageDir;
 
@@ -26,13 +23,14 @@ class CenteredImageBuilder extends MarkdownElementBuilder {
     }
 
     return SelectionArea(
-        child: Center(
-      child: OpenableImage(
-        placeholderImage: placeholderImage,
-        displayedImage: displayedImage,
-        imageCaptioning: imageCaption,
-        captioningStyle: preferredStyle,
+      child: Center(
+        child: OpenableImage(
+          placeholderImage: placeholderImage,
+          displayedImage: displayedImage,
+          imageCaptioning: imageCaption,
+          captioningStyle: preferredStyle,
+        ),
       ),
-    ));
+    );
   }
 }

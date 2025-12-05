@@ -3,11 +3,12 @@ import 'package:jotrockenmitlockenrepo/Layout/Widgets/Animations/offset_animatio
 import 'package:jotrockenmitlockenrepo/Layout/Widgets/Animations/size_animation.dart';
 
 class RailTransition extends StatefulWidget {
-  const RailTransition(
-      {super.key,
-      required this.animation,
-      required this.backgroundColor,
-      required this.child});
+  const RailTransition({
+    super.key,
+    required this.animation,
+    required this.backgroundColor,
+    required this.child,
+  });
 
   final Animation<double> animation;
   final Widget child;
