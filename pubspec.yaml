@@ -20,7 +20,7 @@ dependencies:
   fl_chart: ^1.1.1
   mime: ^2.0.0
   web: ^1.1.1
-  flutter_markdown_plus: ^1.0.5
+  flutter_markdown_plus: ^1.0.7
   
 dev_dependencies:
   mockito: ^5.6.1
