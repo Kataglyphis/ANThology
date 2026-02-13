@@ -1,5 +1,4 @@
 import 'package:csv/csv.dart';
-import 'package:csv/csv_settings_autodetection.dart';
 import 'package:flutter/material.dart';
 
 import 'package:jotrockenmitlockenrepo/Media/DataTable/jotrockenmitlocken_table.dart';
@@ -46,13 +45,8 @@ abstract class CsvDataListState<T extends TableData, U extends CsvDataList>
 
   Future<(List<T>, List<String>)> _loadDataFromCSV() async {
     final rawData = await rootBundle.loadString(widget.dataFilePath);
-    var d = const FirstOccurrenceSettingsDetector(
-      eols: ['\r\n', '\n'],
-      textDelimiters: ['"', "'"],
-    );
-    List<List<dynamic>> csvListData = CsvToListConverter(
-      csvSettingsDetector: d,
-    ).convert(rawData);
+    // csv ^7 uses CsvDecoder/CsvCodec; delimiter auto-detection is built in.
+    final List<List<dynamic>> csvListData = const CsvDecoder().convert(rawData);
     Future<(List<T>, List<String>)> finalData = convertRawCSVDataToFinalLayout(
       csvListData,
     );

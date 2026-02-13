@@ -109,7 +109,7 @@ abstract class RoutesCreator {
     return branches;
   }
 
-  createBranches(AppAttributes appAttributes) {
+  List<StatefulShellBranch> createBranches(AppAttributes appAttributes) {
     List<(Widget, StatefulBranchInfoProvider)> allPagesWithConfigs =
         getAllPagesWithConfigs(appAttributes);
     return createStatefulShellBranches(appAttributes, allPagesWithConfigs);
