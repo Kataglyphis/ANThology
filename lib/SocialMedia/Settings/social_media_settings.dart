@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-final Map<String, IconData> socialMediaIcons = {
+final Map<String, FaIconData> socialMediaIcons = {
   'Facebook': FontAwesomeIcons.facebook,
   'GitHub': FontAwesomeIcons.github,
   'YouTube': FontAwesomeIcons.youtube,
