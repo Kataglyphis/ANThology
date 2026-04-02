@@ -1,11 +1,11 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 final Map<String, FaIconData> socialMediaIcons = {
-  'Facebook': FontAwesomeIcons.squareFacebook,
+  'Facebook': FontAwesomeIcons.facebook,
   'GitHub': FontAwesomeIcons.github,
-  'YouTube': FontAwesomeIcons.squareYoutube,
-  'X': FontAwesomeIcons.squareXTwitter,
+  'YouTube': FontAwesomeIcons.youtube,
+  'X': FontAwesomeIcons.xTwitter,
   'LinkedIn': FontAwesomeIcons.linkedin,
-  'Instagram': FontAwesomeIcons.squareInstagram,
-  'PayPal': FontAwesomeIcons.ccPaypal,
+  'Instagram': FontAwesomeIcons.instagram,
+  'PayPal': FontAwesomeIcons.paypal,
 };
