@@ -17,6 +17,9 @@ class BuildSlivers extends SliverChildBuilderDelegate {
     double leadingScrollOffset,
     double trailingScrollOffset,
   ) {
-    return heights.reduce((sum, height) => (sum ?? 0) + (height ?? 0))!;
+    return heights.fold<double?>(
+      0.0,
+      (sum, height) => (sum ?? 0) + (height ?? 0),
+    );
   }
 }

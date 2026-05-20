@@ -18,6 +18,7 @@ abstract class CsvDataList extends StatefulWidget {
     this.sortColumnIndex = 0,
     this.sortOnLoaded = false,
     this.isAscending = false,
+    this.assetBundle,
   });
   final String title;
   final String entryRedirectText;
@@ -26,6 +27,7 @@ abstract class CsvDataList extends StatefulWidget {
   final bool sortOnLoaded;
   final int sortColumnIndex;
   final bool isAscending;
+  final AssetBundle? assetBundle;
 }
 
 abstract class CsvDataListState<T extends TableData, U extends CsvDataList>
@@ -44,7 +46,9 @@ abstract class CsvDataListState<T extends TableData, U extends CsvDataList>
   }
 
   Future<(List<T>, List<String>)> _loadDataFromCSV() async {
-    final rawData = await rootBundle.loadString(widget.dataFilePath);
+    final rawData = await (widget.assetBundle ?? rootBundle).loadString(
+      widget.dataFilePath,
+    );
     // csv ^7 uses CsvDecoder/CsvCodec; delimiter auto-detection is built in.
     final List<List<dynamic>> csvListData = const CsvDecoder().convert(rawData);
     Future<(List<T>, List<String>)> finalData = convertRawCSVDataToFinalLayout(

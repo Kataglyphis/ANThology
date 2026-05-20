@@ -91,10 +91,10 @@ class PieChartWidgetState extends State<PieChartWidget> {
                 sections: getSections(),
                 centerSpaceRadius: 40,
               ),
-              swapAnimationDuration: widget.animate
+              duration: widget.animate
                   ? const Duration(milliseconds: 1000)
                   : Duration.zero,
-              swapAnimationCurve: Curves.easeInOut,
+              curve: Curves.easeInOut,
             ),
           ),
         ),

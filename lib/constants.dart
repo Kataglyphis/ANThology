@@ -9,6 +9,17 @@ const double largeWidthBreakpoint = 1500;
 
 const double transitionLength = 500;
 
+double responsiveWidth(
+  double screenWidth, {
+  double mobile = 0.9,
+  double medium = 0.9,
+  double large = 0.5,
+}) {
+  if (screenWidth <= narrowScreenWidthThreshold) return screenWidth * mobile;
+  if (screenWidth <= mediumWidthBreakpoint) return screenWidth * medium;
+  return screenWidth * large;
+}
+
 enum ColorSeed {
   baseColor('Green Accent', Colors.greenAccent),
   indigo('Indigo', Colors.indigo),

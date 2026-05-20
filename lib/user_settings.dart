@@ -42,8 +42,16 @@ class UserSettings {
   String? aboutMeFileEn;
 
   ExternalLinkConfig getFullPathToGithubRepo(String repo) {
-    ExternalLinkConfig github = socialMediaLinksConfig!["GitHub"]!;
-    github.path += repo;
-    return github;
+    final config = socialMediaLinksConfig;
+    if (config == null) {
+      throw StateError('socialMediaLinksConfig is not set');
+    }
+    final github = config['GitHub'];
+    if (github == null) {
+      throw StateError(
+        'GitHub link is not configured in socialMediaLinksConfig',
+      );
+    }
+    return ExternalLinkConfig(host: github.host, path: github.path + repo);
   }
 }

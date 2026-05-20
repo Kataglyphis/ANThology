@@ -14,7 +14,7 @@ class AppSettings {
       appTitleEn = appSettingsJson['appTitleEn'] as String,
       disableFooter = appSettingsJson['disableFooter'] as bool {
     List<dynamic> supportedLocalesAsJsonMap =
-        appSettingsJson['supportedLocales'] as List<dynamic>;
+        appSettingsJson['supportedLocales'] as List<dynamic>? ?? [];
     supportedLocales = supportedLocalesAsJsonMap
         .map((element) => element.toString())
         .toList();

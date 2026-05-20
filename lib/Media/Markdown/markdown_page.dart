@@ -35,24 +35,17 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
   }
 
   Future<String> _readMarkupFile() async {
-    // Read the corresponding file depending on the current locale
     try {
       if (widget.currentLocale == const Locale('de') &&
           widget.filePathDe.isNotEmpty) {
         return await rootBundle.loadString(widget.filePathDe);
-      } else if (widget.currentLocale == const Locale('de') &&
-          widget.filePathEn.isNotEmpty) {
-        return await rootBundle.loadString(widget.filePathEn);
       } else if (widget.currentLocale == const Locale('en') &&
           widget.filePathEn.isNotEmpty) {
         return await rootBundle.loadString(widget.filePathEn);
-      } else if (widget.currentLocale == const Locale('en') &&
-          widget.filePathDe.isNotEmpty) {
-        return await rootBundle.loadString(widget.filePathDe);
-      } else if (widget.filePathDe.isNotEmpty) {
-        return await rootBundle.loadString(widget.filePathDe);
+      } else if (widget.filePathEn.isNotEmpty) {
+        return await rootBundle.loadString(widget.filePathEn);
       } else {
-        return await rootBundle.loadString(widget.filePathEn);
+        return await rootBundle.loadString(widget.filePathDe);
       }
     } catch (e) {
       developer.log("Error reading file: $e");
@@ -61,14 +54,7 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
   }
 
   double getMarkdownPageWidth() {
-    final currentWidth = MediaQuery.of(context).size.width;
-    if (currentWidth <= narrowScreenWidthThreshold) {
-      return currentWidth * 0.9;
-    } else if (currentWidth <= mediumWidthBreakpoint) {
-      return currentWidth * 0.9;
-    } else {
-      return currentWidth * 0.7;
-    }
+    return responsiveWidth(MediaQuery.of(context).size.width, large: 0.7);
   }
 
   @override

@@ -114,13 +114,14 @@ class JotrockenmitlockenTableState<T extends TableData>
 
   @override
   Widget build(BuildContext context) {
-    double currentWidth = MediaQuery.of(context).size.width;
-    double dataTableWidth = (currentWidth >= largeWidthBreakpoint)
-        ? currentWidth * 0.8
-        : currentWidth * 0.9;
+    double dataTableWidth = responsiveWidth(
+      MediaQuery.of(context).size.width,
+      large: 0.8,
+    );
 
+    final sortedData = List<T>.from(widget.data);
     if (widget.sortOnLoaded) {
-      widget.data.sort(
+      sortedData.sort(
         (data1, data2) => _compareString(
           isAscending,
           data1.getCells()[widget.sortColumnIndex],
@@ -129,7 +130,7 @@ class JotrockenmitlockenTableState<T extends TableData>
       );
     }
     final DataTableSource dataTableSource = _MyDataTableSource(
-      getDataRows(widget.data, dataTableWidth),
+      getDataRows(sortedData, dataTableWidth),
     );
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,

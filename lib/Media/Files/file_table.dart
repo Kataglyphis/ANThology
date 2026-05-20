@@ -15,14 +15,7 @@ class FileTable extends StatefulWidget {
 
 class FileTableState extends State<FileTable> {
   double getDocumentTableWidth() {
-    var currentWidth = MediaQuery.of(context).size.width;
-    if (currentWidth <= narrowScreenWidthThreshold) {
-      return currentWidth * 0.9;
-    } else if (currentWidth <= mediumWidthBreakpoint) {
-      return currentWidth * 0.9;
-    } else {
-      return currentWidth * 0.5;
-    }
+    return responsiveWidth(MediaQuery.of(context).size.width);
   }
 
   @override
