@@ -9,6 +9,7 @@ class UserSettings {
     required this.lastName,
     required this.aboutMeFileDe,
     required this.aboutMeFileEn,
+    this.aboutMeFileFr,
     required this.assetPathImgOfMe,
   }) {
     myName = "$firstName $lastName";
@@ -20,7 +21,8 @@ class UserSettings {
       lastName = userSettingsJson['lastName'] as String,
       assetPathImgOfMe = userSettingsJson['assetPathImgOfMe'] as String,
       aboutMeFileDe = userSettingsJson['aboutMeFileDe'] as String,
-      aboutMeFileEn = userSettingsJson['aboutMeFileEn'] as String {
+      aboutMeFileEn = userSettingsJson['aboutMeFileEn'] as String,
+      aboutMeFileFr = userSettingsJson['aboutMeFileFr'] as String? {
     myName = "$firstName $lastName";
     Map<String, dynamic> socialMediaLinksConfigAsJsonMap =
         userSettingsJson['socialMediaLinksConfig'] as Map<String, dynamic>;
@@ -40,6 +42,7 @@ class UserSettings {
   String? assetPathImgOfMe;
   String? aboutMeFileDe;
   String? aboutMeFileEn;
+  String? aboutMeFileFr;
 
   ExternalLinkConfig getFullPathToGithubRepo(String repo) {
     final config = socialMediaLinksConfig;

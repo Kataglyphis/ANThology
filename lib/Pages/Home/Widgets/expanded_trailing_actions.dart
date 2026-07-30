@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jotrockenmitlockenrepo/Pages/Home/button_names.dart';
 
 import 'package:jotrockenmitlockenrepo/Pages/Home/Widgets/expanded_color_seed_action.dart';
+import 'package:jotrockenmitlockenrepo/Pages/Home/Widgets/language_button.dart';
 
 import 'package:jotrockenmitlockenrepo/app_attributes.dart';
 
@@ -26,28 +27,20 @@ class ExpandedTrailingActions extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           if (buttonNames.language != null &&
-              appAttributes.handleLanguageChange != null)
+              appAttributes.handleLanguageSelect != null)
             if (appAttributes.currentLanguageIndex != null &&
                 appAttributes.appSettings.supportedLocales!.length >= 2)
               Row(
                 children: [
                   Text(buttonNames.language!),
                   Expanded(child: Container()),
-                  TextButton(
-                    onPressed: () {
-                      appAttributes.handleLanguageChange!();
-                    },
-                    child: Text(
-                      appAttributes
-                          .appSettings
-                          .supportedLocales![appAttributes
-                                  .currentLanguageIndex! %
-                              appAttributes
-                                  .appSettings
-                                  .supportedLocales!
-                                  .length]
-                          .toUpperCase(),
-                    ),
+                  LanguageButton(
+                    supportedLocales:
+                        appAttributes.appSettings.supportedLocales!,
+                    currentLanguageIndex: appAttributes.currentLanguageIndex!,
+                    handleLanguageSelect: appAttributes.handleLanguageSelect!,
+                    compact: false,
+                    title: buttonNames.language!,
                   ),
                 ],
               ),

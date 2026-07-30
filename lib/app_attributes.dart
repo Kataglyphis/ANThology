@@ -19,7 +19,7 @@ class AppAttributes {
   bool showLargeSizeLayout;
 
   int? currentLanguageIndex;
-  final void Function()? handleLanguageChange;
+  final void Function(int index)? handleLanguageSelect;
 
   bool useLightMode;
   final void Function(bool useLightMode)? handleBrightnessChange;
@@ -41,6 +41,6 @@ class AppAttributes {
     required this.useLightMode,
     this.handleBrightnessChange,
     this.handleColorSelect,
-    this.handleLanguageChange,
+    this.handleLanguageSelect,
   });
 }
