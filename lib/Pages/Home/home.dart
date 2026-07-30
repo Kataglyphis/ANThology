@@ -86,20 +86,10 @@ class HomeState extends State<Home> {
         .supportedLocales!
         .map((element) => Locale(element))
         .toList();
-    assert(
-      supportedLang.length <= 2 && supportedLang.isNotEmpty,
-      "For now only max. 2 different lang are supported. And you need at least 1 :)",
-    );
-    Locale currentLocale = supportedLang[0];
-    if (widget.appAttributes.useOtherLanguageMode != null) {
-      if (supportedLang.length == 2) {
-        if ((Localizations.localeOf(context) == supportedLang[0] &&
-                widget.appAttributes.useOtherLanguageMode!) ||
-            (Localizations.localeOf(context) == supportedLang[1])) {
-          currentLocale = supportedLang[1];
-        }
-      }
-    }
+    assert(supportedLang.isNotEmpty, "You need at least 1 supported lang :)");
+    Locale currentLocale =
+        supportedLang[(widget.appAttributes.currentLanguageIndex ?? 0) %
+            supportedLang.length];
     return Localizations.override(
       context: context,
       locale: currentLocale,

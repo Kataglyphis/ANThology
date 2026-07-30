@@ -18,7 +18,7 @@ class AppAttributes {
   bool showMediumSizeLayout;
   bool showLargeSizeLayout;
 
-  bool? useOtherLanguageMode;
+  int? currentLanguageIndex;
   final void Function()? handleLanguageChange;
 
   bool useLightMode;
@@ -36,7 +36,7 @@ class AppAttributes {
     required this.railAnimation,
     required this.showMediumSizeLayout,
     required this.showLargeSizeLayout,
-    this.useOtherLanguageMode,
+    this.currentLanguageIndex,
     required this.colorSelected,
     required this.useLightMode,
     this.handleBrightnessChange,
