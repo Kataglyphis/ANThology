@@ -44,7 +44,7 @@ Supports english and german right now.
 ### Projects using this projects
 * By using this repo my personal web blog [jonasheinle.de](https://jonasheinle.de) is able to build a beautiful web native responsive app 
 ( see my repo [jotrockenmitlocken](https://github.com/Kataglyphis/jotrockenmitlocken/))
-* My [Inference Engine](https://github.com/Kataglyphis/Kataglyphis-Inference-Engine/) uses this package for multi-platform 
+* My [Inference Engine](https://github.com/Kataglyphis/Inference-Engine/) uses this package for multi-platform 
   UI support when running AI :smile:
 
 ### Key Features
