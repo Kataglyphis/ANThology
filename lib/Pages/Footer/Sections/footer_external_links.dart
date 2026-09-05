@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Layout/adaptive_grid.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer_config.dart';
-import 'package:jotrockenmitlockenrepo/Url/browser_helper.dart';
-import 'package:jotrockenmitlockenrepo/Url/external_link_config.dart';
-import 'package:jotrockenmitlockenrepo/constants.dart';
-import 'package:jotrockenmitlockenrepo/user_settings.dart';
+import 'package:anthology/Layout/adaptive_grid.dart';
+import 'package:anthology/Pages/Footer/footer_config.dart';
+import 'package:anthology/Url/browser_helper.dart';
+import 'package:anthology/Url/external_link_config.dart';
+import 'package:anthology/constants.dart';
+import 'package:anthology/user_settings.dart';
 
 class FooterExternalLinks extends StatefulWidget {
   const FooterExternalLinks({

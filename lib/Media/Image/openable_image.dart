@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/centered_box_decoration.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/row_divider.dart';
-import 'package:jotrockenmitlockenrepo/Media/Open/open_button.dart';
+import 'package:anthology/Decoration/centered_box_decoration.dart';
+import 'package:anthology/Decoration/row_divider.dart';
+import 'package:anthology/Media/Open/open_button.dart';
 
 class OpenableImage extends StatefulWidget {
   OpenableImage({

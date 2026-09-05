@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer.dart';
+import 'package:anthology/Pages/Footer/footer.dart';
 
-import 'package:jotrockenmitlockenrepo/Pages/Home/Transitions/bar_transition.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/Transitions/rail_transition.dart';
+import 'package:anthology/Pages/Home/Transitions/bar_transition.dart';
+import 'package:anthology/Pages/Home/Transitions/rail_transition.dart';
 
 class NavigationTransition extends StatefulWidget {
   const NavigationTransition({

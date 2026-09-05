@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/centered_box_decoration.dart';
-import 'package:jotrockenmitlockenrepo/Media/Files/file.dart';
-import 'package:jotrockenmitlockenrepo/Media/Files/file_tile.dart';
-import 'package:jotrockenmitlockenrepo/constants.dart';
+import 'package:anthology/Decoration/centered_box_decoration.dart';
+import 'package:anthology/Media/Files/file.dart';
+import 'package:anthology/Media/Files/file_tile.dart';
+import 'package:anthology/constants.dart';
 
 class FileTable extends StatefulWidget {
   final List<File> docs;

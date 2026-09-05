@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer_page_config.dart';
-import 'package:jotrockenmitlockenrepo/Pages/navbar_page_config.dart';
-import 'package:jotrockenmitlockenrepo/Pages/stateful_branch_info_provider.dart';
+import 'package:anthology/Pages/Footer/footer_page_config.dart';
+import 'package:anthology/Pages/navbar_page_config.dart';
+import 'package:anthology/Pages/stateful_branch_info_provider.dart';
 
 abstract class ScreenConfigurations {
   List<StatefulBranchInfoProvider> getAllPagesConfigs();

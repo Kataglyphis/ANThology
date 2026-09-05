@@ -2,8 +2,8 @@ import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:markdown_widget/markdown_widget.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/row_divider.dart';
-import 'package:jotrockenmitlockenrepo/constants.dart';
+import 'package:anthology/Decoration/row_divider.dart';
+import 'package:anthology/constants.dart';
 
 class MarkdownFilePage extends StatefulWidget {
   const MarkdownFilePage({

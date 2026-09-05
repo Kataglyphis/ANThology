@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer_page_config.dart';
+import 'package:anthology/Pages/Footer/footer_page_config.dart';
 
 class GenericFooterPageConfig extends FooterPageConfig {
   final String Function(BuildContext) headingBuilder;

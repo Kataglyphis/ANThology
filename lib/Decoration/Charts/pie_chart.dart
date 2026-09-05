@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/Charts/pie_chart_data_entry.dart';
-import 'package:jotrockenmitlockenrepo/constants.dart';
+import 'package:anthology/Decoration/Charts/pie_chart_data_entry.dart';
+import 'package:anthology/constants.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class PieChartWidget extends StatefulWidget {

@@ -1,4 +1,4 @@
-import 'package:jotrockenmitlockenrepo/Url/external_link_config.dart';
+import 'package:anthology/Url/external_link_config.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'dart:developer' as developer;
 

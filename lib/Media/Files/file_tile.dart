@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Media/Download/download_file_icon.dart';
-import 'package:jotrockenmitlockenrepo/Media/Files/file.dart';
-import 'package:jotrockenmitlockenrepo/Media/Open/open_button.dart';
+import 'package:anthology/Media/Download/download_file_icon.dart';
+import 'package:anthology/Media/Files/file.dart';
+import 'package:anthology/Media/Open/open_button.dart';
 
 class FileTile extends StatelessWidget {
   const FileTile({super.key, required this.currentDocument});

@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/col_divider.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/row_divider.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer_config.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/Sections/footer_external_links.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/Sections/footer_pages_text_buttons.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/Sections/footer_social_icons_and_liability.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer_page_config.dart';
-import 'package:jotrockenmitlockenrepo/constants.dart';
-import 'package:jotrockenmitlockenrepo/user_settings.dart';
+import 'package:anthology/Decoration/col_divider.dart';
+import 'package:anthology/Decoration/row_divider.dart';
+import 'package:anthology/Pages/Footer/footer_config.dart';
+import 'package:anthology/Pages/Footer/Sections/footer_external_links.dart';
+import 'package:anthology/Pages/Footer/Sections/footer_pages_text_buttons.dart';
+import 'package:anthology/Pages/Footer/Sections/footer_social_icons_and_liability.dart';
+import 'package:anthology/Pages/Footer/footer_page_config.dart';
+import 'package:anthology/constants.dart';
+import 'package:anthology/user_settings.dart';
 
 class Footer extends StatefulWidget {
   const Footer({

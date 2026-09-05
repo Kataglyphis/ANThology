@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Routing/screen_configurations.dart';
+import 'package:anthology/Routing/screen_configurations.dart';
 import 'package:go_router/go_router.dart';
 
 class NavigationBars extends StatefulWidget {

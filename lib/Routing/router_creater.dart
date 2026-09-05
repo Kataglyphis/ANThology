@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/home.dart';
+import 'package:anthology/Pages/Footer/footer.dart';
+import 'package:anthology/Pages/Home/home.dart';
 
-import 'package:jotrockenmitlockenrepo/app_attributes.dart';
-import 'package:jotrockenmitlockenrepo/Pages/stateful_branch_info_provider.dart';
+import 'package:anthology/app_attributes.dart';
+import 'package:anthology/Pages/stateful_branch_info_provider.dart';
 
 abstract class RoutesCreator {
   final _rootNavigatorKey = GlobalKey<NavigatorState>(

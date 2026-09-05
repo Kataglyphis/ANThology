@@ -3,7 +3,7 @@
     <img src="images/logo.png" alt="logo" width="200" />
   </a>
 
-  <h1>jotrockenmitlockenrepo 📖 📚 </h1>
+  <h1>anthology 📖 📚 </h1>
 
   <h4>Reusable dart code provided as a package for building beautiful cross-platform apps.  
       Give your project a huge kickstart by using this repo as a starting point.  </h4>
@@ -13,8 +13,8 @@ For official docs follow this [link](https://omnifronteer.jonasheinle.de/)
 
 <!-- [![Linux build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml)
 [![Windows build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml)-->
-[![Deploy docs on website](https://github.com/Kataglyphis/jotrockenmitlockenrepo/actions/workflows/dart.yml/badge.svg)](https://github.com/Kataglyphis/jotrockenmitlockenrepo/actions/workflows/dart.yml)[![CodeQL](https://github.com/Kataglyphis/jotrockenmitlockenrepo/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Kataglyphis/jotrockenmitlockenrepo/actions/workflows/github-code-scanning/codeql)
-[![TopLang](https://img.shields.io/github/languages/top/Kataglyphis/jotrockenmitlockenrepo)]() 
+[![Deploy docs on website](https://github.com/Kataglyphis/anthology/actions/workflows/dart.yml/badge.svg)](https://github.com/Kataglyphis/anthology/actions/workflows/dart.yml)[![CodeQL](https://github.com/Kataglyphis/anthology/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Kataglyphis/anthology/actions/workflows/github-code-scanning/codeql)
+[![TopLang](https://img.shields.io/github/languages/top/Kataglyphis/anthology)]() 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/JonasHeinle)
 [![Twitter](https://img.shields.io/twitter/follow/Cataglyphis_?style=social)](https://twitter.com/Cataglyphis_)
 [![YouTube](https://img.shields.io/youtube/channel/subscribers/UC3LZiH4sZzzaVBCUV8knYeg?style=social)](https://www.youtube.com/channel/UC3LZiH4sZzzaVBCUV8knYeg)
@@ -87,7 +87,7 @@ Watch the `pubspec.yaml` file.
 
 1. Clone the repo
    ```sh
-   git clone --recurse-submodules git@github.com:Kataglyphis/jotrockenmitlockenrepo.git
+   git clone --recurse-submodules git@github.com:Kataglyphis/anthology.git
    ```
 
 <!-- ## Tests -->
@@ -128,7 +128,7 @@ MIT
 Jonas Heinle - [@Cataglyphis_](https://twitter.com/Cataglyphis_) </br>
 Get in touch: contact@jonasheinle.de
 
-Project Link: [https://github.com/Kataglyphis/jotrockenmitlockenrepo](https://github.com/Kataglyphis/jotrockenmitlockenrepo)
+Project Link: [https://github.com/Kataglyphis/anthology](https://github.com/Kataglyphis/anthology)
 
 
 <!-- ACKNOWLEDGEMENTS -->

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/component_group_decoration.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/row_divider.dart';
-import 'package:jotrockenmitlockenrepo/Media/Image/openable_image.dart';
+import 'package:anthology/Decoration/component_group_decoration.dart';
+import 'package:anthology/Decoration/row_divider.dart';
+import 'package:anthology/Media/Image/openable_image.dart';
 
 class DataPageEntry extends StatelessWidget {
   const DataPageEntry({

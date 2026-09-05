@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/constants.dart';
+import 'package:anthology/constants.dart';
 
 class ColorSeedButton extends StatelessWidget {
   const ColorSeedButton({

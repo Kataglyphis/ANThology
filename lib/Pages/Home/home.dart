@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer.dart';
+import 'package:anthology/Pages/Footer/footer.dart';
 
-import 'package:jotrockenmitlockenrepo/Pages/Home/Transitions/navigation_transition.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/Widgets/expanded_trailing_actions.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/Widgets/brightness_button.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/Widgets/color_seed_button.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/Widgets/language_button.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/Widgets/trailing_actions.dart';
+import 'package:anthology/Pages/Home/Transitions/navigation_transition.dart';
+import 'package:anthology/Pages/Home/Widgets/expanded_trailing_actions.dart';
+import 'package:anthology/Pages/Home/Widgets/brightness_button.dart';
+import 'package:anthology/Pages/Home/Widgets/color_seed_button.dart';
+import 'package:anthology/Pages/Home/Widgets/language_button.dart';
+import 'package:anthology/Pages/Home/Widgets/trailing_actions.dart';
 
-import 'package:jotrockenmitlockenrepo/Routing/navigation_bars.dart';
-import 'package:jotrockenmitlockenrepo/app_attributes.dart';
+import 'package:anthology/Routing/navigation_bars.dart';
+import 'package:anthology/app_attributes.dart';
 
 class Home extends StatefulWidget {
   const Home({

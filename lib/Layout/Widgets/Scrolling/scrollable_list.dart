@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Layout/Widgets/Scrolling/build_silvers.dart';
-import 'package:jotrockenmitlockenrepo/Layout/Widgets/Scrolling/cache_height.dart';
+import 'package:anthology/Layout/Widgets/Scrolling/build_silvers.dart';
+import 'package:anthology/Layout/Widgets/Scrolling/cache_height.dart';
 
 class ScrollableList extends StatefulWidget {
   const ScrollableList({

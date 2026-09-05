@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Pages/navbar_page_config.dart';
+import 'package:anthology/Pages/navbar_page_config.dart';
 
 class GenericNavBarPageConfig extends NavBarPageConfig {
   final IconData icon;

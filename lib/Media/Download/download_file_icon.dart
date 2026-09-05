@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/centered_box_decoration.dart';
-import 'package:jotrockenmitlockenrepo/Media/Download/download_button.dart';
-import 'package:jotrockenmitlockenrepo/Media/Files/file.dart';
+import 'package:anthology/Decoration/centered_box_decoration.dart';
+import 'package:anthology/Media/Download/download_button.dart';
+import 'package:anthology/Media/Files/file.dart';
 
 class FileDownloadIcon extends StatelessWidget {
   final File document;

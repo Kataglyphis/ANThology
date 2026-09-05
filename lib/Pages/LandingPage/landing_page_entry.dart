@@ -1,14 +1,14 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/col_divider.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/row_divider.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/component_group_decoration.dart';
-import 'package:jotrockenmitlockenrepo/Media/Files/file.dart';
-import 'package:jotrockenmitlockenrepo/Media/Files/file_tile.dart';
-import 'package:jotrockenmitlockenrepo/Media/Image/openable_image.dart';
-import 'package:jotrockenmitlockenrepo/Url/browser_helper.dart';
+import 'package:anthology/Decoration/col_divider.dart';
+import 'package:anthology/Decoration/row_divider.dart';
+import 'package:anthology/Decoration/component_group_decoration.dart';
+import 'package:anthology/Media/Files/file.dart';
+import 'package:anthology/Media/Files/file_tile.dart';
+import 'package:anthology/Media/Image/openable_image.dart';
+import 'package:anthology/Url/browser_helper.dart';
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Url/external_link_config.dart';
+import 'package:anthology/Url/external_link_config.dart';
 
 class LandingPageEntry extends StatefulWidget {
   const LandingPageEntry({

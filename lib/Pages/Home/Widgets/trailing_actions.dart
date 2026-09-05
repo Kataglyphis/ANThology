@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/Widgets/brightness_button.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/Widgets/color_seed_button.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/Widgets/language_button.dart';
-import 'package:jotrockenmitlockenrepo/app_attributes.dart';
+import 'package:anthology/Pages/Home/Widgets/brightness_button.dart';
+import 'package:anthology/Pages/Home/Widgets/color_seed_button.dart';
+import 'package:anthology/Pages/Home/Widgets/language_button.dart';
+import 'package:anthology/app_attributes.dart';
 
 class TrailingActions extends StatefulWidget {
   final AppAttributes appAttributes;

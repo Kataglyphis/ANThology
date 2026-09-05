@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer_config.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/home_config.dart';
-import 'package:jotrockenmitlockenrepo/Routing/screen_configurations.dart';
-import 'package:jotrockenmitlockenrepo/app_settings.dart';
-import 'package:jotrockenmitlockenrepo/constants.dart';
-import 'package:jotrockenmitlockenrepo/user_settings.dart';
+import 'package:anthology/Pages/Footer/footer_config.dart';
+import 'package:anthology/Pages/Home/home_config.dart';
+import 'package:anthology/Routing/screen_configurations.dart';
+import 'package:anthology/app_settings.dart';
+import 'package:anthology/constants.dart';
+import 'package:anthology/user_settings.dart';
 
 class AppAttributes {
   UserSettings userSettings;

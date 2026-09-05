@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/col_divider.dart';
-import 'package:jotrockenmitlockenrepo/Layout/Widgets/Scrolling/first_component_list.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer.dart';
-import 'package:jotrockenmitlockenrepo/app_attributes.dart';
+import 'package:anthology/Decoration/col_divider.dart';
+import 'package:anthology/Layout/Widgets/Scrolling/first_component_list.dart';
+import 'package:anthology/Pages/Footer/footer.dart';
+import 'package:anthology/app_attributes.dart';
 
 class SinglePage extends StatefulWidget {
   final List<Widget> children;

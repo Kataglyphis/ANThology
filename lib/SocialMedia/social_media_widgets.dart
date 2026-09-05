@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Layout/adaptive_grid.dart';
-import 'package:jotrockenmitlockenrepo/SocialMedia/Settings/social_media_settings.dart';
-import 'package:jotrockenmitlockenrepo/Url/browser_helper.dart';
-import 'package:jotrockenmitlockenrepo/Url/external_link_config.dart';
+import 'package:anthology/Layout/adaptive_grid.dart';
+import 'package:anthology/SocialMedia/Settings/social_media_settings.dart';
+import 'package:anthology/Url/browser_helper.dart';
+import 'package:anthology/Url/external_link_config.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:jotrockenmitlockenrepo/constants.dart';
+import 'package:anthology/constants.dart';
 
 class SocialMediaWidgets extends StatelessWidget {
   const SocialMediaWidgets({super.key, required this.socialMediaLinksConfig});

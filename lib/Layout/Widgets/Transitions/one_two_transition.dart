@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Layout/Widgets/Animations/offset_animation.dart';
-import 'package:jotrockenmitlockenrepo/Layout/Widgets/Animations/size_animation.dart';
-import 'package:jotrockenmitlockenrepo/constants.dart';
+import 'package:anthology/Layout/Widgets/Animations/offset_animation.dart';
+import 'package:anthology/Layout/Widgets/Animations/size_animation.dart';
+import 'package:anthology/constants.dart';
 
 class OneTwoTransition extends StatefulWidget {
   const OneTwoTransition({

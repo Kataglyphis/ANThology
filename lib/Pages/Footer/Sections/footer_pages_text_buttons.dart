@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Layout/adaptive_grid.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer_page_config.dart';
-import 'package:jotrockenmitlockenrepo/constants.dart';
+import 'package:anthology/Layout/adaptive_grid.dart';
+import 'package:anthology/Pages/Footer/footer_page_config.dart';
+import 'package:anthology/constants.dart';
 import 'package:go_router/go_router.dart';
 
 class FooterPagesTextButtons extends StatefulWidget {

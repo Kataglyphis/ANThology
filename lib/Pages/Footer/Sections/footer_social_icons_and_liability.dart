@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer_config.dart';
-import 'package:jotrockenmitlockenrepo/SocialMedia/social_media_widgets.dart';
-import 'package:jotrockenmitlockenrepo/constants.dart';
-import 'package:jotrockenmitlockenrepo/user_settings.dart';
+import 'package:anthology/Pages/Footer/footer_config.dart';
+import 'package:anthology/SocialMedia/social_media_widgets.dart';
+import 'package:anthology/constants.dart';
+import 'package:anthology/user_settings.dart';
 
 class FooterSocialIconsAndLiability extends StatefulWidget {
   const FooterSocialIconsAndLiability({

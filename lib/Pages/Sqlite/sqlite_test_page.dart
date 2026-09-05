@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Layout/ResponsiveDesign/single_page.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Footer/footer.dart';
-import 'package:jotrockenmitlockenrepo/Sqlite/sqlite_self_test.dart';
-import 'package:jotrockenmitlockenrepo/app_attributes.dart';
+import 'package:anthology/Layout/ResponsiveDesign/single_page.dart';
+import 'package:anthology/Pages/Footer/footer.dart';
+import 'package:anthology/Sqlite/sqlite_self_test.dart';
+import 'package:anthology/app_attributes.dart';
 
 class SqliteTestPage extends StatefulWidget {
   const SqliteTestPage({

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-import 'package:jotrockenmitlockenrepo/Media/DataTable/jotrockenmitlocken_table.dart';
-import 'package:jotrockenmitlockenrepo/Media/DataTable/jotrockenmitlocken_table_info_provider.dart';
-import 'package:jotrockenmitlockenrepo/Media/DataTable/table_data.dart';
+import 'package:anthology/Media/DataTable/jotrockenmitlocken_table.dart';
+import 'package:anthology/Media/DataTable/jotrockenmitlocken_table_info_provider.dart';
+import 'package:anthology/Media/DataTable/table_data.dart';
 
-import 'package:jotrockenmitlockenrepo/constants.dart';
+import 'package:anthology/constants.dart';
 
 abstract class DataList<T extends TableData> extends StatefulWidget {
   const DataList({

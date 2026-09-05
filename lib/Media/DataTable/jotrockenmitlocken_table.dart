@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/centered_box_decoration.dart';
-import 'package:jotrockenmitlockenrepo/Decoration/row_divider.dart';
-import 'package:jotrockenmitlockenrepo/Media/DataTable/datacell_content_strategies.dart';
-import 'package:jotrockenmitlockenrepo/Media/DataTable/table_data.dart';
-import 'package:jotrockenmitlockenrepo/constants.dart';
+import 'package:anthology/Decoration/centered_box_decoration.dart';
+import 'package:anthology/Decoration/row_divider.dart';
+import 'package:anthology/Media/DataTable/datacell_content_strategies.dart';
+import 'package:anthology/Media/DataTable/table_data.dart';
+import 'package:anthology/constants.dart';
 
 class _MyDataTableSource extends DataTableSource {
   List<DataRow> dataRows;

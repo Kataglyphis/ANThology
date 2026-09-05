@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/button_names.dart';
+import 'package:anthology/Pages/Home/button_names.dart';
 
-import 'package:jotrockenmitlockenrepo/Pages/Home/Widgets/expanded_color_seed_action.dart';
-import 'package:jotrockenmitlockenrepo/Pages/Home/Widgets/language_button.dart';
+import 'package:anthology/Pages/Home/Widgets/expanded_color_seed_action.dart';
+import 'package:anthology/Pages/Home/Widgets/language_button.dart';
 
-import 'package:jotrockenmitlockenrepo/app_attributes.dart';
+import 'package:anthology/app_attributes.dart';
 
 class ExpandedTrailingActions extends StatelessWidget {
   const ExpandedTrailingActions({
