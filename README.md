@@ -11,10 +11,8 @@
 
 For official docs follow this [link](https://omnifronteer.jonasheinle.de/) 
 
-<!-- [![Linux build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Linux.yml)
-[![Windows build](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml/badge.svg)](https://github.com/Kataglyphis/GraphicsEngineVulkan/actions/workflows/Windows.yml)-->
-[![Deploy docs on website](https://github.com/Kataglyphis/anthology/actions/workflows/dart.yml/badge.svg)](https://github.com/Kataglyphis/anthology/actions/workflows/dart.yml)[![CodeQL](https://github.com/Kataglyphis/anthology/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Kataglyphis/anthology/actions/workflows/github-code-scanning/codeql)
-[![TopLang](https://img.shields.io/github/languages/top/Kataglyphis/anthology)]() 
+[![Deploy docs on website](https://github.com/Kataglyphis/ANThology/actions/workflows/dart.yml/badge.svg)](https://github.com/Kataglyphis/ANThology/actions/workflows/dart.yml)[![CodeQL](https://github.com/Kataglyphis/ANThology/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Kataglyphis/ANThology/actions/workflows/github-code-scanning/codeql)
+[![TopLang](https://img.shields.io/github/languages/top/Kataglyphis/ANThology)]() 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/JonasHeinle)
 [![Twitter](https://img.shields.io/twitter/follow/Cataglyphis_?style=social)](https://twitter.com/Cataglyphis_)
 [![YouTube](https://img.shields.io/youtube/channel/subscribers/UC3LZiH4sZzzaVBCUV8knYeg?style=social)](https://www.youtube.com/channel/UC3LZiH4sZzzaVBCUV8knYeg)
@@ -87,7 +85,7 @@ Watch the `pubspec.yaml` file.
 
 1. Clone the repo
    ```sh
-   git clone --recurse-submodules git@github.com:Kataglyphis/anthology.git
+   git clone --recurse-submodules git@github.com:Kataglyphis/ANThology.git
    ```
 
 <!-- ## Tests -->
@@ -128,7 +126,7 @@ MIT
 Jonas Heinle - [@Cataglyphis_](https://twitter.com/Cataglyphis_) </br>
 Get in touch: contact@jonasheinle.de
 
-Project Link: [https://github.com/Kataglyphis/anthology](https://github.com/Kataglyphis/anthology)
+Project Link: [https://github.com/Kataglyphis/ANThology](https://github.com/Kataglyphis/ANThology)
 
 
 <!-- ACKNOWLEDGEMENTS -->
