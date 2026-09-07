@@ -7,26 +7,57 @@ on:
 jobs:
   build:
     name: 🚀 Deploy website on push
-    #runs-on: windows-latest
     runs-on: ubuntu-26.04
-    steps:
-      - name: 🚚 Get latest code
-        uses: actions/checkout@v6.0.0
+    permissions:
+      contents: read
 
-      - name: Set up Python 3.13
-        uses: actions/setup-python@v6.0.0
+    env:
+      CONTAINER_IMAGE: ghcr.io/kataglyphis/kataglyphis_beschleuniger:latest-cross
+
+    steps:
+      # ContainerHub's shared prologue: reclaim disk, check out, pull the image
+      # with retries. No registry inputs: this repo has no GHCR_PAT secret and
+      # the image is public (the action skips login when the password is empty).
+      # submodules 'false' because ANThology has no .gitmodules.
+      - name: 🚚 Prepare CI host
+        uses: Kataglyphis/ContainerHub/.github/actions/prepare-linux-ci-host@main
         with:
-          python-version: "3.13"
-          
-      - name: Setup Flutter SDK
-        uses: flutter-actions/setup-flutter@v4.1
+          image: ${{ env.CONTAINER_IMAGE }}
+          submodules: 'false'
+
+      # ANThology has no ContainerHub submodule, so CI checks out the shared
+      # tooling itself: the gate SCRIPT comes from this checkout, while the
+      # Flutter/Dart toolchain comes from the image.
+      - name: 🚚 Get ContainerHub tooling
+        uses: actions/checkout@v6.0.0
         with:
-          channel: stable
-          version: 3.41.6
-      
-      - name: Build docs 
+          repository: Kataglyphis/ContainerHub
+          ref: main
+          path: containerhub-tools
+
+      # The family's shared Dart gate (pub get, format on tracked files,
+      # analyze, test), then dart doc. The image runs as uid-1001 `kataglyphis`
+      # with the Flutter SDK on its ENV PATH (docs/consumer-image-contract.md),
+      # and that uid matches the runner's, so no PATH export and no git
+      # safe.directory shim is needed — the image's Flutter (pinned in
+      # ContainerHub versions.env) must satisfy pubspec's flutter floor.
+      - name: Dart checks (format, analyze, test) + build docs
+        uses: Kataglyphis/ContainerHub/.github/actions/run-in-linux-container@main
+        with:
+          image: ${{ env.CONTAINER_IMAGE }}
+          extra-args: --platform "linux/amd64"
+          script: >-
+            bash -c 'bash /workspace/containerhub-tools/linux/scripts/05-frameworks/flutter/flutter_checks.sh --strict true
+            && dart doc'
+
+      # Defensive permissions normalization before the host-side FTP step,
+      # mirroring dart_on_native_linux.yml (container uid 1001 == runner uid,
+      # so this is a no-op in the common case, load-bearing only when the
+      # image's user model changes underneath us).
+      - name: Fix permissions for doc directory
         run: |
-          dart doc
+          sudo chown -R $USER:$USER ./doc/api/
+          sudo chmod -R 755 ./doc/api/
 
       - name: 📂 Sync files to doc domain
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
