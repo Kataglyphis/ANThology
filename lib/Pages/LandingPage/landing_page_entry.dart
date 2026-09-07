@@ -17,7 +17,7 @@ class LandingPageEntry extends StatefulWidget {
     required this.routerPath,
     required this.headline,
     required this.imagePath,
-    required this.githubRepo,
+    this.githubRepo,
     required this.description,
     required this.lastModified,
     required this.fileTitle,
@@ -30,7 +30,10 @@ class LandingPageEntry extends StatefulWidget {
   final String headline;
   final String imagePath;
   final String description;
-  final ExternalLinkConfig githubRepo;
+
+  /// Source repository for this entry, or null when the app has no GitHub
+  /// link configured. Null hides the icon rather than guessing a URL.
+  final ExternalLinkConfig? githubRepo;
   final String? imageCaptioning;
   final String lastModified;
   final String fileTitle;
@@ -50,12 +53,13 @@ class LandingPageEntryState extends State<LandingPageEntry> {
       Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          IconButton(
-            icon: const FaIcon(FontAwesomeIcons.github),
-            onPressed: () {
-              BrowserHelper.launchInBrowser(widget.githubRepo);
-            },
-          ),
+          if (widget.githubRepo != null)
+            IconButton(
+              icon: const FaIcon(FontAwesomeIcons.github),
+              onPressed: () {
+                BrowserHelper.launchInBrowser(widget.githubRepo!);
+              },
+            ),
           colDivider,
           Text(
             widget.description,

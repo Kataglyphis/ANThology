@@ -1,0 +1,181 @@
+{
+  "@@locale": "en",
+
+  "brightness": "Brightness",
+  "@brightness": {
+    "description": "Label for the light/dark mode affordance."
+  },
+  "toogleBrightness": "Toggle brightness",
+  "@toogleBrightness": {
+    "description": "Tooltip on the button that flips between light and dark mode. Spelling of the key is kept from the apps' original catalogues so the hoist is a pure move."
+  },
+  "switchLang": "Language",
+  "@switchLang": {
+    "description": "Label of the locale picker. Deliberately neutral: a hard-coded 'Switch (DE/EN)' is wrong for any app shipping a third locale."
+  },
+  "toogleLanguage": "Toggle language",
+  "@toogleLanguage": {
+    "description": "Tooltip on the locale picker."
+  },
+  "selectSeedColor": "Select a seed color",
+  "@selectSeedColor": {
+    "description": "Label of the Material 3 seed-colour picker."
+  },
+
+  "imprint": "Imprint",
+  "@imprint": {
+    "description": "Footer page title for the legal imprint."
+  },
+  "contact": "Contact",
+  "@contact": {
+    "description": "Footer page title for the contact details."
+  },
+  "privacyPolicy": "Privacy policy",
+  "@privacyPolicy": {
+    "description": "Footer page title for the privacy policy."
+  },
+  "cookieStatement": "Cookie statement",
+  "@cookieStatement": {
+    "description": "Footer page title for the cookie declaration."
+  },
+  "declarationOnAccessibility": "Declaration on accessibility",
+  "@declarationOnAccessibility": {
+    "description": "Footer page title for the accessibility declaration."
+  },
+  "copyrightFooterTitle": "Copyright",
+  "@copyrightFooterTitle": {
+    "description": "Footer page title for the copyright notice. The notice text itself names a specific rights holder and therefore stays in the consuming app."
+  },
+  "externalLinks": "External links",
+  "@externalLinks": {
+    "description": "Heading above the footer's outbound link list."
+  },
+  "lastModified": "Last modified",
+  "@lastModified": {
+    "description": "Prefix in front of a document's last-modification date."
+  },
+
+  "openSourceLicenses": "Open source licenses",
+  "@openSourceLicenses": {
+    "description": "Title of OpenSourceLicensesPage."
+  },
+  "openSourceLicensesDescription": "This page lists third-party packages and their license texts used in this app.",
+  "@openSourceLicensesDescription": {
+    "description": "Intro paragraph rendered by OpenSourceLicensesPage."
+  },
+  "openSourceLicensesError": "The open source licenses could not be loaded.",
+  "@openSourceLicensesError": {
+    "description": "Shown by OpenSourceLicensesPage when LicenseRegistry fails."
+  },
+  "openSourceLicensesEmpty": "No open source licenses are currently available.",
+  "@openSourceLicensesEmpty": {
+    "description": "Shown by OpenSourceLicensesPage when LicenseRegistry yields nothing."
+  },
+
+  "copyLabel": "Copy",
+  "@copyLabel": {
+    "description": "Label of CopyButton, which copies a code block or quote to the clipboard."
+  },
+  "openLabel": "Open",
+  "@openLabel": {
+    "description": "Label of OpenButton, which opens the attached document."
+  },
+
+  "sqliteSelfTestTitle": "SQLite self test",
+  "@sqliteSelfTestTitle": {
+    "description": "Headline of SqliteTestPage."
+  },
+  "sqliteSelfTestDescription": "Runs a minimal query and shows the result.",
+  "@sqliteSelfTestDescription": {
+    "description": "Sub-headline of SqliteTestPage."
+  },
+  "sqliteSelfTestRunLabel": "Run test",
+  "@sqliteSelfTestRunLabel": {
+    "description": "Label of the SqliteTestPage button while idle."
+  },
+  "sqliteSelfTestRunningLabel": "Running…",
+  "@sqliteSelfTestRunningLabel": {
+    "description": "Label of the SqliteTestPage button while the self test is in flight."
+  },
+  "sqliteSelfTestErrorPrefix": "ERROR: ",
+  "@sqliteSelfTestErrorPrefix": {
+    "description": "Prefix in front of a thrown SQLite self-test error. Trailing space is intentional."
+  }
+,
+
+  "myPerfectDay": "My perfect Day",
+  "@myPerfectDay": {
+    "description": "Title of the pie chart breaking a day down into activities."
+  },
+  "sleep": "Sleep",
+  "@sleep": {
+    "description": "Perfect-day chart slice."
+  },
+  "studying": "Studying",
+  "@studying": {
+    "description": "Perfect-day chart slice."
+  },
+  "sports": "Sports",
+  "@sports": {
+    "description": "Perfect-day chart slice."
+  },
+  "meditation": "Meditation",
+  "@meditation": {
+    "description": "Perfect-day chart slice."
+  },
+  "guitar": "Guitar",
+  "@guitar": {
+    "description": "Perfect-day chart slice."
+  },
+  "familyFriends": "Family and friends",
+  "@familyFriends": {
+    "description": "Perfect-day chart slice."
+  },
+
+  "shortDescriptionTextMyPersona": "Interested in many things. I love breathing life into artificial neurons.",
+  "@shortDescriptionTextMyPersona": {
+    "description": "One-line bio under the portrait on the about-me table."
+  },
+  "mailMe": "Mail Me",
+  "@mailMe": {
+    "description": "Label of the mailto button on the about-me table."
+  },
+  "spendCoffe": "You can get me some coffee",
+  "@spendCoffe": {
+    "description": "Caption under the donation images. Key spelling kept from the apps' original catalogues so the hoist is a pure move."
+  },
+
+  "blockEntryOverview": "Overview of all my blog posts",
+  "@blockEntryOverview": {
+    "description": "Title of the blog-post overview table."
+  },
+  "blockEntryOverviewDescription": "Does not include reviews of books/movies/games",
+  "@blockEntryOverviewDescription": {
+    "description": "Subtitle of the blog-post overview table."
+  },
+  "entryRedirectText": "Read more",
+  "@entryRedirectText": {
+    "description": "Text of the cell button that opens a blog post."
+  },
+  "blogEntriesOverviewLink": "Go to the overview of all blog entries",
+  "@blogEntriesOverviewLink": {
+    "description": "Landing-page link to the blog-post overview. Replaces a hard-coded de/en ternary that silently served English to a third locale."
+  },
+  "visitBlogEntry": "Visit blog entry",
+  "@visitBlogEntry": {
+    "description": "Headline of a landing-page entry."
+  },
+  "playgroundDescription": "Visit my code repo",
+  "@playgroundDescription": {
+    "description": "Description under a landing-page entry's source-repository link."
+  },
+
+  "copyright": "Copyright © 2024 Jonas Heinle. \nAll rights reserved.",
+  "@copyright": {
+    "description": "Copyright line rendered in the footer liability block."
+  },
+  "disclaimer": "Disclaimer: I accept no liability for the content of external links.",
+  "@disclaimer": {
+    "description": "External-link liability disclaimer rendered in the footer."
+  }
+}

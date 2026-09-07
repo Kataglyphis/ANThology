@@ -3,26 +3,33 @@ import 'package:anthology/Layout/ResponsiveDesign/single_page.dart';
 import 'package:anthology/Pages/Footer/footer.dart';
 import 'package:anthology/Sqlite/sqlite_self_test.dart';
 import 'package:anthology/app_attributes.dart';
+import 'package:anthology/l10n/anthology_localizations.dart';
 
+/// Runs [runSqliteSelfTest] on demand and shows its output.
+///
+/// All copy on this page comes from [AnthologyLocalizations], so the host app
+/// must register [AnthologyLocalizations.delegate] in its
+/// `localizationsDelegates`. Title, description and both button labels used to
+/// arrive through four `String Function(BuildContext)` closures; the only
+/// consumer implemented them as a hand-rolled `localeOf(context) == Locale('de')`
+/// ternary, which silently served English to every third locale it shipped.
 class SqliteTestPage extends StatefulWidget {
   const SqliteTestPage({
     super.key,
     required this.appAttributes,
     required this.footer,
-    required this.titleBuilder,
-    required this.descriptionBuilder,
-    required this.runLabelBuilder,
-    required this.runningLabelBuilder,
-    this.errorPrefix = 'ERROR: ',
+    this.errorPrefix,
   });
 
   final AppAttributes appAttributes;
   final Footer footer;
-  final String Function(BuildContext) titleBuilder;
-  final String Function(BuildContext) descriptionBuilder;
-  final String Function(BuildContext) runLabelBuilder;
-  final String Function(BuildContext) runningLabelBuilder;
-  final String errorPrefix;
+
+  /// Prefix put in front of a thrown self-test error.
+  ///
+  /// Defaults to [AnthologyLocalizations.sqliteSelfTestErrorPrefix], which
+  /// follows the active locale. Override it only to say something the shared
+  /// catalogue cannot.
+  final String? errorPrefix;
 
   @override
   State<StatefulWidget> createState() => SqliteTestPageState();
@@ -33,6 +40,12 @@ class SqliteTestPageState extends State<SqliteTestPage> {
   String? _result;
 
   Future<void> _run() async {
+    // Resolved before the first await: `context` must not be touched across an
+    // async gap, and the prefix is needed only after the self test returns.
+    final String errorPrefix =
+        widget.errorPrefix ??
+        AnthologyLocalizations.of(context)!.sqliteSelfTestErrorPrefix;
+
     setState(() {
       _isRunning = true;
       _result = null;
@@ -42,7 +55,7 @@ class SqliteTestPageState extends State<SqliteTestPage> {
     try {
       result = await runSqliteSelfTest();
     } catch (e) {
-      result = '${widget.errorPrefix}$e';
+      result = '$errorPrefix$e';
     }
 
     if (!mounted) {
@@ -56,6 +69,7 @@ class SqliteTestPageState extends State<SqliteTestPage> {
 
   @override
   Widget build(BuildContext context) {
+    final AnthologyLocalizations l10n = AnthologyLocalizations.of(context)!;
     return SinglePage(
       footer: widget.footer,
       appAttributes: widget.appAttributes,
@@ -66,12 +80,12 @@ class SqliteTestPageState extends State<SqliteTestPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              widget.titleBuilder(context),
+              l10n.sqliteSelfTestTitle,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
             const SizedBox(height: 12),
             Text(
-              widget.descriptionBuilder(context),
+              l10n.sqliteSelfTestDescription,
               style: Theme.of(context).textTheme.titleSmall,
             ),
             const SizedBox(height: 16),
@@ -79,8 +93,8 @@ class SqliteTestPageState extends State<SqliteTestPage> {
               onPressed: _isRunning ? null : _run,
               child: Text(
                 _isRunning
-                    ? widget.runningLabelBuilder(context)
-                    : widget.runLabelBuilder(context),
+                    ? l10n.sqliteSelfTestRunningLabel
+                    : l10n.sqliteSelfTestRunLabel,
               ),
             ),
             const SizedBox(height: 16),

@@ -1,0 +1,107 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:anthology/Layout/ResponsiveDesign/one_two_transition_widget.dart';
+import 'package:anthology/Pages/Footer/footer.dart';
+import 'package:anthology/Pages/LandingPage/landing_page_entry.dart';
+import 'package:anthology/Url/external_link_config.dart';
+import 'package:anthology/app_attributes.dart';
+import 'package:anthology/blog_dependent_app_attributes.dart';
+import 'package:anthology/blog_page_config.dart';
+import 'package:anthology/l10n/anthology_localizations.dart';
+
+/// Two-column landing page: one [LandingPageEntry] per configured blog post.
+///
+/// Requires [AnthologyLocalizations.delegate] on the enclosing [MaterialApp].
+class LandingPage extends StatefulWidget {
+  final AppAttributes appAttributes;
+  final BlogDependentAppAttributes blogDependentAppAttributes;
+  final Footer footer;
+  const LandingPage({
+    super.key,
+    required this.appAttributes,
+    required this.footer,
+    required this.blogDependentAppAttributes,
+  });
+
+  @override
+  State<StatefulWidget> createState() => LandingPageState();
+}
+
+class LandingPageState extends State<LandingPage> {
+  List<List<Widget>> _createLandingPageChildWidgets(BuildContext context) {
+    const colDivider = SizedBox(height: 10);
+    final localizations = AnthologyLocalizations.of(context)!;
+    List<Widget> childWidgetsLeftPage = [];
+    List<Widget> childWidgetsRightPage = [];
+    List<BlogPageConfig> blogPagesConfig = widget
+        .blogDependentAppAttributes
+        .blogDependentScreenConfigurations
+        .getBlogPagesConfig();
+
+    // lets add a button to the overall overview of all blog entries as the first entry
+    childWidgetsLeftPage.add(
+      TextButton(
+        onPressed: () {
+          context.go('/blockEntries');
+        },
+        child: Text(
+          textAlign: TextAlign.center,
+          localizations.blogEntriesOverviewLink,
+        ),
+      ),
+    );
+
+    // A missing GitHub link is not fatal: the entries still render, they just
+    // carry no repository icon. Indexing into a null config here used to throw
+    // and take the whole landing page down.
+    final socialLinks =
+        widget.appAttributes.userSettings.socialMediaLinksConfig;
+    final ExternalLinkConfig? gitHub = socialLinks?['GitHub'];
+    for (int i = 0; i < blogPagesConfig.length; i++) {
+      final ExternalLinkConfig? githubRepo = gitHub == null
+          ? null
+          : ExternalLinkConfig(
+              host: gitHub.host,
+              path: gitHub.path + blogPagesConfig[i].githubRepo,
+            );
+
+      final landingPageEntry = LandingPageEntry(
+        lastModified:
+            "${localizations.lastModified} ${blogPagesConfig[i].lastModified}",
+        fileTitle: blogPagesConfig[i].fileTitle,
+        fileAdditionalInfo: blogPagesConfig[i].fileAdditionalInfo,
+        fileBaseDir: blogPagesConfig[i].fileBaseDir,
+        label: Localizations.localeOf(context) == const Locale("de")
+            ? blogPagesConfig[i].shortDescriptionDE
+            : blogPagesConfig[i].shortDescriptionEN,
+        routerPath: blogPagesConfig[i].getRoutingName(),
+        headline: localizations.visitBlogEntry,
+        githubRepo: githubRepo,
+        description: localizations.playgroundDescription,
+        imagePath: blogPagesConfig[i].landingPageEntryImagePath,
+        imageCaptioning: blogPagesConfig[i].landingPageEntryImageCaptioning,
+      );
+      if (blogPagesConfig[i].landingPageAlignment == "left") {
+        childWidgetsLeftPage += [colDivider, landingPageEntry, colDivider];
+      } else {
+        childWidgetsRightPage += [colDivider, landingPageEntry, colDivider];
+      }
+    }
+    return [childWidgetsLeftPage, childWidgetsRightPage];
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final homePagesLeftRight = _createLandingPageChildWidgets(context);
+
+    return OneTwoTransitionPage(
+      childWidgetsLeftPage: homePagesLeftRight[0],
+      childWidgetsRightPage: homePagesLeftRight[1],
+      appAttributes: widget.appAttributes,
+      footer: widget.footer,
+      showMediumSizeLayout: widget.appAttributes.showMediumSizeLayout,
+      showLargeSizeLayout: widget.appAttributes.showLargeSizeLayout,
+      railAnimation: widget.appAttributes.railAnimation,
+    );
+  }
+}

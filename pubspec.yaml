@@ -10,6 +10,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  # Needed by the generated AnthologyLocalizations (see l10n.yaml). The package
+  # ships its own catalogue, so its widgets no longer take localized strings in
+  # through `String Function(BuildContext)` closures.
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.20.2
   csv: ^8.0.0
   url_launcher: ^6.3.2
   go_router: ^17.2.1
@@ -29,3 +35,122 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+
+flutter:
+  # Runs gen-l10n for this package. The generated Dart under lib/l10n/ is also
+  # committed, because a consumer's `flutter pub get` never runs gen-l10n for a
+  # dependency.
+  generate: true
+  uses-material-design: true
+
+  # The shared asset corpus. Both apps (OmniAccelerANT and jotrockenmitlocken)
+  # used to carry byte-identical copies of every file below; they now reference
+  # them as `packages/anthology/assets/...`. Keeping the legal texts under
+  # assets/documents/footer/ in one place is the point: imprint, privacy policy,
+  # cookie declaration, accessibility declaration, contact and copyright all
+  # describe the SAME legal entity, so a one-sided edit was a compliance defect.
+  assets:
+    - assets/documents/blog/
+    - assets/documents/footer/
+    - assets/images/
+    - assets/images/aiBlog/
+    - assets/images/books/
+    - assets/images/cats/
+    - assets/images/Pages/AboutMe/
+    - assets/images/Pages/AboutMe/Bewerbungsbilder/
+    # `assets/images/Pages/Blog/` itself holds no files (only the
+    # OpenGLRenderer/ and VulkanRenderer/ subdirectories), so declaring it
+    # bundled nothing in either app. Only the directory that actually has
+    # referenced files is declared.
+    - assets/images/Pages/Blog/VulkanRenderer/
+    - assets/images/Pages/Data/
+    - assets/images/Pages/Error/
+
+  # Declared HERE, nested under `flutter:`. Both apps previously kept a `fonts:`
+  # block at column 0 - a top-level pubspec key that Flutter silently ignores -
+  # so no custom face ever reached FontManifest.json and `fontFamily: 'Roboto'`
+  # fell back to the platform default. Package fonts register under the
+  # `packages/anthology/<family>` name; use that (or `package: 'anthology'`).
+  fonts:
+    - family: Montserrat
+      fonts:
+        # NOTE: the real files live under Montserrat/static/. Omni's old block
+        # omitted `static/` and jot's omitted `assets/fonts/Montserrat/`
+        # entirely, so every one of these paths used to be unresolvable.
+        - asset: assets/fonts/Montserrat/static/Montserrat-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Montserrat/static/Montserrat-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/Montserrat/static/Montserrat-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/Montserrat/static/Montserrat-ExtraLightItalic.ttf
+          weight: 200
+          style: italic
+        - asset: assets/fonts/Montserrat/static/Montserrat-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Montserrat/static/Montserrat-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Montserrat/static/Montserrat-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Montserrat/static/Montserrat-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Montserrat/static/Montserrat-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Montserrat/static/Montserrat-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Montserrat/static/Montserrat-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Montserrat/static/Montserrat-SemiBoldItalic.ttf
+          weight: 600
+          style: italic
+        - asset: assets/fonts/Montserrat/static/Montserrat-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Montserrat/static/Montserrat-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Montserrat/static/Montserrat-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/Montserrat/static/Montserrat-ExtraBoldItalic.ttf
+          weight: 800
+          style: italic
+        - asset: assets/fonts/Montserrat/static/Montserrat-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Montserrat/static/Montserrat-BlackItalic.ttf
+          weight: 900
+          style: italic
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Roboto/Roboto-ThinItalic.ttf
+          weight: 100
+          style: italic
+        - asset: assets/fonts/Roboto/Roboto-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Roboto/Roboto-LightItalic.ttf
+          weight: 300
+          style: italic
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Roboto/Roboto-Italic.ttf
+          weight: 400
+          style: italic
+        - asset: assets/fonts/Roboto/Roboto-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Roboto/Roboto-MediumItalic.ttf
+          weight: 500
+          style: italic
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Roboto/Roboto-BoldItalic.ttf
+          weight: 700
+          style: italic
+        - asset: assets/fonts/Roboto/Roboto-Black.ttf
+          weight: 900
+        - asset: assets/fonts/Roboto/Roboto-BlackItalic.ttf
+          weight: 900
+          style: italic

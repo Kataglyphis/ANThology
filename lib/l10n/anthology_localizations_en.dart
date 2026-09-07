@@ -1,0 +1,145 @@
+// ignore: unused_import
+import 'package:intl/intl.dart' as intl;
+import 'anthology_localizations.dart';
+
+// ignore_for_file: type=lint
+
+/// The translations for English (`en`).
+class AnthologyLocalizationsEn extends AnthologyLocalizations {
+  AnthologyLocalizationsEn([String locale = 'en']) : super(locale);
+
+  @override
+  String get brightness => 'Brightness';
+
+  @override
+  String get toogleBrightness => 'Toggle brightness';
+
+  @override
+  String get switchLang => 'Language';
+
+  @override
+  String get toogleLanguage => 'Toggle language';
+
+  @override
+  String get selectSeedColor => 'Select a seed color';
+
+  @override
+  String get imprint => 'Imprint';
+
+  @override
+  String get contact => 'Contact';
+
+  @override
+  String get privacyPolicy => 'Privacy policy';
+
+  @override
+  String get cookieStatement => 'Cookie statement';
+
+  @override
+  String get declarationOnAccessibility => 'Declaration on accessibility';
+
+  @override
+  String get copyrightFooterTitle => 'Copyright';
+
+  @override
+  String get externalLinks => 'External links';
+
+  @override
+  String get lastModified => 'Last modified';
+
+  @override
+  String get openSourceLicenses => 'Open source licenses';
+
+  @override
+  String get openSourceLicensesDescription =>
+      'This page lists third-party packages and their license texts used in this app.';
+
+  @override
+  String get openSourceLicensesError =>
+      'The open source licenses could not be loaded.';
+
+  @override
+  String get openSourceLicensesEmpty =>
+      'No open source licenses are currently available.';
+
+  @override
+  String get copyLabel => 'Copy';
+
+  @override
+  String get openLabel => 'Open';
+
+  @override
+  String get sqliteSelfTestTitle => 'SQLite self test';
+
+  @override
+  String get sqliteSelfTestDescription =>
+      'Runs a minimal query and shows the result.';
+
+  @override
+  String get sqliteSelfTestRunLabel => 'Run test';
+
+  @override
+  String get sqliteSelfTestRunningLabel => 'Running…';
+
+  @override
+  String get sqliteSelfTestErrorPrefix => 'ERROR: ';
+
+  @override
+  String get myPerfectDay => 'My perfect Day';
+
+  @override
+  String get sleep => 'Sleep';
+
+  @override
+  String get studying => 'Studying';
+
+  @override
+  String get sports => 'Sports';
+
+  @override
+  String get meditation => 'Meditation';
+
+  @override
+  String get guitar => 'Guitar';
+
+  @override
+  String get familyFriends => 'Family and friends';
+
+  @override
+  String get shortDescriptionTextMyPersona =>
+      'Interested in many things. I love breathing life into artificial neurons.';
+
+  @override
+  String get mailMe => 'Mail Me';
+
+  @override
+  String get spendCoffe => 'You can get me some coffee';
+
+  @override
+  String get blockEntryOverview => 'Overview of all my blog posts';
+
+  @override
+  String get blockEntryOverviewDescription =>
+      'Does not include reviews of books/movies/games';
+
+  @override
+  String get entryRedirectText => 'Read more';
+
+  @override
+  String get blogEntriesOverviewLink =>
+      'Go to the overview of all blog entries';
+
+  @override
+  String get visitBlogEntry => 'Visit blog entry';
+
+  @override
+  String get playgroundDescription => 'Visit my code repo';
+
+  @override
+  String get copyright =>
+      'Copyright © 2024 Jonas Heinle. \nAll rights reserved.';
+
+  @override
+  String get disclaimer =>
+      'Disclaimer: I accept no liability for the content of external links.';
+}

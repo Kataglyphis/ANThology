@@ -3,22 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:anthology/Layout/ResponsiveDesign/single_page.dart';
 import 'package:anthology/Pages/Footer/footer.dart';
 import 'package:anthology/app_attributes.dart';
+import 'package:anthology/l10n/anthology_localizations.dart';
 
+/// Lists every package registered with [LicenseRegistry] and its licence text.
+///
+/// All copy on this page comes from [AnthologyLocalizations], so the host app
+/// must register [AnthologyLocalizations.delegate] in its
+/// `localizationsDelegates`. It used to arrive through three
+/// `String Function(BuildContext)` closures, which forced every consuming app
+/// to keep its own duplicate of the same three strings.
 class OpenSourceLicensesPage extends StatefulWidget {
   const OpenSourceLicensesPage({
     super.key,
     required this.footer,
     required this.appAttributes,
-    required this.descriptionTextBuilder,
-    required this.errorTextBuilder,
-    required this.emptyTextBuilder,
   });
 
   final Footer footer;
   final AppAttributes appAttributes;
-  final String Function(BuildContext) descriptionTextBuilder;
-  final String Function(BuildContext) errorTextBuilder;
-  final String Function(BuildContext) emptyTextBuilder;
 
   @override
   State<StatefulWidget> createState() => _OpenSourceLicensesPageState();
@@ -72,6 +74,7 @@ class _OpenSourceLicensesPageState extends State<OpenSourceLicensesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final AnthologyLocalizations l10n = AnthologyLocalizations.of(context)!;
     return SinglePage(
       footer: widget.footer,
       appAttributes: widget.appAttributes,
@@ -81,7 +84,7 @@ class _OpenSourceLicensesPageState extends State<OpenSourceLicensesPage> {
         Padding(
           padding: const EdgeInsets.all(16),
           child: Text(
-            widget.descriptionTextBuilder(context),
+            l10n.openSourceLicensesDescription,
             style: Theme.of(context).textTheme.bodyLarge,
           ),
         ),
@@ -99,7 +102,7 @@ class _OpenSourceLicensesPageState extends State<OpenSourceLicensesPage> {
               return Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  widget.errorTextBuilder(context),
+                  l10n.openSourceLicensesError,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               );
@@ -111,7 +114,7 @@ class _OpenSourceLicensesPageState extends State<OpenSourceLicensesPage> {
               return Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(
-                  widget.emptyTextBuilder(context),
+                  l10n.openSourceLicensesEmpty,
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
               );

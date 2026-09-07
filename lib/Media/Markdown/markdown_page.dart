@@ -11,7 +11,7 @@ class MarkdownFilePage extends StatefulWidget {
     required this.currentLocale,
     required this.filePathDe,
     required this.filePathEn,
-    this.imageDirectory = 'assets/images/',
+    this.imageDirectory = 'packages/anthology/assets/images/',
     required this.useLightMode,
   });
 

@@ -1,0 +1,55 @@
+{
+  "@@locale": "fr",
+
+  "brightness": "Luminosité",
+  "toogleBrightness": "Changer la luminosité",
+  "switchLang": "Langue",
+  "toogleLanguage": "Changer de langue",
+  "selectSeedColor": "Choisir une couleur de base",
+
+  "imprint": "Mentions légales",
+  "contact": "Contact",
+  "privacyPolicy": "Politique de confidentialité",
+  "cookieStatement": "Déclaration relative aux cookies",
+  "declarationOnAccessibility": "Déclaration d'accessibilité",
+  "copyrightFooterTitle": "Droits d'auteur",
+  "externalLinks": "Liens externes",
+  "lastModified": "Dernière modification",
+
+  "openSourceLicenses": "Licences open source",
+  "openSourceLicensesDescription": "Cette page répertorie les paquets tiers et leurs textes de licence utilisés dans cette application.",
+  "openSourceLicensesError": "Les licences open source n'ont pas pu être chargées.",
+  "openSourceLicensesEmpty": "Aucune licence open source n'est actuellement disponible.",
+
+  "copyLabel": "Copier",
+  "openLabel": "Ouvrir",
+
+  "sqliteSelfTestTitle": "Auto-test SQLite",
+  "sqliteSelfTestDescription": "Exécute une requête minimale et affiche le résultat.",
+  "sqliteSelfTestRunLabel": "Lancer le test",
+  "sqliteSelfTestRunningLabel": "En cours…",
+  "sqliteSelfTestErrorPrefix": "ERREUR : "
+,
+
+  "myPerfectDay": "Ma journée parfaite",
+  "sleep": "Sommeil",
+  "studying": "Études",
+  "sports": "Sport",
+  "meditation": "Méditation",
+  "guitar": "Guitare",
+  "familyFriends": "Famille et amis",
+
+  "shortDescriptionTextMyPersona": "Intéressé par de nombreux sujets. J'aime donner vie à des neurones artificiels.",
+  "mailMe": "Envoyez-moi un e-mail",
+  "spendCoffe": "Vous pouvez m'offrir un café",
+
+  "blockEntryOverview": "Aperçu de tous mes articles de blog",
+  "blockEntryOverviewDescription": "N'inclut pas les critiques de livres/films/jeux",
+  "entryRedirectText": "Lire la suite",
+  "blogEntriesOverviewLink": "Accéder à l'aperçu de tous les articles de blog",
+  "visitBlogEntry": "Visiter l'article de blog",
+  "playgroundDescription": "Visitez mon dépôt de code",
+
+  "copyright": "Copyright © 2024 Jonas Heinle. \nTous droits réservés.",
+  "disclaimer": "Avertissement : je décline toute responsabilité quant au contenu des liens externes."
+}

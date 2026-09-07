@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:anthology/l10n/anthology_localizations.dart';
 
 import 'open_stub.dart' if (dart.library.js_interop) 'open_web.dart';
 import 'package:mime/mime.dart';
@@ -32,9 +33,9 @@ class OpenButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       ),
       child: Text(
-        (Localizations.localeOf(context) == const Locale('de'))
-            ? "Öffnen"
-            : "Open",
+        // Was a hard-coded DE/EN ternary, which served English to every other
+        // locale the host app supports.
+        AnthologyLocalizations.of(context)!.openLabel,
         style: Theme.of(context).textTheme.titleMedium,
       ),
     );

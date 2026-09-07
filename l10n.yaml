@@ -1,0 +1,13 @@
+# Localization catalogue for the anthology package.
+#
+# This is a PACKAGE, not an app, so the generated Dart is committed: a consumer's
+# `flutter pub get` never runs gen-l10n for a dependency. Regenerate with
+# `flutter gen-l10n` from this directory after editing any .arb file.
+#
+# `synthetic-package` is deliberately absent - the option was removed from
+# gen-l10n before this package's Flutter floor (see pubspec `flutter: ">=3.44.0"`),
+# and passing it is now an error.
+arb-dir: lib/l10n
+template-arb-file: anthology_en.arb
+output-localization-file: anthology_localizations.dart
+output-class: AnthologyLocalizations

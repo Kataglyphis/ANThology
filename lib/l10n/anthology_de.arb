@@ -1,0 +1,55 @@
+{
+  "@@locale": "de",
+
+  "brightness": "Helligkeit",
+  "toogleBrightness": "Wechsel Helligkeit",
+  "switchLang": "Sprache",
+  "toogleLanguage": "Wechsel Sprache",
+  "selectSeedColor": "Wähle eine Startfarbe",
+
+  "imprint": "Impressum",
+  "contact": "Kontakt",
+  "privacyPolicy": "Datenschutz",
+  "cookieStatement": "Cookie Erklärung",
+  "declarationOnAccessibility": "Erklärung zur Barrierefreiheit",
+  "copyrightFooterTitle": "Urheberrecht",
+  "externalLinks": "Externe Links",
+  "lastModified": "Zuletzt geändert",
+
+  "openSourceLicenses": "Open-Source-Lizenzen",
+  "openSourceLicensesDescription": "Diese Seite listet Drittanbieter-Pakete und deren Lizenztexte auf, die in dieser App verwendet werden.",
+  "openSourceLicensesError": "Die Open-Source-Lizenzen konnten nicht geladen werden.",
+  "openSourceLicensesEmpty": "Derzeit sind keine Open-Source-Lizenzen verfügbar.",
+
+  "copyLabel": "Kopieren",
+  "openLabel": "Öffnen",
+
+  "sqliteSelfTestTitle": "SQLite Self-Test",
+  "sqliteSelfTestDescription": "Führt eine minimale Query aus und zeigt das Ergebnis.",
+  "sqliteSelfTestRunLabel": "Test ausführen",
+  "sqliteSelfTestRunningLabel": "Läuft…",
+  "sqliteSelfTestErrorPrefix": "FEHLER: "
+,
+
+  "myPerfectDay": "Mein perfekter Tag",
+  "sleep": "Schlaf",
+  "studying": "Lernen",
+  "sports": "Sport",
+  "meditation": "Meditation",
+  "guitar": "Gitarre",
+  "familyFriends": "Familie&Freunde",
+
+  "shortDescriptionTextMyPersona": "Interessiert in vielen Sachen. Ich liebe es künstlichen Neuronen Leben einzuhauchen.​",
+  "mailMe": "Schreib mir",
+  "spendCoffe": "Spendiere mir einen Kaffee",
+
+  "blockEntryOverview": "Übersicht aller meiner verfassten Blogbeiträge",
+  "blockEntryOverviewDescription": "Beinhaltet nicht die Kritiken zu Büchern/Filmen/Spielen",
+  "entryRedirectText": "Lese mehr darüber",
+  "blogEntriesOverviewLink": "Gelange zur Übersicht aller Blogeinträge",
+  "visitBlogEntry": "Besuche Blogeintrag",
+  "playgroundDescription": "Besuchen Sie gerne auch mein Repo",
+
+  "copyright": "Copyright © 2024 Jonas Heinle. \nAlle Rechte vorbehalten.",
+  "disclaimer": "Haftungsausschluss: Für die Inhalte externer \nLinks übernehme ich keine Haftung."
+}
