@@ -1,0 +1,11 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": [
+    "ANThology's Renovate config. Everything shared lives in the preset at ContainerHub's repository root (default.json); the `extends` line below is the whole adoption, exactly as in the other consumers.",
+    "WHAT THIS REPO GETS IS DIFFERENT FROM THE OTHERS, and it is worth stating so nobody looks for the wrong thing. ANThology has NO ContainerHub submodule -- its workflows check the tooling out in CI -- so the preset's git-submodules manager, which is the headline everywhere else, has no gitlink to watch here. What it does buy: helpers:pinGitHubActionDigests over the third-party actions this repo references by tag, and the preset rule that deliberately leaves the Kataglyphis/ContainerHub composite actions at @main for the upstream-first change flow.",
+    "That second rule matters here more than in any other repo: dart.yml checks ContainerHub out at a floating `ref: main` rather than a pin, so the actions and the tooling must be allowed to move together.",
+    ".github/dependabot.yml is deliberately still present; it covers the pub ecosystem. The hand-over is a separate decision.",
+    "Renovate resolves `github>Kataglyphis/ContainerHub` from ContainerHub's DEFAULT BRANCH. This file stays inert until the Renovate GitHub App is installed on this repository -- no bot has ever authored a commit here. Until then the local CLI reads it: see docs/dependency-updates.md in ContainerHub."
+  ],
+  "extends": ["github>Kataglyphis/ContainerHub"]
+}
