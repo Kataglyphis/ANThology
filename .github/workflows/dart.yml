@@ -56,7 +56,7 @@ jobs:
       # image's user model changes underneath us).
       - name: Fix permissions for doc directory
         run: |
-          sudo chown -R $USER:$USER ./doc/api/
+          sudo chown -R "$USER:$USER" ./doc/api/
           sudo chmod -R 755 ./doc/api/
 
       - name: 📂 Sync files to doc domain

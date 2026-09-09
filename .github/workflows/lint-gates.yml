@@ -1,0 +1,94 @@
+name: Lint gates - shell, workflows, secrets
+
+# THE GATE THIS REPOSITORY HAD NONE OF. Before this file ANThology ran no lint
+# of any kind - no shellcheck, no actionlint, and, the reason this one is
+# urgent, no secret scan at all, while dart.yml pushes ./doc/api/ to a live FTP
+# target with three repository secrets (SERVER, USERNAME, PW) on every push to
+# main. It is also this repository's first pull_request check: dart.yml triggers
+# on push only, so nothing was graded before a merge.
+#
+# NO LOCAL WRAPPER, and that is a decision rather than an omission. The four
+# repos already on these gates each keep a thin run-lint-gates.sh whose only job
+# is to source the canonical bootstrap and exec the hub runner. That bootstrap
+# (ContainerHub shared/linux/templates/containerhub.sh) resolves the hub at
+# <repo>/third_party/ContainerHub and, when it is absent, tells the reader to
+# run `git submodule update --init --recursive third_party/ContainerHub`.
+# ANThology has no .gitmodules - the checkout step in dart.yml says so - so that
+# path can never exist here and that instruction would be a lie. A wrapper
+# written any other way would be a sixth bootstrap variant, which is the exact
+# thing the template's own header records the family spending effort to
+# eliminate. So this lane checks the tooling out the SAME way dart.yml already
+# does and calls the hub runner directly; there is nothing left for a wrapper to
+# wrap. Replace this job with a `uses:` when ContainerHub grows a reusable lint
+# lane, or with the wrapper pattern if ANThology ever grows the submodule.
+#
+# THE COST OF HAVING NO WRAPPER, stated rather than hidden: the other repos can
+# point at one string that CI and a dev box both run. Here the local equivalent
+# is the two commands below, with the hub checked out anywhere:
+#
+#     git clone --depth 1 https://github.com/Kataglyphis/ContainerHub
+#     bash ContainerHub/linux/scripts/run-lint-gates.sh "$(pwd)"
+#
+# TWO OF THE FOUR GATES FAIL TODAY AND NEITHER IS FIXABLE HERE. The hub runner
+# builds every file list from `git ls-files` and refuses to report green over an
+# empty one, because the underlying linters with no file arguments fall back to
+# ContainerHub's own tree and pass. ANThology is a pure Dart package: it tracks
+# zero *.sh and zero *.py files, so `shellcheck` and `ruff` both hit that
+# refusal. That is a gap in the hub's consumer model - it has no way to say
+# "this consumer has no shell" - and it is recorded here instead of being
+# silenced, because nothing in this file may weaken a gate to buy a green tick.
+# The two gates that do apply, actionlint (+ the CI image-ref check) and
+# gitleaks, are the two this repository actually needed.
+#
+# NOT WIRED INTO dart.yml's DEPLOY. The sibling Dart repo makes its deploy job
+# `needs:` its lint job, on the argument that a gate running beside a live FTP
+# push can only report a problem the world has already been served - and that is
+# the right end state here too. It is not done yet for one reason: this lane is
+# red on arrival for the two gates above, so gating on it today would stop the
+# docs deploy over something ANThology cannot fix in its own tree.
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  lint-gates:
+    name: 🧹 shell + workflow + secret lint
+    runs-on: ubuntu-26.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+
+    steps:
+      # No container and no image reference anywhere in this job, unlike
+      # dart.yml: the gate binaries are bootstrapped by the hub runner from
+      # ContainerHub's own versions.env at pinned versions -- shellcheck,
+      # actionlint and gitleaks additionally SHA256-verified, ruff version-pinned
+      # and fetched through uvx -- so the verdict does not depend on what a base
+      # image happens to ship.
+      # fetch-depth 1 is enough - every scope comes from `git ls-files`, not
+      # from history. No submodules: ANThology has none.
+      - name: 🚚 Check out
+        uses: actions/checkout@v6.0.0
+        with:
+          fetch-depth: 1
+
+      # The same mechanism dart.yml uses to reach the shared Dart gate, for the
+      # same reason: ANThology has no ContainerHub submodule, so CI checks the
+      # shared tooling out itself. It lands inside the workspace but is
+      # untracked there, so `git ls-files` cannot see it and no gate grades it.
+      - name: 🚚 Get ContainerHub tooling
+        uses: actions/checkout@v6.0.0
+        with:
+          repository: Kataglyphis/ContainerHub
+          ref: main
+          path: containerhub-tools
+
+      # The consumer root is passed EXPLICITLY and is never inferred upstream:
+      # the runner sits inside the workspace here, and a self-derived root would
+      # make all four gates grade ContainerHub's tree and report green over the
+      # wrong repository.
+      - name: Lint gates
+        run: bash containerhub-tools/linux/scripts/run-lint-gates.sh "${{ github.workspace }}"
