@@ -21,6 +21,7 @@ For official docs follow this [link](https://omnifronteer.jonasheinle.de/)
 - [About The Project](#about-the-project)
   - [Key Features](#key-features)
   - [Dependencies](#dependencies)
+    - [What is behind: Renovate as a local CLI](#what-is-behind-renovate-as-a-local-cli)
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
@@ -70,6 +71,36 @@ Supports english and german right now.
 
 ### Dependencies
 Watch the `pubspec.yaml` file.
+
+#### What is behind: Renovate as a local CLI
+
+`.github/renovate.json` is read by exactly one thing — the shared Renovate CLI,
+run locally. The Renovate GitHub App is installed on no repo in this family and
+will not be, and no workflow runs this script, so it blocks nothing and nobody
+runs it for you.
+
+```sh
+bash scripts/renovate-local.sh                       # report (github-actions + pub)
+bash scripts/renovate-local.sh --hub ../ContainerHub # if it cannot find the hub
+bash scripts/renovate-local.sh --managers pub        # narrow it
+```
+
+**This repo has no `third_party/ContainerHub`**, unlike its siblings — the
+workflows check the tooling out in CI at `ref: main`. The wrapper therefore has
+to *find* a ContainerHub checkout instead of assuming one: `--hub`, then
+`$CONTAINERHUB_DIR`, then `./containerhub-tools` (what CI creates), then
+`./third_party/ContainerHub`, then `../ContainerHub`. When none of them holds
+the tool it prints every path it tried and the `git clone` that fixes it — it
+never fails as a bare "command not found".
+
+Run it from WSL on a Windows box; it bootstraps a pinned, checksum-verified Node
+and Renovate on first use. The GitHub-actions half needs a token to answer in
+full and warns when it has none — measured 2026-09-09, `go_router ^17.2.1 →
+^18.0.0` alone without one, and four more rows (the `actions/checkout` and
+`FTP-Deploy-Action` digest pins) with `GITHUB_COM_TOKEN="$(gh auth token)"`.
+There is nothing to `--apply` here: that half moves submodule gitlinks, and this
+repo has none. `pubspec.yaml` stays a hand edit. Full rationale lives in
+ContainerHub's `docs/dependency-updates.md`.
 
 <!-- ### Useful tools -->
 

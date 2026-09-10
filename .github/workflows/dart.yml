@@ -11,8 +11,29 @@ jobs:
     permissions:
       contents: read
 
-    env:
-      CONTAINER_IMAGE: ghcr.io/kataglyphis/kataglyphis_beschleuniger:latest-cross
+    # NO CONTAINER_IMAGE HERE, DELIBERATELY. This job used to open with a
+    # job-level `env: CONTAINER_IMAGE:` holding the full image reference as a
+    # literal, and hand it to both container actions below. That literal was a
+    # copy of a value ContainerHub already owns - versions.env's
+    # ${IMAGE_REGISTRY_PREFIX}:${CI_IMAGE_LINUX_TAG} - and copies drift. It is
+    # not repeated here either: a literal in a comment rots the same way, and
+    # verify_ci_image_refs.py reads comments too.
+    #
+    # Both actions declare that same composed ref as their `image:` input
+    # DEFAULT, and linux/scripts/verify_ci_image_refs.py check A fails the hub's
+    # own build if a default and versions.env ever disagree. So OMITTING the
+    # input is how a lane says "the family image": the tag bump lands in one
+    # file upstream and arrives here with no edit. This is exactly the route the
+    # two actions' input docs prescribe ("SINGLE SOURCE OF TRUTH: omit this
+    # input").
+    #
+    # Not a shell step calling ci-image-ref.sh, which is the other way to reach
+    # the hub: YAML cannot read versions.env, so composing the ref in a `run:`
+    # step would need the hub checked out BEFORE `prepare-linux-ci-host` - and
+    # that action performs this job's actions/checkout of the repository itself,
+    # which would clobber a checkout placed ahead of it. ci-image-ref.sh is for
+    # the callers that cannot omit an input (a raw `docker run`, a dev box);
+    # a `uses:` step can omit, so it does.
 
     steps:
       # ContainerHub's shared prologue: reclaim disk, check out, pull the image
@@ -22,7 +43,6 @@ jobs:
       - name: 🚚 Prepare CI host
         uses: Kataglyphis/ContainerHub/.github/actions/prepare-linux-ci-host@main
         with:
-          image: ${{ env.CONTAINER_IMAGE }}
           submodules: 'false'
 
       # ANThology has no ContainerHub submodule, so CI checks out the shared
@@ -44,7 +64,7 @@ jobs:
       - name: Dart checks (format, analyze, test) + build docs
         uses: Kataglyphis/ContainerHub/.github/actions/run-in-linux-container@main
         with:
-          image: ${{ env.CONTAINER_IMAGE }}
+          # `image:` omitted on purpose - see the note above `steps:`.
           extra-args: --platform "linux/amd64"
           script: >-
             bash -c 'bash /workspace/containerhub-tools/linux/scripts/05-frameworks/flutter/flutter_checks.sh --strict true

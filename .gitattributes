@@ -1,0 +1,9 @@
+# This repository's first shell script arrived with scripts/renovate-local.sh,
+# and it is run by bash - from WSL on a Windows box, and inside the Linux CI
+# image if a lane ever calls it. Without this rule core.autocrlf=true hands a
+# Windows clone CRLF and bash dies on the trailing carriage return with errors
+# that name the wrong culprit: "set: pipefail\r: invalid option name",
+# "$'\r': command not found". OxidANT carries the same rule for the same reason,
+# with a note that it is exactly how a local container build once failed.
+*.sh text eol=lf
+*.bash text eol=lf
