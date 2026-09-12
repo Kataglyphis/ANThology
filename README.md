@@ -81,15 +81,15 @@ runs it for you.
 
 ```sh
 bash scripts/renovate-local.sh                       # report (github-actions + pub)
-bash scripts/renovate-local.sh --hub ../ContainerHub # if it cannot find the hub
+bash scripts/renovate-local.sh --hub ../ANTfrastructure # if it cannot find the hub
 bash scripts/renovate-local.sh --managers pub        # narrow it
 ```
 
-**This repo has no `third_party/ContainerHub`**, unlike its siblings — the
+**This repo has no `third_party/ANTfrastructure`**, unlike its siblings — the
 workflows check the tooling out in CI at `ref: main`. The wrapper therefore has
-to *find* a ContainerHub checkout instead of assuming one: `--hub`, then
-`$CONTAINERHUB_DIR`, then `./containerhub-tools` (what CI creates), then
-`./third_party/ContainerHub`, then `../ContainerHub`. When none of them holds
+to *find* a ANTfrastructure checkout instead of assuming one: `--hub`, then
+`$ANTFRASTRUCTURE_DIR`, then `./antfrastructure-tools` (what CI creates), then
+`./third_party/ANTfrastructure`, then `../ANTfrastructure`. When none of them holds
 the tool it prints every path it tried and the `git clone` that fixes it — it
 never fails as a bare "command not found".
 
@@ -100,7 +100,7 @@ full and warns when it has none — measured 2026-09-09, `go_router ^17.2.1 →
 `FTP-Deploy-Action` digest pins) with `GITHUB_COM_TOKEN="$(gh auth token)"`.
 There is nothing to `--apply` here: that half moves submodule gitlinks, and this
 repo has none. `pubspec.yaml` stays a hand edit. Full rationale lives in
-ContainerHub's `docs/dependency-updates.md`.
+ANTfrastructure's `docs/dependency-updates.md`.
 
 <!-- ### Useful tools -->
 

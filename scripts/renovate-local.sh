@@ -6,7 +6,7 @@
 # workflow runs this file. It is not a gate and blocks no commit.
 #
 #     bash scripts/renovate-local.sh                      # report (default)
-#     bash scripts/renovate-local.sh --hub ../ContainerHub
+#     bash scripts/renovate-local.sh --hub ../ANTfrastructure
 #     bash scripts/renovate-local.sh --managers pub       # narrow it
 #     bash scripts/renovate-local.sh --print-bin          # resolved renovate.js
 #
@@ -14,10 +14,10 @@
 # it exists at all.
 #
 # The other five consumers each keep a two-line wrapper that sources the
-# canonical bootstrap (ContainerHub shared/linux/templates/containerhub.sh) and
+# canonical bootstrap (ANTfrastructure shared/linux/templates/antfrastructure.sh) and
 # execs the hub driver. That bootstrap resolves the hub at
-# <repo>/third_party/ContainerHub and, when it is missing, tells the reader to
-# run `git submodule update --init --recursive third_party/ContainerHub`.
+# <repo>/third_party/ANTfrastructure and, when it is missing, tells the reader to
+# run `git submodule update --init --recursive third_party/ANTfrastructure`.
 # ANThology has no .gitmodules at all - dart.yml and lint-gates.yml check the
 # shared tooling out in CI instead - so that path can never exist here and that
 # instruction would be a lie. .github/workflows/lint-gates.yml records exactly
@@ -35,12 +35,12 @@
 # linux/scripts/renovate-local.sh:
 #
 #   1. --hub <dir>            an explicit answer, and a hard error if it is wrong
-#   2. $CONTAINERHUB_DIR      the same variable the family bootstrap exports, so
+#   2. $ANTFRASTRUCTURE_DIR      the same variable the family bootstrap exports, so
 #                             a shell already set up for a sibling repo works here
-#   3. ./containerhub-tools   what dart.yml and lint-gates.yml create in CI, so
+#   3. ./antfrastructure-tools   what dart.yml and lint-gates.yml create in CI, so
 #                             the identical command works on a runner
-#   4. ./third_party/ContainerHub   if this repo ever grows the submodule
-#   5. ../ContainerHub, ../../ContainerHub   a checkout beside this one - the
+#   4. ./third_party/ANTfrastructure   if this repo ever grows the submodule
+#   5. ../ANTfrastructure, ../../ANTfrastructure   a checkout beside this one - the
 #                             shape on a dev box where ANThology sits in
 #                             OmniAccelerANT/third_party/ next to the hub
 #
@@ -128,18 +128,18 @@ KATAGLYPHIS_REPO_ROOT="${KATAGLYPHIS_REPO_ROOT:-$(cd "${SCRIPT_DIR}/.." && pwd)}
 usage() {
   cat <<'EOF'
 Usage:
-  bash scripts/renovate-local.sh [--hub <ContainerHub checkout>] [options]
+  bash scripts/renovate-local.sh [--hub <ANTfrastructure checkout>] [options]
 
 Reports which of this repo's dependencies are behind, per .github/renovate.json.
 Defaults to --managers github-actions,pub; pass your own --managers to override.
 
-  --hub <dir>       where ContainerHub is checked out. Also read from
-                    $CONTAINERHUB_DIR; otherwise probed (see the header).
+  --hub <dir>       where ANTfrastructure is checked out. Also read from
+                    $ANTFRASTRUCTURE_DIR; otherwise probed (see the header).
   --managers <csv>  which Renovate managers to run
   --refresh         drop the lookup cache before running
   --print-bin       print the resolved renovate.js and exit
 
-Every option other than --hub is passed straight through to ContainerHub's
+Every option other than --hub is passed straight through to ANTfrastructure's
 linux/scripts/renovate-local.sh. Do not pass a repo root: this wrapper supplies
 it, and upstream refuses a second one.
 
@@ -181,9 +181,9 @@ hub_holds_driver() {
 }
 
 # An answer somebody gave explicitly is never silently discarded: if --hub or
-# CONTAINERHUB_DIR is wrong, say so about THAT path rather than quietly probing
+# ANTFRASTRUCTURE_DIR is wrong, say so about THAT path rather than quietly probing
 # on and reporting against a different hub than the one that was asked for.
-CONTAINERHUB_DIR_RESOLVED=""
+ANTFRASTRUCTURE_DIR_RESOLVED=""
 # An EXPLICIT empty value is an error, not an absence: `--hub ""` reached the
 # `[ -n ]` skip below and resolved a completely different hub while the header
 # promised "an answer somebody gave explicitly is never silently discarded".
@@ -193,63 +193,63 @@ if [ "${HUB_EXPLICIT_SET}" = 1 ] && [ -z "${HUB_EXPLICIT}" ]; then
   echo "       script search, while an empty one names nothing at all." >&2
   exit 1
 fi
-for _named in "${HUB_EXPLICIT}" "${CONTAINERHUB_DIR:-}"; do
+for _named in "${HUB_EXPLICIT}" "${ANTFRASTRUCTURE_DIR:-}"; do
   [ -n "${_named}" ] || continue
   if ! hub_holds_driver "${_named}"; then
     echo "renovate-local.sh: ${_named} does not hold ${HUB_DRIVER_RELATIVE}." >&2
-    echo "       That path was given explicitly (--hub or CONTAINERHUB_DIR), so it is" >&2
+    echo "       That path was given explicitly (--hub or ANTFRASTRUCTURE_DIR), so it is" >&2
     echo "       an error rather than something to probe past. Either point it at a" >&2
-    echo "       ContainerHub checkout, or unset it to let this script search." >&2
+    echo "       ANTfrastructure checkout, or unset it to let this script search." >&2
     exit 1
   fi
-  CONTAINERHUB_DIR_RESOLVED="$(cd "${_named}" && pwd)"
+  ANTFRASTRUCTURE_DIR_RESOLVED="$(cd "${_named}" && pwd)"
   break
 done
 
 CANDIDATES=(
-  "${KATAGLYPHIS_REPO_ROOT}/containerhub-tools"
-  "${KATAGLYPHIS_REPO_ROOT}/third_party/ContainerHub"
-  "${KATAGLYPHIS_REPO_ROOT}/../ContainerHub"
-  "${KATAGLYPHIS_REPO_ROOT}/../../ContainerHub"
+  "${KATAGLYPHIS_REPO_ROOT}/antfrastructure-tools"
+  "${KATAGLYPHIS_REPO_ROOT}/third_party/ANTfrastructure"
+  "${KATAGLYPHIS_REPO_ROOT}/../ANTfrastructure"
+  "${KATAGLYPHIS_REPO_ROOT}/../../ANTfrastructure"
 )
 
-if [ -z "${CONTAINERHUB_DIR_RESOLVED}" ]; then
+if [ -z "${ANTFRASTRUCTURE_DIR_RESOLVED}" ]; then
   for _candidate in "${CANDIDATES[@]}"; do
     if hub_holds_driver "${_candidate}"; then
-      CONTAINERHUB_DIR_RESOLVED="$(cd "${_candidate}" && pwd)"
+      ANTFRASTRUCTURE_DIR_RESOLVED="$(cd "${_candidate}" && pwd)"
       break
     fi
   done
 fi
 
-if [ -z "${CONTAINERHUB_DIR_RESOLVED}" ]; then
-  echo "renovate-local.sh: no ContainerHub checkout holding ${HUB_DRIVER_RELATIVE}." >&2
+if [ -z "${ANTFRASTRUCTURE_DIR_RESOLVED}" ]; then
+  echo "renovate-local.sh: no ANTfrastructure checkout holding ${HUB_DRIVER_RELATIVE}." >&2
   echo "" >&2
-  echo "This repository has no ContainerHub submodule - by decision, not by" >&2
+  echo "This repository has no ANTfrastructure submodule - by decision, not by" >&2
   echo "omission - so the hub has to be found rather than assumed. Probed:" >&2
   for _candidate in "${CANDIDATES[@]}"; do
     echo "  ${_candidate}" >&2
   done
   echo "" >&2
   echo "Fix it either way:" >&2
-  echo "  git clone --depth 1 https://github.com/Kataglyphis/ContainerHub" >&2
-  echo "  bash scripts/renovate-local.sh --hub ./ContainerHub" >&2
-  echo "or export CONTAINERHUB_DIR=<checkout> once for the shell." >&2
+  echo "  git clone --depth 1 https://github.com/Kataglyphis/ANTfrastructure" >&2
+  echo "  bash scripts/renovate-local.sh --hub ./ANTfrastructure" >&2
+  echo "or export ANTFRASTRUCTURE_DIR=<checkout> once for the shell." >&2
   echo "" >&2
   echo "A checkout that IS there but too old is a different failure: it will hold" >&2
   echo "the directory and not the driver, and lands here too. Pull it." >&2
   exit 1
 fi
 
-export CONTAINERHUB_DIR="${CONTAINERHUB_DIR_RESOLVED}"
+export ANTFRASTRUCTURE_DIR="${ANTFRASTRUCTURE_DIR_RESOLVED}"
 
 # exec, so the driver's exit status is this script's with no intermediate shell
-# to lose it - the same reason the family's containerhub_exec uses it. What is
+# to lose it - the same reason the family's antfrastructure_exec uses it. What is
 # NOT copied from that helper is its WORKSPACE_ROOT export: this driver never
 # reads it. The repo root travels as the explicit argument below instead, since
 # upstream would otherwise default its target to $PWD and grade whatever
 # directory the caller happened to be standing in.
-exec bash "${CONTAINERHUB_DIR}/${HUB_DRIVER_RELATIVE}" \
+exec bash "${ANTFRASTRUCTURE_DIR}/${HUB_DRIVER_RELATIVE}" \
   --managers github-actions,pub \
   "${KATAGLYPHIS_REPO_ROOT}" \
   ${FORWARD[@]+"${FORWARD[@]}"}
