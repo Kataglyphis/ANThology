@@ -1,0 +1,8 @@
+# What this repo takes from ANTfrastructure. One row per asset: the id from
+# third_party/ANTfrastructure/shared/config/shared-assets.manifest.
+#
+# EMPTY BY DESIGN: this repo has no ANTfrastructure submodule and copies none of
+# the shared configs or bootstrap templates. The explicit empty manifest is the
+# declaration; the drift gate fails on a MISSING manifest rather than skipping,
+# because "forgot to declare" and "declares nothing" cannot be told apart from
+# an absent file.

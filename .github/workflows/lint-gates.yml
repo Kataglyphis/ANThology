@@ -29,23 +29,19 @@ name: Lint gates - shell, workflows, secrets
 #     git clone --depth 1 https://github.com/Kataglyphis/ANTfrastructure
 #     bash ANTfrastructure/linux/scripts/run-lint-gates.sh "$(pwd)"
 #
-# TWO OF THE FOUR GATES FAIL TODAY AND NEITHER IS FIXABLE HERE. The hub runner
-# builds every file list from `git ls-files` and refuses to report green over an
-# empty one, because the underlying linters with no file arguments fall back to
-# ANTfrastructure's own tree and pass. ANThology is a pure Dart package: it tracks
-# zero *.sh and zero *.py files, so `shellcheck` and `ruff` both hit that
-# refusal. That is a gap in the hub's consumer model - it has no way to say
-# "this consumer has no shell" - and it is recorded here instead of being
-# silenced, because nothing in this file may weaken a gate to buy a green tick.
-# The two gates that do apply, actionlint (+ the CI image-ref check) and
-# gitleaks, are the two this repository actually needed.
+# ALL FOUR GATES APPLY. The hub runner refuses to report green over an empty
+# file list, and both refusals this lane used to hit are gone: it grew a
+# scripts/renovate-local.sh for shellcheck to grade, and the runner learned that
+# a scope with no *.py is an answer rather than a failure. The shared-config
+# drift gate passes over the explicit empty .antfrastructure-shared.manifest,
+# which records that this repo copies nothing from ANTfrastructure.
 #
-# NOT WIRED INTO dart.yml's DEPLOY. The sibling Dart repo makes its deploy job
-# `needs:` its lint job, on the argument that a gate running beside a live FTP
+# NOT WIRED INTO dart.yml's DEPLOY YET. The sibling Dart repo makes its deploy
+# job `needs:` its lint job, on the argument that a gate running beside a live FTP
 # push can only report a problem the world has already been served - and that is
-# the right end state here too. It is not done yet for one reason: this lane is
-# red on arrival for the two gates above, so gating on it today would stop the
-# docs deploy over something ANThology cannot fix in its own tree.
+# the right end state here too. It needs the lint job to move into dart.yml
+# first: `needs:` does not cross workflow files, and this gate is its own file
+# because dart.yml is the deploy.
 
 on:
   push:
