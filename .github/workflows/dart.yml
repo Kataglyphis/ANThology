@@ -49,7 +49,7 @@ jobs:
       # tooling itself: the gate SCRIPT comes from this checkout, while the
       # Flutter/Dart toolchain comes from the image.
       - name: 🚚 Get ANTfrastructure tooling
-        uses: actions/checkout@v6.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: Kataglyphis/ANTfrastructure
           ref: main
@@ -70,19 +70,14 @@ jobs:
             bash -c 'bash /workspace/antfrastructure-tools/linux/scripts/05-frameworks/flutter/flutter_checks.sh --strict true
             && dart doc'
 
-      # Defensive permissions normalization before the host-side FTP step,
-      # mirroring dart_on_native_linux.yml (container uid 1001 == runner uid,
-      # so this is a no-op in the common case, load-bearing only when the
-      # image's user model changes underneath us).
-      - name: Fix permissions for doc directory
-        run: |
-          sudo chown -R "$USER:$USER" ./doc/api/
-          sudo chmod -R 755 ./doc/api/
-
+      # The family's one FTP publish policy (ANTfrastructure
+      # docs/ftp-deploys.md): the upstream action pinned by SHA upstream, the
+      # permission fixup and the empty-tree refusal included, and a failed
+      # publish fails the job.
       - name: 📂 Sync files to doc domain
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        uses: Kataglyphis/ANTfrastructure/.github/actions/deploy-over-ftp@main
         with:
           server: ${{ secrets.SERVER }}
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PW }}
-          local-dir: "./doc/api/"
+          local-dir: ./doc/api/

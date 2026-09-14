@@ -1,4 +1,4 @@
-name: Lint gates - shell, workflows, secrets
+name: Lint gates
 
 # THE GATE THIS REPOSITORY HAD NONE OF. Before this file ANThology ran no lint
 # of any kind - no shellcheck, no actionlint, and, the reason this one is
@@ -29,7 +29,7 @@ name: Lint gates - shell, workflows, secrets
 #     git clone --depth 1 https://github.com/Kataglyphis/ANTfrastructure
 #     bash ANTfrastructure/linux/scripts/run-lint-gates.sh "$(pwd)"
 #
-# ALL FOUR GATES APPLY. The hub runner refuses to report green over an empty
+# ALL GATES APPLY. The hub runner refuses to report green over an empty
 # file list, and both refusals this lane used to hit are gone: it grew a
 # scripts/renovate-local.sh for shellcheck to grade, and the runner learned that
 # a scope with no *.py is an answer rather than a failure. The shared-config
@@ -51,7 +51,7 @@ on:
 
 jobs:
   lint-gates:
-    name: 🧹 shell + workflow + secret lint
+    name: 🧹 lint gates
     runs-on: ubuntu-26.04
     timeout-minutes: 20
     permissions:
@@ -67,7 +67,7 @@ jobs:
       # fetch-depth 1 is enough - every scope comes from `git ls-files`, not
       # from history. No submodules: ANThology has none.
       - name: 🚚 Check out
-        uses: actions/checkout@v6.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 1
 
@@ -76,7 +76,7 @@ jobs:
       # shared tooling out itself. It lands inside the workspace but is
       # untracked there, so `git ls-files` cannot see it and no gate grades it.
       - name: 🚚 Get ANTfrastructure tooling
-        uses: actions/checkout@v6.0.0
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: Kataglyphis/ANTfrastructure
           ref: main
@@ -84,7 +84,7 @@ jobs:
 
       # The consumer root is passed EXPLICITLY and is never inferred upstream:
       # the runner sits inside the workspace here, and a self-derived root would
-      # make all four gates grade ANTfrastructure's tree and report green over the
+      # make every gate grade ANTfrastructure's tree and report green over the
       # wrong repository.
       - name: Lint gates
         run: bash antfrastructure-tools/linux/scripts/run-lint-gates.sh "${{ github.workspace }}"
