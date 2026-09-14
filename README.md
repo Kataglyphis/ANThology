@@ -26,19 +26,16 @@ For official docs follow this [link](https://omnifronteer.jonasheinle.de/)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Tipps](#tipps)
-- [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
-- [Acknowledgements](#acknowledgements)
-- [Literature](#literature)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
 The aim of this project is to leverage other projects in their needs for
 native UI development (Linux/Windows/Web/Android/iOS).</br>
-Supports english and german right now.
+Ships English, German and French catalogues (`lib/l10n`; `flutter gen-l10n`).
 
 ### Projects using this projects
 * By using this repo my personal web blog [jonasheinle.de](https://jonasheinle.de) is able to build a beautiful web native responsive app 
@@ -80,7 +77,7 @@ will not be, and no workflow runs this script, so it blocks nothing and nobody
 runs it for you.
 
 ```sh
-bash scripts/renovate-local.sh                       # report (github-actions + pub)
+bash scripts/renovate-local.sh                       # report (managers detected from the tree)
 bash scripts/renovate-local.sh --hub ../ANTfrastructure # if it cannot find the hub
 bash scripts/renovate-local.sh --managers pub        # narrow it
 ```
@@ -95,12 +92,12 @@ never fails as a bare "command not found".
 
 Run it from WSL on a Windows box; it bootstraps a pinned, checksum-verified Node
 and Renovate on first use. The GitHub-actions half needs a token to answer in
-full and warns when it has none — measured 2026-09-09, `go_router ^17.2.1 →
-^18.0.0` alone without one, and four more rows (the `actions/checkout` and
-`FTP-Deploy-Action` digest pins) with `GITHUB_COM_TOKEN="$(gh auth token)"`.
-There is nothing to `--apply` here: that half moves submodule gitlinks, and this
-repo has none. `pubspec.yaml` stays a hand edit. Full rationale lives in
-ANTfrastructure's `docs/dependency-updates.md`.
+full and warns when it has none — `GITHUB_COM_TOKEN="$(gh auth token)"` is what
+turns the pub-only report into the whole one (measured 2026-09-09: one row
+without, five with). There is nothing to `--apply` here: that half moves
+submodule gitlinks, and this repo has none. `pubspec.yaml` stays a hand edit.
+Full rationale lives in
+[ANTfrastructure's `docs/dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/dependency-updates.md).
 
 <!-- ### Useful tools -->
 
@@ -116,7 +113,7 @@ ANTfrastructure's `docs/dependency-updates.md`.
 
 1. Clone the repo
    ```sh
-   git clone --recurse-submodules git@github.com:Kataglyphis/ANThology.git
+   git clone git@github.com:Kataglyphis/ANThology.git
    ```
 
 <!-- ## Tests -->
@@ -128,13 +125,6 @@ flutter clean
 flutter pub get
 flutter build linux
 ```
-
-<!-- ROADMAP -->
-## Roadmap
-Upcoming :)
-<!-- See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a list of proposed features (and known issues). -->
-
-
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -158,53 +148,3 @@ Jonas Heinle - [@Cataglyphis_](https://twitter.com/Cataglyphis_) </br>
 Get in touch: contact@jonasheinle.de
 
 Project Link: [https://github.com/Kataglyphis/ANThology](https://github.com/Kataglyphis/ANThology)
-
-
-<!-- ACKNOWLEDGEMENTS -->
-## Acknowledgements
-
-<!-- Thanks for free 3D Models: 
-* [Morgan McGuire, Computer Graphics Archive, July 2017 (https://casual-effects.com/data)](http://casual-effects.com/data/)
-* [Viking room](https://sketchfab.com/3d-models/viking-room-a49f1b8e4f5c4ecf9e1fe7d81915ad38) -->
-
-## Literature 
-
-Some very helpful literature, tutorials, etc. 
-
-<!-- CMake/C++
-* [Cpp best practices](https://github.com/cpp-best-practices/cppbestpractices)
-
-Vulkan
-* [Udemy course by Ben Cook](https://www.udemy.com/share/102M903@JMHgpMsdMW336k2s5Ftz9FMx769wYAEQ7p6GMAPBsFuVUbWRgq7k2uY6qBCG6UWNPQ==/)
-* [Vulkan Tutorial](https://vulkan-tutorial.com/)
-* [Vulkan Raytracing Tutorial](https://developer.nvidia.com/rtx/raytracing/vkray)
-* [Vulkan Tutorial; especially chapter about integrating imgui](https://frguthmann.github.io/posts/vulkan_imgui/)
-* [NVidia Raytracing tutorial with Vulkan](https://nvpro-samples.github.io/vk_raytracing_tutorial_KHR/)
-* [Blog from Sascha Willems](https://www.saschawillems.de/)
-
-Physically Based Shading
-* [Advanced Global Illumination by Dutre, Bala, Bekaert](https://www.oreilly.com/library/view/advanced-global-illumination/9781439864951/)
-* [The Bible: PBR book](https://pbr-book.org/3ed-2018/Reflection_Models/Microfacet_Models)
-* [Real shading in Unreal engine 4](https://blog.selfshadow.com/publications/s2013-shading-course/karis/s2013_pbs_epic_notes_v2.pdf)
-* [Physically Based Shading at Disney](https://blog.selfshadow.com/publications/s2012-shading-course/burley/s2012_pbs_disney_brdf_notes_v3.pdf)
-* [RealTimeRendering](https://www.realtimerendering.com/)
-* [Understanding the Masking-Shadowing Function in Microfacet-Based BRDFs](https://hal.inria.fr/hal-01024289/)
-* [Sampling the GGX Distribution of Visible Normals](https://pdfs.semanticscholar.org/63bc/928467d760605cdbf77a25bb7c3ad957e40e.pdf)
-
-Path tracing
-* [NVIDIA Path tracing Tutorial](https://github.com/nvpro-samples/vk_mini_path_tracer/blob/main/vk_mini_path_tracer/main.cpp) -->
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=for-the-badge
-[contributors-url]: https://github.com/othneildrew/Best-README-Template/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=for-the-badge
-[forks-url]: https://github.com/othneildrew/Best-README-Template/network/members
-[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=for-the-badge
-[stars-url]: https://github.com/othneildrew/Best-README-Template/stargazers
-[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=for-the-badge
-[issues-url]: https://github.com/othneildrew/Best-README-Template/issues
-[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=for-the-badge
-[license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
-[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://www.linkedin.com/in/jonas-heinle-0b2a301a0/

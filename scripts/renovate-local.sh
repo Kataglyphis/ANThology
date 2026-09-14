@@ -67,20 +67,6 @@
 # "documented only" means the tool is reachable exactly as often as somebody
 # retypes a path correctly.
 #
-# THE DEFAULT MANAGER SET IS THIS REPO'S, NOT THE FAMILY'S. Upstream defaults to
-# `--managers git-submodules`, which is the right answer in the five repos that
-# have gitlinks and a meaningless one here: it would report "up to date -
-# nothing behind for manager(s) git-submodules" over a repo with no submodules,
-# which reads like an all-clear and is really an empty question. This repo's
-# dependency surface is pubspec.yaml and the pinned actions in .github/workflows,
-# so that is what is asked by default. A --managers of your own is passed after
-# this one and wins.
-#
-# Both halves of that were measured here on 2026-09-09, from WSL:
-# `--managers git-submodules` printed "up to date: nothing behind for manager(s)
-# git-submodules" over a repo that has no submodules, while the default set
-# found go_router ^17.2.1 -> ^18.0.0 in pubspec.yaml.
-#
 # THE ACTIONS HALF NEEDS A TOKEN, AND SAYS SO. Without one Renovate prints
 #
 #   WARN: GitHub token is required for some dependencies
@@ -131,11 +117,11 @@ Usage:
   bash scripts/renovate-local.sh [--hub <ANTfrastructure checkout>] [options]
 
 Reports which of this repo's dependencies are behind, per .github/renovate.json.
-Defaults to --managers github-actions,pub; pass your own --managers to override.
+ANTfrastructure detects the managers from what the tree has; --managers narrows that.
 
   --hub <dir>       where ANTfrastructure is checked out. Also read from
                     $ANTFRASTRUCTURE_DIR; otherwise probed (see the header).
-  --managers <csv>  which Renovate managers to run
+  --managers <csv>  run only these Renovate managers
   --refresh         drop the lookup cache before running
   --print-bin       print the resolved renovate.js and exit
 
@@ -250,6 +236,5 @@ export ANTFRASTRUCTURE_DIR="${ANTFRASTRUCTURE_DIR_RESOLVED}"
 # upstream would otherwise default its target to $PWD and grade whatever
 # directory the caller happened to be standing in.
 exec bash "${ANTFRASTRUCTURE_DIR}/${HUB_DRIVER_RELATIVE}" \
-  --managers github-actions,pub \
   "${KATAGLYPHIS_REPO_ROOT}" \
   ${FORWARD[@]+"${FORWARD[@]}"}
