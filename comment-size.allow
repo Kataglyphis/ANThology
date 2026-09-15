@@ -1,0 +1,18 @@
+# comment-size.allow - the oversized comment blocks this repo froze when it
+# turned `run-lint-gates.sh --ratchets` on (2026-09-15). The gate refuses NEW
+# ones; shrinking a frozen block below the limit means DELETING its line here.
+# Format: <file><TAB><the block's first comment line, first 60 chars>.
+# https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/code-quality-tooling.md#comment-size-comment-size
+#
+# All three are wrapper headers, and each one records a DECISION rather than
+# explaining code: why this repository has no third_party/ANTfrastructure, how
+# the two wrappers find a hub without one, and which of Renovate's two token
+# variables `--platform=local` actually reads. The rule those blocks would
+# otherwise follow - move the detail into docs/ and leave a pointer - has no
+# target here: this repo publishes `dart doc` output, not a docs/ tree, and the
+# hub's docs cannot hold a decision that is only true for ANThology. AGENTS.md
+# links all three instead of copying them, which is the same fix one level up.
+
+scripts/lib/find-hub.sh	#!/usr/bin/env bash
+scripts/lib/find-hub.sh	# antfrastructure_find_hub <marker-relative-path> <caller-la
+scripts/linux/renovate-local.sh	#!/usr/bin/env bash
