@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:anthology/Media/DataTable/jotrockenmitlocken_table.dart';
-import 'package:anthology/Media/DataTable/jotrockenmitlocken_table_info_provider.dart';
+import 'package:anthology/Media/DataTable/anthology_table.dart';
+import 'package:anthology/Media/DataTable/anthology_table_info_provider.dart';
 import 'package:anthology/Media/DataTable/table_data.dart';
 
 import 'package:anthology/constants.dart';
@@ -30,12 +30,12 @@ abstract class DataList<T extends TableData> extends StatefulWidget {
 
 abstract class DataListState<T extends TableData, U extends DataList>
     extends State<U>
-    with JotrockenmitlockenTableInfoProvider {
+    with AnthologyTableInfoProvider {
   @override
   Widget build(BuildContext context) {
     double currentWidth = MediaQuery.of(context).size.width;
     bool isMobileDevice = currentWidth <= narrowScreenWidthThreshold;
-    return JotrockenmitlockenTable(
+    return AnthologyTable(
       dataCategories: widget.dataCategories,
       data: widget.data,
       title: widget.title,
