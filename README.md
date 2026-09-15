@@ -77,24 +77,24 @@ will not be, and no workflow runs this script, so it blocks nothing and nobody
 runs it for you.
 
 ```sh
-bash scripts/renovate-local.sh                       # report (managers detected from the tree)
-bash scripts/renovate-local.sh --hub ../ANTfrastructure # if it cannot find the hub
-bash scripts/renovate-local.sh --managers pub        # narrow it
+bash scripts/linux/renovate-local.sh                       # report (managers detected from the tree)
+bash scripts/linux/renovate-local.sh --hub ../ANTfrastructure # if it cannot find the hub
+bash scripts/linux/renovate-local.sh --managers pub        # narrow it
 ```
 
 **This repo has no `third_party/ANTfrastructure`**, unlike its siblings — the
-workflows check the tooling out in CI at `ref: main`. The wrapper therefore has
-to *find* a ANTfrastructure checkout instead of assuming one: `--hub`, then
-`$ANTFRASTRUCTURE_DIR`, then `./antfrastructure-tools` (what CI creates), then
-`./third_party/ANTfrastructure`, then `../ANTfrastructure`. When none of them holds
-the tool it prints every path it tried and the `git clone` that fixes it — it
-never fails as a bare "command not found".
+workflow checks the tooling out in CI at `ref: main`. The wrapper therefore has
+to *find* a ANTfrastructure checkout instead of assuming one, by the ladder in
+`scripts/lib/find-hub.sh`: `--hub`, then `$ANTFRASTRUCTURE_DIR`, then
+`./antfrastructure-tools` (what CI creates), then `./third_party/ANTfrastructure`,
+then `../ANTfrastructure`. When none of them holds the tool it prints every path
+it tried and the `git clone` that fixes it — it never fails as a bare
+"command not found". `scripts/run-dart-checks.sh` uses the same ladder.
 
 Run it from WSL on a Windows box; it bootstraps a pinned, checksum-verified Node
-and Renovate on first use. The GitHub-actions half needs a token to answer in
-full and warns when it has none — `GITHUB_COM_TOKEN="$(gh auth token)"` is what
-turns the pub-only report into the whole one (measured 2026-09-09: one row
-without, five with). There is nothing to `--apply` here: that half moves
+and Renovate on first use.
+`GITHUB_COM_TOKEN="$(gh auth token)" bash scripts/linux/renovate-local.sh` gives
+the actions half too. There is nothing to `--apply` here: that half moves
 submodule gitlinks, and this repo has none. `pubspec.yaml` stays a hand edit.
 Full rationale lives in
 [ANTfrastructure's `docs/dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/dependency-updates.md).
