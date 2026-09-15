@@ -1,8 +1,8 @@
 import 'package:csv/csv.dart';
 import 'package:flutter/material.dart';
 
-import 'package:anthology/Media/DataTable/jotrockenmitlocken_table.dart';
-import 'package:anthology/Media/DataTable/jotrockenmitlocken_table_info_provider.dart';
+import 'package:anthology/Media/DataTable/anthology_table.dart';
+import 'package:anthology/Media/DataTable/anthology_table_info_provider.dart';
 import 'package:anthology/Media/DataTable/table_data.dart';
 import 'package:flutter/services.dart';
 
@@ -32,7 +32,7 @@ abstract class CsvDataList extends StatefulWidget {
 
 abstract class CsvDataListState<T extends TableData, U extends CsvDataList>
     extends State<U>
-    with JotrockenmitlockenTableInfoProvider {
+    with AnthologyTableInfoProvider {
   late Future<(List<T>, List<String>)> _rawCsvData;
 
   Future<(List<T>, List<String>)> convertRawCSVDataToFinalLayout(
@@ -68,7 +68,7 @@ abstract class CsvDataListState<T extends TableData, U extends CsvDataList>
           //maybe now
           double currentWidth = MediaQuery.of(context).size.width;
           bool isMobileDevice = currentWidth <= narrowScreenWidthThreshold;
-          return JotrockenmitlockenTable(
+          return AnthologyTable(
             dataCategories: dataCategories,
             data: csvData,
             title: widget.title,
