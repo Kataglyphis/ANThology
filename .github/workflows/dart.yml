@@ -160,8 +160,10 @@ jobs:
       # deploy could not be reproduced without retyping a runner-only path.
       #
       # The image runs as uid-1001 `kataglyphis` with the Flutter SDK on its ENV
-      # PATH (docs/consumer-image-contract.md), and that uid matches the
-      # runner's, so no PATH export and no git safe.directory shim is needed —
+      # PATH (ANTfrastructure
+      # https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/consumer-image-contract.md),
+      # and that uid matches the runner's, so no PATH export and no git
+      # safe.directory shim is needed —
       # the image's Flutter (pinned in ANTfrastructure versions.env) must
       # satisfy pubspec's flutter floor.
       - name: Dart checks (format, analyze, test) + build docs
@@ -172,9 +174,9 @@ jobs:
           script: bash -c 'bash scripts/run-dart-checks.sh && dart doc'
 
       # The family's one FTP publish policy (ANTfrastructure
-      # docs/ftp-deploys.md): the upstream action pinned by SHA upstream, the
-      # permission fixup and the empty-tree refusal included, and a failed
-      # publish fails the job.
+      # https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/ftp-deploys.md):
+      # the upstream action pinned by SHA upstream, the permission fixup and the
+      # empty-tree refusal included, and a failed publish fails the job.
       #
       # `push` ONLY. Everything above this step is the check a pull request
       # wants; this step is the publish, and a PR - including one from a fork,

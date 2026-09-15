@@ -3,7 +3,7 @@
 > 
 
 # AI Blog
-![Clouds](ScreenshotWorleyNoise.png)
+![Clouds](../../images/aiBlog/ScreenshotWorleyNoise.png)
 *image_caption*d
 
 
