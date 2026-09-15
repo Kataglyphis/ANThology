@@ -3,11 +3,107 @@ name: Deploy docs on website
 on:
   push:
     branches: ["main"]
+  # The gates below are the only thing that ever graded this repository before a
+  # merge; `push` alone meant a pull request got no verdict at all.
+  pull_request:
+    branches: ["main"]
 
 jobs:
+  # ---------------------------------------------------------------------------
+  # THE GATE THIS REPOSITORY HAD NONE OF. Before these gates ANThology ran no
+  # lint of any kind - no shellcheck, no actionlint, and, the reason this one is
+  # urgent, no secret scan at all, while the job below pushes ./doc/api/ to a
+  # live FTP target with three repository secrets (SERVER, USERNAME, PW) on
+  # every push to main.
+  #
+  # `build` NEEDS this job, and the two live in ONE file for that reason:
+  # `needs:` does not cross workflow files, so while the gates sat in their own
+  # lint-gates.yml they could only run BESIDE the deploy - and a gate that runs
+  # beside a live FTP push can only report a problem the world has already been
+  # served. Deleting that file and moving the job here is what wires it in front.
+  #
+  # NO LOCAL LINT WRAPPER, and that is a decision rather than an omission. The
+  # other consumers each keep a thin run-lint-gates.sh whose only job is to
+  # source the canonical bootstrap and exec the hub runner. That bootstrap
+  # (ANTfrastructure shared/linux/templates/antfrastructure.sh) resolves the hub
+  # at <repo>/third_party/ANTfrastructure and, when it is absent, tells the
+  # reader to run `git submodule update --init --recursive
+  # third_party/ANTfrastructure`. ANThology has no .gitmodules - the checkout
+  # step below says so - so that path can never exist here and that instruction
+  # would be a lie. A wrapper written any other way would be a sixth bootstrap
+  # variant, which is the exact thing the template's own header records the
+  # family spending effort to eliminate. So this lane checks the tooling out the
+  # SAME way the build job already does and calls the hub runner directly.
+  # (scripts/run-dart-checks.sh is not that wrapper: it wraps the DART gate,
+  # which no lane could reach locally at all, and it finds the hub through
+  # scripts/lib/find-hub.sh instead of assuming a submodule.)
+  #
+  # THE COST OF HAVING NO WRAPPER, stated rather than hidden: the other repos
+  # can point at one string that CI and a dev box both run. Here the local
+  # equivalent is the two commands below, with the hub checked out anywhere:
+  #
+  #     git clone --depth 1 https://github.com/Kataglyphis/ANTfrastructure
+  #     bash ANTfrastructure/linux/scripts/run-lint-gates.sh "$(pwd)" --ratchets
+  #
+  # ALL GATES APPLY. The hub runner refuses to report green over an empty file
+  # list, and both refusals this lane used to hit are gone: it grew shell for
+  # shellcheck to grade, and the runner learned that a scope with no *.py is an
+  # answer rather than a failure. The shared-config drift gate passes over the
+  # explicit empty .antfrastructure-shared.manifest, which records that this
+  # repo copies nothing from ANTfrastructure.
+  # ---------------------------------------------------------------------------
+  lint:
+    name: 🧹 lint gates
+    runs-on: ubuntu-26.04
+    timeout-minutes: 20
+    permissions:
+      contents: read
+
+    steps:
+      # No container and no image reference anywhere in this job, unlike the
+      # build job: the gate binaries are bootstrapped by the hub runner from
+      # ANTfrastructure's own versions.env at pinned versions -- shellcheck,
+      # actionlint and gitleaks additionally SHA256-verified, ruff version-pinned
+      # and fetched through uvx -- so the verdict does not depend on what a base
+      # image happens to ship.
+      # fetch-depth 1 is enough - every scope comes from `git ls-files`, not
+      # from history. No submodules: ANThology has none.
+      - name: 🚚 Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 1
+
+      # The same mechanism the build job uses to reach the shared Dart gate, for
+      # the same reason: ANThology has no ANTfrastructure submodule, so CI checks
+      # the shared tooling out itself. It lands inside the workspace but is
+      # untracked there, so `git ls-files` cannot see it and no gate grades it.
+      - name: 🚚 Get ANTfrastructure tooling
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: Kataglyphis/ANTfrastructure
+          ref: main
+          path: antfrastructure-tools
+
+      # The consumer root is passed EXPLICITLY and is never inferred upstream:
+      # the runner sits inside the workspace here, and a self-derived root would
+      # make every gate grade ANTfrastructure's tree and report green over the
+      # wrong repository.
+      #
+      # --ratchets adds the eight measurement gates (code size, complexity, dead
+      # functions, comment size, stdout returns, masked declarations, trailing
+      # conditionals, the shellcheck warning ratchet) over this tree, frozen by
+      # the *.allow files at the repo root. They are a ratchet, not a style
+      # opinion: every row is a reviewed verdict, growth and an unrecorded
+      # shrink both fail, so the numbers cannot rot into cover.
+      - name: Lint gates
+        run: bash antfrastructure-tools/linux/scripts/run-lint-gates.sh "${{ github.workspace }}" --ratchets
+
   build:
     name: 🚀 Deploy website on push
     runs-on: ubuntu-26.04
+    timeout-minutes: 30
+    # The deploy job is gated on the lint job: see the block above `lint:`.
+    needs: lint
     permissions:
       contents: read
 
@@ -47,7 +143,9 @@ jobs:
 
       # ANThology has no ANTfrastructure submodule, so CI checks out the shared
       # tooling itself: the gate SCRIPT comes from this checkout, while the
-      # Flutter/Dart toolchain comes from the image.
+      # Flutter/Dart toolchain comes from the image. scripts/run-dart-checks.sh
+      # finds it here on its own - ./antfrastructure-tools is the first rung of
+      # the ladder in scripts/lib/find-hub.sh, for exactly this step.
       - name: 🚚 Get ANTfrastructure tooling
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -56,25 +154,34 @@ jobs:
           path: antfrastructure-tools
 
       # The family's shared Dart gate (pub get, format on tracked files,
-      # analyze, test), then dart doc. The image runs as uid-1001 `kataglyphis`
-      # with the Flutter SDK on its ENV PATH (docs/consumer-image-contract.md),
-      # and that uid matches the runner's, so no PATH export and no git
-      # safe.directory shim is needed — the image's Flutter (pinned in
-      # ANTfrastructure versions.env) must satisfy pubspec's flutter floor.
+      # analyze, test), then dart doc. It is reached through this repo's own
+      # scripts/run-dart-checks.sh rather than by naming the hub path inline:
+      # the inline form had no local equivalent, so the gate that blocks this
+      # deploy could not be reproduced without retyping a runner-only path.
+      #
+      # The image runs as uid-1001 `kataglyphis` with the Flutter SDK on its ENV
+      # PATH (docs/consumer-image-contract.md), and that uid matches the
+      # runner's, so no PATH export and no git safe.directory shim is needed —
+      # the image's Flutter (pinned in ANTfrastructure versions.env) must
+      # satisfy pubspec's flutter floor.
       - name: Dart checks (format, analyze, test) + build docs
         uses: Kataglyphis/ANTfrastructure/.github/actions/run-in-linux-container@main
         with:
           # `image:` omitted on purpose - see the note above `steps:`.
           extra-args: --platform "linux/amd64"
-          script: >-
-            bash -c 'bash /workspace/antfrastructure-tools/linux/scripts/05-frameworks/flutter/flutter_checks.sh --strict true
-            && dart doc'
+          script: bash -c 'bash scripts/run-dart-checks.sh && dart doc'
 
       # The family's one FTP publish policy (ANTfrastructure
       # docs/ftp-deploys.md): the upstream action pinned by SHA upstream, the
       # permission fixup and the empty-tree refusal included, and a failed
       # publish fails the job.
+      #
+      # `push` ONLY. Everything above this step is the check a pull request
+      # wants; this step is the publish, and a PR - including one from a fork,
+      # which cannot read these secrets anyway - must never reach the live doc
+      # domain.
       - name: 📂 Sync files to doc domain
+        if: github.event_name == 'push'
         uses: Kataglyphis/ANTfrastructure/.github/actions/deploy-over-ftp@main
         with:
           server: ${{ secrets.SERVER }}
