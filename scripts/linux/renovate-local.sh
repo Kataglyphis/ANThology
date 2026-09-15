@@ -55,9 +55,10 @@
 #
 #   GITHUB_COM_TOKEN="$(gh auth token)" bash scripts/linux/renovate-local.sh
 #
-# The hub's docs/dependency-updates.md names RENOVATE_TOKEN; its token paragraph
-# is where that difference, the measurement behind it and the digest pins the
-# actions half produces are written down. Read it there rather than here.
+# The hub page names RENOVATE_TOKEN; its token paragraph is where that
+# difference, the measurement behind it and the digest pins the actions half
+# produces are written down. Read it there rather than here:
+# https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/dependency-updates.md
 #
 # APPLY IS NOT AVAILABLE HERE AND THAT IS NOT A BUG. Renovate's --platform=local
 # forces dryRun - it DETECTS and never edits a file - and upstream's --apply half

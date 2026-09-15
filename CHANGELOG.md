@@ -2,6 +2,15 @@
 
 ## [Unreleased]
 
+- The doc-link gate's five findings over this tree are fixed, not frozen — it
+  has no freeze file. `aiBlogPageEn.md` named `ScreenshotWorleyNoise.png` beside
+  itself, where no copy has ever existed; it now points at
+  `assets/images/aiBlog/`, the copy 2.0.0 kept. The other four named hub pages
+  (`docs/ftp-deploys.md`, `docs/consumer-image-contract.md`,
+  `docs/dependency-updates.md` twice) as if they were this repo's, which has no
+  `docs/` tree and no hub submodule to resolve them against; they are hub URLs
+  now.
+
 ## [2.0.0]
 
 - **Breaking.** The data table is named after the package rather than after one
