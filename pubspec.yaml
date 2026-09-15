@@ -55,12 +55,15 @@ flutter:
     - assets/images/books/
     - assets/images/cats/
     - assets/images/Pages/AboutMe/
-    - assets/images/Pages/AboutMe/Bewerbungsbilder/
-    # `assets/images/Pages/Blog/` itself holds no files (only the
-    # OpenGLRenderer/ and VulkanRenderer/ subdirectories), so declaring it
-    # bundled nothing in either app. Only the directory that actually has
-    # referenced files is declared.
-    - assets/images/Pages/Blog/VulkanRenderer/
+    # One FILE, not the directory: the four other portraits under
+    # Bewerbungsbilder/ shipped in both app bundles and were referenced by
+    # neither. Both apps name only this one, in global_user_settings.json.
+    - assets/images/Pages/AboutMe/Bewerbungsbilder/a95a64ca_runterskaliert.jpg
+    # assets/images/Pages/Blog/ is gone entirely. Its OpenGLRenderer/ and
+    # VulkanRenderer/ subdirectories held the old renderer screenshots, which no
+    # settings file, blog markdown or widget in either app ever named; the one
+    # blog image that IS rendered resolves against blog_settings.json's
+    # imageDir, assets/images/aiBlog/, which carried its own copy.
     - assets/images/Pages/Data/
     - assets/images/Pages/Error/
 
