@@ -24,7 +24,9 @@ the asset corpus (fonts, images, legal texts) they both load.
 | `lib/Widgets/` | Small shared widgets (skill table) |
 | `lib/l10n/` | The en/de/fr `.arb` catalogues and the committed generated Dart |
 | `assets/` | The shared corpus both apps reference as `packages/anthology/assets/...` |
-| `scripts/renovate-local.sh` | The one wrapper this repo has: finds an ANTfrastructure checkout, execs the hub's Renovate driver |
+| `scripts/lib/find-hub.sh` | The hub lookup ladder both wrappers below share |
+| `scripts/run-dart-checks.sh` | The Dart gate as one command; what `dart.yml` runs |
+| `scripts/linux/renovate-local.sh` | Execs the hub's Renovate driver; no lane runs it |
 | `test/` | Widget and localisation tests, run by the Dart gate |
 
 There is **no `third_party/`** and no `.gitmodules`: this repo has no
@@ -48,53 +50,84 @@ Start at
 | The one FTP publish policy `dart.yml` deploys through | [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/ftp-deploys.md) |
 | What the CI image ships (uid, Flutter on PATH) and promises | [`docs/consumer-image-contract.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/consumer-image-contract.md) |
 
+The three upstream scripts this repo actually executes. None of them is copied
+here; a local file that looks like one of them is a wrapper that finds it and
+execs it (section 1), so fix behaviour upstream, never in the wrapper.
+
+| Hub script | What it is to this repo |
+| --- | --- |
+| [`linux/scripts/05-frameworks/flutter/flutter_checks.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/linux/scripts/05-frameworks/flutter/flutter_checks.sh) | The Dart gate itself: pub get, format, analyze, test. `scripts/run-dart-checks.sh` runs it at `--strict true` |
+| [`linux/scripts/run-lint-gates.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/linux/scripts/run-lint-gates.sh) | The six lint gates plus the `--ratchets` measurement gates. `dart.yml`'s `lint` job calls it directly — there is no wrapper (section 4) |
+| [`linux/scripts/renovate-local.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/linux/scripts/renovate-local.sh) | The Renovate driver. `scripts/linux/renovate-local.sh` finds a hub and execs it; no lane does |
+
 ## 3. Critical invariant: the hub is checked out at `main`
 
-`dart.yml` and `lint-gates.yml` check the hub out at `ref: main` and call its
-composite actions at `@main`, so a hub change a lane depends on must be pushed
-**first**; no Submodule.Pins suite applies, because there is no gitlink to
-guard.
+`dart.yml` checks the hub out at `ref: main` and calls its composite actions at
+`@main`, so a hub change a lane depends on must be pushed **first**; no
+Submodule.Pins suite applies, because there is no gitlink to guard.
 
 ## 4. Pitfalls specific to this project
 
 - **No ANTfrastructure submodule, by decision.** The reasoning is written down
-  by its three owners and is not repeated here: the
-  [`lint-gates.yml` header](.github/workflows/lint-gates.yml) (why no local
-  lint wrapper), the [`renovate-local.sh` header](scripts/renovate-local.sh)
-  (why Renovate still gets one, and how it finds the hub) and the
-  [`dart.yml` header](.github/workflows/dart.yml) (why the image ref is not
-  repeated either). The README's
+  by its owners and is not repeated here: the
+  [`dart.yml` `lint` job header](.github/workflows/dart.yml) (why there is no
+  local lint wrapper, and why the image ref is not repeated either) and the
+  [`renovate-local.sh` header](scripts/linux/renovate-local.sh) (why Renovate
+  still gets one). The README's
   [Renovate section](README.md#what-is-behind-renovate-as-a-local-cli) covers
   the user-facing side. `.antfrastructure-shared.manifest` is empty for the
   same reason.
+- **Both wrappers FIND the hub; neither assumes one.**
+  [`scripts/lib/find-hub.sh`](scripts/lib/find-hub.sh) owns the one ladder:
+  `--hub`, then `$ANTFRASTRUCTURE_DIR`, then `./antfrastructure-tools` (what
+  `dart.yml` creates in CI), then `./third_party/ANTfrastructure` (if this repo
+  ever grows the submodule), then `../ANTfrastructure` and
+  `../../ANTfrastructure` (a sibling clone on a dev box). A rung counts only if
+  the file the caller named is really inside it, an explicitly wrong `--hub` is
+  an error rather than something to probe past, and a miss prints every path it
+  tried. Do not retype the ladder into a new script — source that file.
+- **The Dart gate formats TRACKED files, never `dart format .`.** The CI lanes
+  install the Flutter SDK inside the mounted workspace, so a recursive walk
+  reformats the SDK itself; the hub enumerates `git ls-files` instead. This is
+  why a new `.dart` file is ungraded until it is `git add`ed, and why
+  `scripts/run-dart-checks.sh` takes no arguments — `--strict false` would turn
+  the blocking gate into a warning.
 - The generated Dart under `lib/l10n/` is committed: a consumer's
   `flutter pub get` never runs gen-l10n for a dependency (`pubspec.yaml`).
 - Package fonts register as `packages/anthology/<family>`; a bare family name
   silently falls back to the platform default (`pubspec.yaml`, `fonts:`).
+- An asset is only in a bundle if `pubspec.yaml` declares it, and only worth
+  tracking if one of the two apps names it. Grep both consumers for a basename
+  before adding or deleting one.
 
 ## 5. Build, run, test
 
-`<hub>` is `./antfrastructure-tools` in CI (what the checkout step in both
-workflows creates) and a sibling ANTfrastructure clone locally.
+`<hub>` is `./antfrastructure-tools` in CI (what the checkout step in `dart.yml`
+creates) and a sibling ANTfrastructure clone locally. The two wrappers find it
+on their own; the direct calls below are for when you want a different one.
 
 ```bash
 # The Dart gate CI runs: pub get, format on tracked files, analyze, test
+bash scripts/run-dart-checks.sh
 bash <hub>/linux/scripts/05-frameworks/flutter/flutter_checks.sh --strict true
-# The lint gates CI runs (shellcheck, actionlint, gitleaks, ...)
-bash <hub>/linux/scripts/run-lint-gates.sh "$(pwd)"
+# The lint gates CI runs (shellcheck, actionlint, gitleaks, ... + the ratchets)
+bash <hub>/linux/scripts/run-lint-gates.sh "$(pwd)" --ratchets
 # doc/api, which dart.yml deploys
 dart doc
 # after editing any lib/l10n/*.arb; commit the generated Dart
 flutter gen-l10n
 # what is behind (report only; no lane runs it)
-GITHUB_COM_TOKEN="$(gh auth token)" bash scripts/renovate-local.sh
+GITHUB_COM_TOKEN="$(gh auth token)" bash scripts/linux/renovate-local.sh
 ```
 
 ## 6. Docs owned by this repo
 
 - `README.md` — what the package is, the Renovate wrapper, getting started.
 - `CHANGELOG.md` — one entry per released `pubspec.yaml` version.
-- The `dart doc` output in `doc/api`, generated and deployed by `dart.yml`
-  (not tracked).
+- The `dart doc` output in `doc/api` (not tracked), generated by `dart.yml` and
+  published to **omnifronteer.jonasheinle.de** — the package's official docs
+  site, which README.md links from its first line. It goes out through the
+  family's one FTP publish policy, not a per-repo action:
+  [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/ftp-deploys.md).
 
 A change to user-facing behaviour updates its doc in the same commit.

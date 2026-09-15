@@ -2,6 +2,28 @@
 
 ## [Unreleased]
 
+## [2.0.0]
+
+- **Breaking.** The data table is named after the package rather than after one
+  of its two consumers: `JotrockenmitlockenTable`, `JotrockenmitlockenTableState`
+  and `JotrockenmitlockenTableInfoProvider` are now `AnthologyTable`,
+  `AnthologyTableState` and `AnthologyTableInfoProvider`, in
+  `lib/Media/DataTable/anthology_table{,_info_provider}.dart`.
+- **Breaking for anything that loaded them by path.** The unreferenced
+  personal-site assets are gone: four of the five `Bewerbungsbilder` portraits,
+  `assets/images/Pages/Blog/` (the OpenGLRenderer and VulkanRenderer
+  screenshots), `assets/videos/`, two cat images, the PayPal QR code and the
+  barbell icon and image. Every one was in both app bundles and named by
+  neither. `pubspec.yaml` declares the one portrait that IS used instead of its
+  directory.
+- `scripts/run-dart-checks.sh`: the Dart gate as one command, so the check that
+  blocks the deploy can be run locally. `scripts/renovate-local.sh` moved to
+  `scripts/linux/renovate-local.sh`, and both wrappers now share the hub lookup
+  in `scripts/lib/find-hub.sh`.
+- The lint gates moved into `dart.yml` as a `lint` job the deploy `needs:`, run
+  `--ratchets`, and both jobs now also run on pull requests. `lint-gates.yml` is
+  gone; the deploy step is `push`-only.
+
 ## [1.1.0]
 
 - l10n: the package ships its own English, German and French catalogues
