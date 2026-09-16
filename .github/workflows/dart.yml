@@ -2,11 +2,11 @@ name: Deploy docs on website
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main", "develop"]
   # The gates below are the only thing that ever graded this repository before a
   # merge; `push` alone meant a pull request got no verdict at all.
   pull_request:
-    branches: ["main"]
+    branches: ["main", "develop"]
 
 jobs:
   # ---------------------------------------------------------------------------
