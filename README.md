@@ -11,7 +11,7 @@
 
 For official docs follow this [link](https://omnifronteer.jonasheinle.de/) 
 
-[![Deploy docs on website](https://github.com/Kataglyphis/ANThology/actions/workflows/dart.yml/badge.svg)](https://github.com/Kataglyphis/ANThology/actions/workflows/dart.yml)[![CodeQL](https://github.com/Kataglyphis/ANThology/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Kataglyphis/ANThology/actions/workflows/github-code-scanning/codeql)
+[![Docs · deploy](https://github.com/Kataglyphis/ANThology/actions/workflows/docs.yml/badge.svg)](https://github.com/Kataglyphis/ANThology/actions/workflows/docs.yml)[![CodeQL](https://github.com/Kataglyphis/ANThology/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/Kataglyphis/ANThology/actions/workflows/github-code-scanning/codeql)
 [![TopLang](https://img.shields.io/github/languages/top/Kataglyphis/ANThology)]() 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/paypalme/JonasHeinle)
 [![Twitter](https://img.shields.io/twitter/follow/Cataglyphis_?style=social)](https://twitter.com/Cataglyphis_)

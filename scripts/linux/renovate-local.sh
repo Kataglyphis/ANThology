@@ -18,9 +18,9 @@
 # the hub driver. That bootstrap resolves the hub at
 # <repo>/third_party/ANTfrastructure and, when it is missing, tells the reader to
 # run `git submodule update --init --recursive third_party/ANTfrastructure`.
-# ANThology has no .gitmodules at all - dart.yml checks the shared tooling out in
+# ANThology has no .gitmodules at all - docs.yml checks the shared tooling out in
 # CI instead - so that path can never exist here and that instruction would be a
-# lie. The lint job in .github/workflows/dart.yml records exactly this and
+# lie. The lint job in .github/workflows/docs.yml records exactly this and
 # concludes, correctly for THAT gate, that a wrapper would have nothing left to
 # wrap: the lane already calls the hub runner directly.
 #
@@ -35,7 +35,7 @@
 # WHY NOT JUST ADD THE SUBMODULE. That would make this repo a copy of the other
 # consumers and delete this header - genuinely tempting. It loses on two counts.
 # It reverses a standing decision this repository has already written down twice
-# (dart.yml checks the hub out at a floating `ref: main` on purpose, and
+# (docs.yml checks the hub out at a floating `ref: main` on purpose, and
 # .github/renovate.json explains that the preset deliberately leaves the
 # Kataglyphis composite actions at @main so tooling and actions move together);
 # a gitlink would pin what those lanes have decided to float. And it is a change
