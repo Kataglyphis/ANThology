@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+- 2026-09-24: `.github/workflows/dart.yml` is `docs.yml`, display name
+  "Docs · deploy" — the family's workflow naming convention (owner decision:
+  kebab-case files, shared lanes named alike in every repo, `<Area> · <what>`).
+  Triggers, jobs and job ids are unchanged; the README badge follows the file.
 - The doc-link gate's five findings over this tree are fixed, not frozen — it
   has no freeze file. `aiBlogPageEn.md` named `ScreenshotWorleyNoise.png` beside
   itself, where no copy has ever existed; it now points at

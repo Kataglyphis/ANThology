@@ -25,7 +25,7 @@ the asset corpus (fonts, images, legal texts) they both load.
 | `lib/l10n/` | The en/de/fr `.arb` catalogues and the committed generated Dart |
 | `assets/` | The shared corpus both apps reference as `packages/anthology/assets/...` |
 | `scripts/lib/find-hub.sh` | The hub lookup ladder both wrappers below share |
-| `scripts/run-dart-checks.sh` | The Dart gate as one command; what `dart.yml` runs |
+| `scripts/run-dart-checks.sh` | The Dart gate as one command; what `docs.yml` runs |
 | `scripts/linux/renovate-local.sh` | Execs the hub's Renovate driver; no lane runs it |
 | `test/` | Widget and localisation tests, run by the Dart gate |
 
@@ -47,7 +47,7 @@ Start at
 | The Dart gate: which files it formats, analyzes and tests | [`docs/code-quality-tooling.md#dart-file-enumeration`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/code-quality-tooling.md#dart-file-enumeration) |
 | The shared shell libraries the hub scripts are built on | [`docs/shared-script-libraries.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/shared-script-libraries.md) |
 | Renovate as a local CLI: managers, tokens, why the App is not installed | [`docs/dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/dependency-updates.md) |
-| The one FTP publish policy `dart.yml` deploys through | [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/ftp-deploys.md) |
+| The one FTP publish policy `docs.yml` deploys through | [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/ftp-deploys.md) |
 | What the CI image ships (uid, Flutter on PATH) and promises | [`docs/consumer-image-contract.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/consumer-image-contract.md) |
 
 The three upstream scripts this repo actually executes. None of them is copied
@@ -57,12 +57,12 @@ execs it (section 1), so fix behaviour upstream, never in the wrapper.
 | Hub script | What it is to this repo |
 | --- | --- |
 | [`linux/scripts/05-frameworks/flutter/flutter_checks.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/linux/scripts/05-frameworks/flutter/flutter_checks.sh) | The Dart gate itself: pub get, format, analyze, test. `scripts/run-dart-checks.sh` runs it at `--strict true` |
-| [`linux/scripts/run-lint-gates.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/linux/scripts/run-lint-gates.sh) | The six lint gates plus the `--ratchets` measurement gates. `dart.yml`'s `lint` job calls it directly — there is no wrapper (section 4) |
+| [`linux/scripts/run-lint-gates.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/linux/scripts/run-lint-gates.sh) | The six lint gates plus the `--ratchets` measurement gates. `docs.yml`'s `lint` job calls it directly — there is no wrapper (section 4) |
 | [`linux/scripts/renovate-local.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/linux/scripts/renovate-local.sh) | The Renovate driver. `scripts/linux/renovate-local.sh` finds a hub and execs it; no lane does |
 
 ## 3. Critical invariant: the hub is checked out at `main`
 
-`dart.yml` checks the hub out at `ref: main` and calls its composite actions at
+`docs.yml` checks the hub out at `ref: main` and calls its composite actions at
 `@main`, so a hub change a lane depends on must be pushed **first**; no
 Submodule.Pins suite applies, because there is no gitlink to guard.
 
@@ -70,7 +70,7 @@ Submodule.Pins suite applies, because there is no gitlink to guard.
 
 - **No ANTfrastructure submodule, by decision.** The reasoning is written down
   by its owners and is not repeated here: the
-  [`dart.yml` `lint` job header](.github/workflows/dart.yml) (why there is no
+  [`docs.yml` `lint` job header](.github/workflows/docs.yml) (why there is no
   local lint wrapper, and why the image ref is not repeated either) and the
   [`renovate-local.sh` header](scripts/linux/renovate-local.sh) (why Renovate
   still gets one). The README's
@@ -80,7 +80,7 @@ Submodule.Pins suite applies, because there is no gitlink to guard.
 - **Both wrappers FIND the hub; neither assumes one.**
   [`scripts/lib/find-hub.sh`](scripts/lib/find-hub.sh) owns the one ladder:
   `--hub`, then `$ANTFRASTRUCTURE_DIR`, then `./antfrastructure-tools` (what
-  `dart.yml` creates in CI), then `./third_party/ANTfrastructure` (if this repo
+  `docs.yml` creates in CI), then `./third_party/ANTfrastructure` (if this repo
   ever grows the submodule), then `../ANTfrastructure` and
   `../../ANTfrastructure` (a sibling clone on a dev box). A rung counts only if
   the file the caller named is really inside it, an explicitly wrong `--hub` is
@@ -102,7 +102,7 @@ Submodule.Pins suite applies, because there is no gitlink to guard.
 
 ## 5. Build, run, test
 
-`<hub>` is `./antfrastructure-tools` in CI (what the checkout step in `dart.yml`
+`<hub>` is `./antfrastructure-tools` in CI (what the checkout step in `docs.yml`
 creates) and a sibling ANTfrastructure clone locally. The two wrappers find it
 on their own; the direct calls below are for when you want a different one.
 
@@ -112,7 +112,7 @@ bash scripts/run-dart-checks.sh
 bash <hub>/linux/scripts/05-frameworks/flutter/flutter_checks.sh --strict true
 # The lint gates CI runs (shellcheck, actionlint, gitleaks, ... + the ratchets)
 bash <hub>/linux/scripts/run-lint-gates.sh "$(pwd)" --ratchets
-# doc/api, which dart.yml deploys
+# doc/api, which docs.yml deploys
 dart doc
 # after editing any lib/l10n/*.arb; commit the generated Dart
 flutter gen-l10n
@@ -124,7 +124,7 @@ GITHUB_COM_TOKEN="$(gh auth token)" bash scripts/linux/renovate-local.sh
 
 - `README.md` — what the package is, the Renovate wrapper, getting started.
 - `CHANGELOG.md` — one entry per released `pubspec.yaml` version.
-- The `dart doc` output in `doc/api` (not tracked), generated by `dart.yml` and
+- The `dart doc` output in `doc/api` (not tracked), generated by `docs.yml` and
   published to **omnifronteer.jonasheinle.de** — the package's official docs
   site, which README.md links from its first line. It goes out through the
   family's one FTP publish policy, not a per-repo action:

@@ -5,7 +5,7 @@
 #
 # It exists because ANThology has no third_party/ANTfrastructure and no
 # .gitmodules - a decision, not an omission, whose owners are the headers of
-# scripts/linux/renovate-local.sh and .github/workflows/dart.yml. The family
+# scripts/linux/renovate-local.sh and .github/workflows/docs.yml. The family
 # bootstrap (ANTfrastructure shared/linux/templates/antfrastructure.sh) resolves
 # the hub at <repo>/third_party/ANTfrastructure and tells a reader who has none
 # to run `git submodule update --init`, which here would be a lie. So the hub is
@@ -38,7 +38,7 @@ antfrastructure_hub_holds() {
 #   1. the explicit answer      --hub, or whatever the caller parsed
 #   2. $ANTFRASTRUCTURE_DIR     the variable the family bootstrap exports, so a
 #                               shell set up for a sibling repo works here
-#   3. ./antfrastructure-tools  what dart.yml creates in CI, so the identical
+#   3. ./antfrastructure-tools  what docs.yml creates in CI, so the identical
 #                               command works unchanged on a runner
 #   4. ./third_party/ANTfrastructure   if this repo ever grows the submodule
 #   5. ../ANTfrastructure, ../../ANTfrastructure   a checkout beside this one -

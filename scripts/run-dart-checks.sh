@@ -2,7 +2,7 @@
 # run-dart-checks.sh - this repository's Dart gate as ONE command that CI and a
 # dev box both run: pub get, format over TRACKED files, analyze, test.
 #
-# .github/workflows/dart.yml used to spell the hub script and its --strict flag
+# .github/workflows/docs.yml used to spell the hub script and its --strict flag
 # out inline, which left the gate with no local entry point at all: reproducing
 # it meant retyping a path into antfrastructure-tools/ that exists only on a
 # runner. The hub lookup is scripts/lib/find-hub.sh, shared with the Renovate

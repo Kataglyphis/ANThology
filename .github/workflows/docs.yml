@@ -1,4 +1,4 @@
-name: Deploy docs on website
+name: Docs · deploy
 
 on:
   push:
