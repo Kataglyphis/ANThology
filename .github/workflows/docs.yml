@@ -81,7 +81,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: Kataglyphis/ANTfrastructure
-          ref: main
+          ref: develop
           path: antfrastructure-tools
 
       # The consumer root is passed EXPLICITLY and is never inferred upstream:
@@ -137,7 +137,7 @@ jobs:
       # the image is public (the action skips login when the password is empty).
       # submodules 'false' because ANThology has no .gitmodules.
       - name: 🚚 Prepare CI host
-        uses: Kataglyphis/ANTfrastructure/.github/actions/prepare-linux-ci-host@main
+        uses: Kataglyphis/ANTfrastructure/.github/actions/prepare-linux-ci-host@develop
         with:
           submodules: 'false'
 
@@ -150,7 +150,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: Kataglyphis/ANTfrastructure
-          ref: main
+          ref: develop
           path: antfrastructure-tools
 
       # The family's shared Dart gate (pub get, format on tracked files,
@@ -167,7 +167,7 @@ jobs:
       # the image's Flutter (pinned in ANTfrastructure versions.env) must
       # satisfy pubspec's flutter floor.
       - name: Dart checks (format, analyze, test) + build docs
-        uses: Kataglyphis/ANTfrastructure/.github/actions/run-in-linux-container@main
+        uses: Kataglyphis/ANTfrastructure/.github/actions/run-in-linux-container@develop
         with:
           # `image:` omitted on purpose - see the note above `steps:`.
           extra-args: --platform "linux/amd64"
@@ -184,7 +184,7 @@ jobs:
       # domain.
       - name: 📂 Sync files to doc domain
         if: github.event_name == 'push'
-        uses: Kataglyphis/ANTfrastructure/.github/actions/deploy-over-ftp@main
+        uses: Kataglyphis/ANTfrastructure/.github/actions/deploy-over-ftp@develop
         with:
           server: ${{ secrets.SERVER }}
           username: ${{ secrets.USERNAME }}

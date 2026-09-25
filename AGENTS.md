@@ -62,8 +62,8 @@ execs it (section 1), so fix behaviour upstream, never in the wrapper.
 
 ## 3. Critical invariant: the hub is checked out at `main`
 
-`docs.yml` checks the hub out at `ref: main` and calls its composite actions at
-`@main`, so a hub change a lane depends on must be pushed **first**; no
+`docs.yml` checks the hub out at `ref: develop` and calls its composite actions at
+`@develop`, so a hub change a lane depends on must be pushed **first**; no
 Submodule.Pins suite applies, because there is no gitlink to guard.
 
 ## 4. Pitfalls specific to this project
