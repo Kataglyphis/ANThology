@@ -35,9 +35,9 @@
 # WHY NOT JUST ADD THE SUBMODULE. That would make this repo a copy of the other
 # consumers and delete this header - genuinely tempting. It loses on two counts.
 # It reverses a standing decision this repository has already written down twice
-# (docs.yml checks the hub out at a floating `ref: main` on purpose, and
+# (docs.yml checks the hub out at a floating `ref: develop` on purpose, and
 # .github/renovate.json explains that the preset deliberately leaves the
-# Kataglyphis composite actions at @main so tooling and actions move together);
+# Kataglyphis composite actions at @develop so tooling and actions move together);
 # a gitlink would pin what those lanes have decided to float. And it is a change
 # to the repository's shape, made to reach a report-only tool, in a pure Dart
 # package that has never had a third_party/ directory.
