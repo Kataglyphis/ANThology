@@ -83,21 +83,24 @@ bash scripts/linux/renovate-local.sh --managers pub        # narrow it
 ```
 
 **This repo has no `third_party/ANTfrastructure`**, unlike its siblings — the
-workflow checks the tooling out in CI at `ref: main`. The wrapper therefore has
+workflow checks the tooling out in CI at `ref: develop`. The wrapper therefore has
 to *find* a ANTfrastructure checkout instead of assuming one, by the ladder in
 `scripts/lib/find-hub.sh`: `--hub`, then `$ANTFRASTRUCTURE_DIR`, then
 `./antfrastructure-tools` (what CI creates), then `./third_party/ANTfrastructure`,
-then `../ANTfrastructure`. When none of them holds the tool it prints every path
-it tried and the `git clone` that fixes it — it never fails as a bare
-"command not found". `scripts/run-dart-checks.sh` uses the same ladder.
+then `../ANTfrastructure` and `../../ANTfrastructure`. When none of them holds
+the tool it prints every path it tried and the `git clone` that fixes it — it
+never fails as a bare "command not found". `scripts/run-dart-checks.sh` uses the
+same ladder.
 
 Run it from WSL on a Windows box; it bootstraps a pinned, checksum-verified Node
 and Renovate on first use.
 `GITHUB_COM_TOKEN="$(gh auth token)" bash scripts/linux/renovate-local.sh` gives
-the actions half too. There is nothing to `--apply` here: that half moves
-submodule gitlinks, and this repo has none. `pubspec.yaml` stays a hand edit.
+the actions half too. `--apply --dry-run` shows the writes and `--apply` makes
+them: with no gitlinks here, each update it applies is one value rewritten on
+one line, `pubspec.yaml` included (how go_router reached `^18.0.0`). Nothing is
+staged or committed.
 Full rationale lives in
-[ANTfrastructure's `docs/dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/dependency-updates.md).
+[ANTfrastructure's `docs/dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/dependency-updates.md).
 
 <!-- ### Useful tools -->
 
@@ -123,8 +126,10 @@ If strange things happen try this steps:
 ```sh
 flutter clean
 flutter pub get
-flutter build linux
+flutter test
 ```
+This is a package with no platform runner, so there is nothing to
+`flutter build` here; build one of the apps that consume it.
 
 <!-- CONTRIBUTING -->
 ## Contributing
