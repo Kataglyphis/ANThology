@@ -15,8 +15,8 @@ the asset corpus (fonts, images, legal texts) they both load.
 | `lib/app_shell.dart`, `lib/app_settings.dart`, `lib/app_attributes.dart`, `lib/blog_page_config.dart` | The top-level entry points an app wires its settings, attributes and blog config into |
 | `lib/Decoration/` (incl. `Charts/`) | Box/component decoration, dividers, the fl_chart pie chart |
 | `lib/Layout/` | Adaptive grid and the responsive-design helpers |
-| `lib/Media/` | Markdown, image, data table, download/open/copy/email widgets |
-| `lib/Pages/` | The consolidated pages (landing, about, data, error, footer, sqlite, markdown content) and their configs |
+| `lib/Media/` | Markdown, image, data table, file table, download/open/copy/email widgets |
+| `lib/Pages/` | The `Home` navigation scaffold and the consolidated pages (landing, about, data, error, footer, sqlite, markdown content), with their configs |
 | `lib/Routing/` | go_router creation, navigation bars, screen configurations |
 | `lib/SocialMedia/` | Social media icons and their settings |
 | `lib/Sqlite/` | The sqlite3 self-test with io/web/stub implementations |
@@ -39,16 +39,16 @@ link. If you catch yourself typing a command that would work in another repo,
 it belongs upstream.
 
 Start at
-[ANTfrastructure `docs/INDEX.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/INDEX.md)
+[ANTfrastructure `docs/INDEX.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/INDEX.md)
 — topic → owning document, so these links stay valid when upstream reorganises.
 
 | Topic | Where |
 | --- | --- |
-| The Dart gate: which files it formats, analyzes and tests | [`docs/code-quality-tooling.md#dart-file-enumeration`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/code-quality-tooling.md#dart-file-enumeration) |
-| The shared shell libraries the hub scripts are built on | [`docs/shared-script-libraries.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/shared-script-libraries.md) |
-| Renovate as a local CLI: managers, tokens, why the App is not installed | [`docs/dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/dependency-updates.md) |
-| The one FTP publish policy `docs.yml` deploys through | [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/ftp-deploys.md) |
-| What the CI image ships (uid, Flutter on PATH) and promises | [`docs/consumer-image-contract.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/consumer-image-contract.md) |
+| The Dart gate: which files it formats, analyzes and tests | [`docs/code-quality-tooling.md#dart-file-enumeration`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/code-quality-tooling.md#dart-file-enumeration) |
+| The shared shell libraries the hub scripts are built on | [`docs/shared-script-libraries.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/shared-script-libraries.md) |
+| Renovate as a local CLI: managers, tokens, why the App is not installed | [`docs/dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/dependency-updates.md) |
+| The one FTP publish policy `docs.yml` deploys through | [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/ftp-deploys.md) |
+| What the CI image ships (uid, Flutter on PATH) and promises | [`docs/consumer-image-contract.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/consumer-image-contract.md) |
 
 The three upstream scripts this repo actually executes. None of them is copied
 here; a local file that looks like one of them is a wrapper that finds it and
@@ -56,15 +56,18 @@ execs it (section 1), so fix behaviour upstream, never in the wrapper.
 
 | Hub script | What it is to this repo |
 | --- | --- |
-| [`linux/scripts/05-frameworks/flutter/flutter_checks.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/linux/scripts/05-frameworks/flutter/flutter_checks.sh) | The Dart gate itself: pub get, format, analyze, test. `scripts/run-dart-checks.sh` runs it at `--strict true` |
-| [`linux/scripts/run-lint-gates.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/linux/scripts/run-lint-gates.sh) | The six lint gates plus the `--ratchets` measurement gates. `docs.yml`'s `lint` job calls it directly — there is no wrapper (section 4) |
-| [`linux/scripts/renovate-local.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/linux/scripts/renovate-local.sh) | The Renovate driver. `scripts/linux/renovate-local.sh` finds a hub and execs it; no lane does |
+| [`linux/scripts/05-frameworks/flutter/flutter_checks.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/05-frameworks/flutter/flutter_checks.sh) | The Dart gate itself: pub get, pubspec structure, format, analyze, test. `scripts/run-dart-checks.sh` runs it at `--strict true` |
+| [`linux/scripts/run-lint-gates.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/run-lint-gates.sh) | The six lint gates plus the `--ratchets` measurement gates. `docs.yml`'s `lint` job calls it directly — there is no wrapper (section 4) |
+| [`linux/scripts/renovate-local.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/renovate-local.sh) | The Renovate driver. `scripts/linux/renovate-local.sh` finds a hub and execs it; no lane does |
 
-## 3. Critical invariant: the hub is checked out at `main`
+## 3. Critical invariant: the hub is checked out at `develop`
 
 `docs.yml` checks the hub out at `ref: develop` and calls its composite actions at
 `@develop`, so a hub change a lane depends on must be pushed **first**; no
-Submodule.Pins suite applies, because there is no gitlink to guard.
+Submodule.Pins suite applies, because there is no gitlink to guard. Both moved
+off `main` by owner directive on 2026-09-25: hub `main` is a release branch that
+lags `develop`. The hub links in this file and README.md point at `develop` for
+the same reason.
 
 ## 4. Pitfalls specific to this project
 
@@ -86,19 +89,22 @@ Submodule.Pins suite applies, because there is no gitlink to guard.
   the file the caller named is really inside it, an explicitly wrong `--hub` is
   an error rather than something to probe past, and a miss prints every path it
   tried. Do not retype the ladder into a new script — source that file.
-- **The Dart gate formats TRACKED files, never `dart format .`.** The CI lanes
-  install the Flutter SDK inside the mounted workspace, so a recursive walk
-  reformats the SDK itself; the hub enumerates `git ls-files` instead. This is
-  why a new `.dart` file is ungraded until it is `git add`ed, and why
-  `scripts/run-dart-checks.sh` takes no arguments — `--strict false` would turn
-  the blocking gate into a warning.
+- **The Dart gate formats TRACKED files, never `dart format .`.** The hub
+  enumerates `git ls-files` instead of walking the tree: a recursive walk once
+  reformatted a Flutter SDK unpacked inside a consumer's workspace
+  (OmniAccelerANT, measured 2026-09-03). This lane takes Flutter from the image
+  (`/opt/flutter`, since 2026-09-07), but the enumeration stays, so a new
+  `.dart` file escapes the format check — not `dart analyze` or `flutter test`
+  — until it is `git add`ed. `scripts/run-dart-checks.sh` takes no arguments:
+  `--strict false` would turn the blocking gate into a warning.
 - The generated Dart under `lib/l10n/` is committed: a consumer's
   `flutter pub get` never runs gen-l10n for a dependency (`pubspec.yaml`).
 - Package fonts register as `packages/anthology/<family>`; a bare family name
   silently falls back to the platform default (`pubspec.yaml`, `fonts:`).
 - An asset is only in a bundle if `pubspec.yaml` declares it, and only worth
   tracking if one of the two apps names it. Grep both consumers for a basename
-  before adding or deleting one.
+  before adding or deleting one. The Dart gate fails a declared path that
+  bundles nothing (a missing file, or a directory with no file directly in it).
 
 ## 5. Build, run, test
 
@@ -107,7 +113,8 @@ creates) and a sibling ANTfrastructure clone locally. The two wrappers find it
 on their own; the direct calls below are for when you want a different one.
 
 ```bash
-# The Dart gate CI runs: pub get, format on tracked files, analyze, test
+# The Dart gate CI runs: pub get, pubspec structure, format on tracked files,
+# analyze, test
 bash scripts/run-dart-checks.sh
 bash <hub>/linux/scripts/05-frameworks/flutter/flutter_checks.sh --strict true
 # The lint gates CI runs (shellcheck, actionlint, gitleaks, ... + the ratchets)
@@ -126,8 +133,8 @@ GITHUB_COM_TOKEN="$(gh auth token)" bash scripts/linux/renovate-local.sh
 - `CHANGELOG.md` — one entry per released `pubspec.yaml` version.
 - The `dart doc` output in `doc/api` (not tracked), generated by `docs.yml` and
   published to **omnifronteer.jonasheinle.de** — the package's official docs
-  site, which README.md links from its first line. It goes out through the
+  site, which README.md links under its title. It goes out through the
   family's one FTP publish policy, not a per-repo action:
-  [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/main/docs/ftp-deploys.md).
+  [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/ftp-deploys.md).
 
 A change to user-facing behaviour updates its doc in the same commit.

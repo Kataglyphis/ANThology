@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+- 2026-09-25: `docs.yml` checks the hub out at `ref: develop` and calls its
+  actions at `@develop`; hub `main` is a release branch that lags it. README.md
+  and AGENTS.md follow, and link the hub's docs at `develop`. Three stale claims
+  in them are corrected: `renovate-local.sh --apply` does rewrite
+  `pubspec.yaml`, the Dart gate also checks pubspec structure, and the README
+  no longer suggests `flutter build linux` in a package that has no runner.
 - 2026-09-24: `.github/workflows/dart.yml` is `docs.yml`, display name
   "Docs · deploy" — the family's workflow naming convention (owner decision:
   kebab-case files, shared lanes named alike in every repo, `<Area> · <what>`).
