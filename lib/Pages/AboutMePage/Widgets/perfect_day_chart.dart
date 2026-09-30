@@ -5,9 +5,7 @@ import 'package:anthology/constants.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 
 /// Pie chart breaking a 24 hour day down into activities.
-///
-/// Requires [AnthologyLocalizations.delegate] on the enclosing [MaterialApp];
-/// the slice labels and the title are read from that catalogue.
+/// Requires [AnthologyLocalizations.delegate] on the enclosing [MaterialApp].
 class PerfectDay extends StatefulWidget {
   const PerfectDay({super.key});
 
@@ -16,10 +14,7 @@ class PerfectDay extends StatefulWidget {
 }
 
 class PerfectDayState extends State<PerfectDay> {
-  /// Calculates the percentage of a day that the given hours represent.
-  ///
-  /// Returns a value rounded to 2 decimal places.
-  /// Example: 8 hours = 33.33% of a day.
+  /// The percentage of a day that [hoursPerDay] represents, rounded to 2 decimals.
   static double getDayHourPercentage(double hoursPerDay) {
     final percentage = (hoursPerDay / 24) * 100;
     return double.parse(percentage.toStringAsFixed(2));
@@ -42,8 +37,7 @@ class PerfectDayState extends State<PerfectDay> {
       chartData.add(PieChartDataEntry(entryName, valueInPercentage));
     });
     double currentWidth = MediaQuery.of(context).size.width;
-    // IntrinsicHeight is load bearing: the chart is placed in an unbounded
-    // scroll column, where the pie would otherwise get no height at all.
+    // IntrinsicHeight: in an unbounded scroll column the pie would get no height at all.
     return IntrinsicHeight(
       child: PieChartWidget(
         chartConfig: chartConfig,

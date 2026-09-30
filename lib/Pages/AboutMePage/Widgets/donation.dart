@@ -4,9 +4,7 @@ import 'package:anthology/Media/Image/openable_image.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 
 /// Donation call-to-action: the PayPal and coffee images plus their caption.
-///
-/// Requires [AnthologyLocalizations.delegate] to be registered on the enclosing
-/// [MaterialApp]; without it the caption lookup is null and this throws.
+/// Requires [AnthologyLocalizations.delegate] on the enclosing [MaterialApp], or it throws.
 class Donation extends StatefulWidget {
   const Donation({super.key});
 

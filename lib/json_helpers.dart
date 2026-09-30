@@ -1,13 +1,7 @@
-/// Shared strict JSON readers for the settings configs.
-///
-/// Both `BlogPageConfig` and `MyTwoCentsConfig` parse hand-maintained JSON.
-/// A silently missing field there produces a page that renders blank, so these
-/// helpers throw instead of substituting a default.
+/// Strict JSON readers for the settings configs: a missing field throws instead of rendering a blank page.
 library;
 
-/// Reads a required [String] field out of [json].
-///
-/// Throws [FormatException] when the key is absent or is not a string.
+/// Reads a required [String] field out of [json]; throws [FormatException] if absent or not a string.
 String requireStringField(Map<String, dynamic> json, String key) {
   final value = json[key];
   if (value == null) {
@@ -21,10 +15,7 @@ String requireStringField(Map<String, dynamic> json, String key) {
   return value;
 }
 
-/// Parses a `docsDesc` array into the appendix descriptor list.
-///
-/// A null [docsDescJson] yields an empty list - appendices are optional.
-/// A present but non-list value is a malformed settings file and throws.
+/// Parses a `docsDesc` array into appendix descriptors; null yields an empty list, a non-list throws.
 List<Map<String, String>> parseDocsDesc(dynamic docsDescJson) {
   final docsDesc = <Map<String, String>>[];
   if (docsDescJson == null) return docsDesc;

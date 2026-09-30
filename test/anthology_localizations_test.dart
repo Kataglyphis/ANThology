@@ -3,11 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:anthology/l10n/anthology_localizations.dart';
 
-/// Every getter on the shared catalogue, paired with a reader.
-///
-/// Kept explicit rather than derived by reflection: if a key is added to the
-/// .arb files and not listed here, that is a deliberate prompt to decide
-/// whether the new string deserves coverage.
+/// Every catalogue getter with a reader, listed by hand so a new .arb key forces a coverage decision.
 final Map<String, String Function(AnthologyLocalizations)> _catalogue =
     <String, String Function(AnthologyLocalizations)>{
       'brightness': (AnthologyLocalizations l) => l.brightness,
@@ -78,9 +74,7 @@ void main() {
     });
 
     test('the reader map covers every key in the catalogue', () {
-      // A tripwire, not decoration: gen-l10n emits one getter per .arb key, so
-      // adding a key without listing it here would leave it untested while the
-      // suite still reported green. Bump this deliberately, with the reader.
+      // Tripwire: one getter per .arb key, so an unlisted new key fails here; bump it with the reader.
       expect(
         _catalogue,
         hasLength(42),
@@ -118,9 +112,7 @@ void main() {
     }
 
     test('every key is translated away from the English source', () {
-      // Catches an .arb key silently left untranslated, which is how the old
-      // hand-rolled localeOf(context) ternaries failed: the third locale
-      // quietly received English.
+      // Catches an .arb key silently left untranslated, which serves a third locale English.
       final AnthologyLocalizations en = lookupAnthologyLocalizations(
         const Locale('en'),
       );
@@ -169,8 +161,7 @@ void main() {
     });
 
     test('switchLang is locale-neutral, not a hard-coded DE/EN pair', () {
-      // OmniAccelerANT used to say "Switch (DE/EN)". Any app shipping a third
-      // locale is then lying to the user in its own language picker.
+      // A "Switch (DE/EN)" label lies to any app shipping a third locale.
       for (final Locale locale in AnthologyLocalizations.supportedLocales) {
         final String label = lookupAnthologyLocalizations(locale).switchLang;
         expect(
@@ -224,8 +215,7 @@ void main() {
         ),
         'Test ausführen',
       );
-      // The regression that mattered: jotrockenmitlocken ships fr, and the
-      // ternary this catalogue replaced served it the English label.
+      // jotrockenmitlocken ships fr, which a DE/EN ternary served in English.
       expect(
         await pumpAndRead(
           tester,

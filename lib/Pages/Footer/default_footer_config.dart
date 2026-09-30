@@ -3,13 +3,8 @@ import 'package:anthology/Pages/Footer/footer_config.dart';
 import 'package:anthology/Url/external_link_config.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 
-/// The footer configuration both apps were carrying a private copy of.
-///
-/// The liability block and the external-links title come from
-/// [AnthologyLocalizations], so its delegate must be registered on the
-/// enclosing [MaterialApp]. The link list is a constructor argument rather
-/// than a hard-coded constant so a consumer is not forced to advertise
-/// somebody else's sites.
+/// The shared footer; links are an argument so no consumer advertises somebody else's sites.
+/// Requires [AnthologyLocalizations.delegate] on the enclosing [MaterialApp].
 class DefaultFooterConfig extends FooterConfig {
   DefaultFooterConfig({List<ExternalLinkConfig>? externalLinks})
     : _externalLinks =

@@ -10,10 +10,7 @@ import 'package:anthology/user_settings.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 /// Portrait, bio, social links, contact button and donation block.
-///
-/// Everything person-specific is read from [userSettings]; only the fixed
-/// labels come from [AnthologyLocalizations], whose delegate must be
-/// registered on the enclosing [MaterialApp].
+/// Requires [AnthologyLocalizations.delegate] on the enclosing [MaterialApp].
 class AboutMeTable extends StatefulWidget {
   const AboutMeTable({super.key, required this.userSettings});
 

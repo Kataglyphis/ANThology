@@ -1,27 +1,12 @@
 #!/usr/bin/env bash
-# find-hub.sh - where this repository's wrappers find an ANTfrastructure
-# checkout. SOURCED, never executed: it publishes KATAGLYPHIS_REPO_ROOT and
-# defines antfrastructure_find_hub, which puts its answer in ANTFRASTRUCTURE_DIR.
-#
-# It exists because ANThology has no third_party/ANTfrastructure and no
-# .gitmodules - a decision, not an omission, whose owners are the headers of
-# scripts/linux/renovate-local.sh and .github/workflows/docs.yml. The family
-# bootstrap (ANTfrastructure shared/linux/templates/antfrastructure.sh) resolves
-# the hub at <repo>/third_party/ANTfrastructure and tells a reader who has none
-# to run `git submodule update --init`, which here would be a lie. So the hub is
-# FOUND rather than assumed - and the ladder lives in one file instead of being
-# retyped by every wrapper that needs it.
+# find-hub.sh - sourced, never run: finds an ANTfrastructure checkout, since this repo has no submodule.
 
 _ANTHOLOGY_LIB_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# Overridable for the same reason the family bootstrap makes it overridable: in
-# a container the workspace is mounted at a different path than on the host.
+# Overridable: a container mounts the workspace at a different path than the host.
 KATAGLYPHIS_REPO_ROOT="${KATAGLYPHIS_REPO_ROOT:-$(cd "${_ANTHOLOGY_LIB_DIR}/../.." && pwd)}"
 
-# A candidate counts only if the marker file is actually inside it. "The
-# directory exists" is a different question: a half-finished clone, or a path
-# that used to hold the hub, would otherwise be accepted here and fail later
-# inside bash with a message naming neither this wrapper nor the reason.
+# The marker file must be inside: a half-finished clone or stale path would otherwise fail later, unexplained.
 antfrastructure_hub_holds() {
   if [ -n "${1:-}" ] && [ -n "${2:-}" ] && [ -f "${1}/${2}" ]; then
     return 0
@@ -29,28 +14,7 @@ antfrastructure_hub_holds() {
   return 1
 }
 
-# antfrastructure_find_hub <marker-relative-path> <caller-label> <explicit-set>
-#                          <explicit-dir>
-#
-# Resolves a checkout that really holds <marker-relative-path> and publishes it
-# as ANTFRASTRUCTURE_DIR. The order, and the reason for each rung:
-#
-#   1. the explicit answer      --hub, or whatever the caller parsed
-#   2. $ANTFRASTRUCTURE_DIR     the variable the family bootstrap exports, so a
-#                               shell set up for a sibling repo works here
-#   3. ./antfrastructure-tools  what docs.yml creates in CI, so the identical
-#                               command works unchanged on a runner
-#   4. ./third_party/ANTfrastructure   if this repo ever grows the submodule
-#   5. ../ANTfrastructure, ../../ANTfrastructure   a checkout beside this one -
-#                               the dev-box shape, ANThology sitting in
-#                               OmniAccelerANT/third_party/ next to the hub
-#
-# An answer somebody gave EXPLICITLY is never silently discarded: a wrong --hub
-# or ANTFRASTRUCTURE_DIR is an error about THAT path rather than something to
-# probe past and then report against a different hub than the one asked for.
-# <explicit-set> is separate from <explicit-dir> because an explicitly EMPTY
-# value is an error too: `--hub ""` names nothing at all, which is not the same
-# as omitting the flag and letting this function search.
+# antfrastructure_find_hub <marker> <label> <explicit-set> <explicit-dir> - sets ANTFRASTRUCTURE_DIR; an explicit (even empty) path is never probed past.
 antfrastructure_find_hub() {
   local marker="${1:?antfrastructure_find_hub: marker path required}"
   local label="${2:?antfrastructure_find_hub: caller label required}"
@@ -98,9 +62,7 @@ antfrastructure_find_hub() {
   return 1
 }
 
-# The not-found report, kept whole: it must never fail as a bare "command not
-# found" or run something out of an empty path - that is the entire contract of
-# a wrapper that cannot rely on a submodule.
+# Never a bare "command not found": name every probed path and the fix.
 antfrastructure_hub_not_found() {
   local candidate
   echo "${2}: no ANTfrastructure checkout holding ${1}." >&2

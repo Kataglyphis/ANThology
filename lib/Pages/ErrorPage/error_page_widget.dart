@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:anthology/Decoration/centered_box_decoration.dart';
 import 'package:anthology/Decoration/component_group_decoration.dart';
 
-/// Widget displaying a 404 error page with an animated GIF.
-///
-/// This is a stateless widget since it has no mutable state.
+/// A 404 error page with an animated GIF.
 class ErrorPageWidget extends StatelessWidget {
   const ErrorPageWidget({super.key});
 

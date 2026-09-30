@@ -19,8 +19,6 @@ class CopyButton extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       ),
       child: Text(
-        // Was a hard-coded DE/EN ternary, which served English to every other
-        // locale the host app supports.
         AnthologyLocalizations.of(context)!.copyLabel,
         style: Theme.of(context).textTheme.titleMedium,
       ),

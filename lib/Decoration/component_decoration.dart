@@ -48,8 +48,7 @@ class _ComponentDecorationState extends State<ComponentDecoration> {
               constraints: const BoxConstraints.tightFor(
                 width: narrowScreenWidthThreshold,
               ),
-              // Tapping within the a component card should request focus
-              // for that component's children.
+              // A tap inside the card requests focus for the component's children.
               child: Focus(
                 focusNode: focusNode,
                 canRequestFocus: true,

@@ -47,10 +47,7 @@ abstract class RoutesCreator {
                 GoRouterState state,
                 StatefulNavigationShell navigationShell,
               ) {
-                // Return the widget that implements the custom shell (in this case
-                // using a BottomNavigationBar). The StatefulNavigationShell is passed
-                // to be able access the state of the shell and to navigate to other
-                // branches in a stateful way.
+                // navigationShell lets Home switch branches while keeping each branch's state.
                 return Home(
                   handleChangedPageIndex: handleChangedPageIndex,
                   scaffoldKey: scaffoldKey,

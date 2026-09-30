@@ -26,8 +26,7 @@ class _RailTransition extends State<RailTransition> {
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    // The animations are only rebuilt by this method when the text
-    // direction changes because this widget only depends on Directionality.
+    // Runs only on a text-direction change: Directionality is this widget's only dependency.
     final bool ltr = Directionality.of(context) == TextDirection.ltr;
 
     widthAnimation = Tween<double>(

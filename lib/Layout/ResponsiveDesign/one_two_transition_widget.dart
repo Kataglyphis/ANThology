@@ -52,11 +52,6 @@ class OneTwoTransitionPageState extends State<OneTwoTransitionPage> {
           ),
         ),
       ),
-      // ListView(
-      //   //ScrollableList(childWidgets:
-      //   padding: const EdgeInsetsDirectional.only(end: 10.0),
-      //   children: widget.childWidgetsRightPage,
-      // ),
     );
   }
 }

@@ -3,10 +3,7 @@ import 'package:anthology/blog_page_config.dart';
 import 'package:anthology/my_two_cents_config.dart';
 
 /// Everything parsed out of an app's blog settings, handed to the shared pages.
-///
-/// An app carrying extra blog-adjacent state subclasses this rather than
-/// widening it: the shared widgets only ever read the three fields declared
-/// here, so a subclass field stays invisible to them and to the other app.
+/// Subclass it for app-only state: the shared widgets read only these three fields.
 class BlogDependentAppAttributes {
   List<MyTwoCentsConfig> twoCentsConfigs;
   List<BlogPageConfig> blockSettings;

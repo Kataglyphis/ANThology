@@ -8,7 +8,6 @@ import 'package:anthology/blog_dependent_app_attributes.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 
 /// Page listing every configured blog post in one sortable table.
-///
 /// Requires [AnthologyLocalizations.delegate] on the enclosing [MaterialApp].
 class BlockOverviewPage extends StatefulWidget {
   final AppAttributes appAttributes;

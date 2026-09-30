@@ -31,8 +31,7 @@ class LandingPageEntry extends StatefulWidget {
   final String imagePath;
   final String description;
 
-  /// Source repository for this entry, or null when the app has no GitHub
-  /// link configured. Null hides the icon rather than guessing a URL.
+  /// Source repository, or null (no GitHub link configured) to hide the icon.
   final ExternalLinkConfig? githubRepo;
   final String? imageCaptioning;
   final String lastModified;

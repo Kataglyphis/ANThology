@@ -5,18 +5,10 @@ import 'package:anthology/json_helpers.dart';
 /// Alignment options for landing page entries.
 enum LandingPageAlignment { left, right }
 
-/// Configuration for a blog page loaded from JSON settings.
-///
-/// This class holds all metadata and content paths needed to render a blog post,
-/// including the markdown file path, image directory, and appendix documents.
-///
-/// Implements [MarkdownContentConfig] to enable use with [MarkdownContentPage].
+/// A blog page's metadata and content paths from JSON, usable with [MarkdownContentPage].
 class BlogPageConfig extends StatefulBranchInfoProvider
     implements MarkdownContentConfig {
-  /// Creates a [BlogPageConfig] from a JSON map.
-  ///
-  /// Throws [FormatException] if a required field is missing or has the wrong
-  /// type, rather than rendering a blank page from a malformed settings file.
+  /// Throws [FormatException] on a missing or mistyped field rather than rendering a blank page.
   BlogPageConfig.fromJsonFile(Map<String, dynamic> jsonFile)
     : routingName = requireStringField(jsonFile, 'routingName'),
       shortDescriptionEN = requireStringField(jsonFile, 'shortDescriptionEN'),

@@ -1,9 +1,6 @@
 import 'package:anthology/Media/DataTable/table_data.dart';
 
-/// Represents a single blog/data entry in the overview table.
-///
-/// Each entry has a title, date, and comment that are displayed
-/// in the block overview data table.
+/// A single blog/data entry (title, date, comment) in the overview table.
 class BlockEntry extends TableData {
   /// Creates a block entry with the required fields.
   BlockEntry({required this.title, required this.date, required this.comment});
