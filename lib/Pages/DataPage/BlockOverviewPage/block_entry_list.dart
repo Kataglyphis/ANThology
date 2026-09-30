@@ -26,8 +26,7 @@ class BlockEntryList extends DataList {
 }
 
 class _BlockEntryListState extends DataListState<BlockEntry, BlockEntryList> {
-  /// Column spacing ratios for the data table.
-  /// Currently uniform across mobile and desktop layouts.
+  /// Column spacing ratios, the same on mobile and desktop.
   static const List<double> _columnSpacing = [0.3, 0.3, 0.3];
 
   @override

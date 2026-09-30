@@ -115,8 +115,7 @@ void main() {
     });
 
     test('an absent image caption is null rather than a crash', () {
-      // jotrockenmitlocken read this with `as String`, so a settings entry
-      // without a caption threw a TypeError while loading the whole app.
+      // An `as String` read here made a caption-less entry crash the whole app load.
       final BlogPageConfig config = BlogPageConfig.fromJsonFile(_blogJson());
 
       expect(config.landingPageEntryImageCaptioning, isNull);
@@ -170,8 +169,7 @@ void main() {
     });
 
     test('the error widget is stateless', () {
-      // jotrockenmitlocken carried a StatefulWidget whose State held nothing.
-      // Pinning this stops that variant from creeping back in.
+      // Pins out the stateless-in-disguise StatefulWidget variant.
       expect(const ErrorPageWidget(), isA<StatelessWidget>());
     });
   });

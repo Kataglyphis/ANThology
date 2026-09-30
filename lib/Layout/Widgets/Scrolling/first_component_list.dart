@@ -31,8 +31,5 @@ class _FirstComponentListState extends State<FirstComponentList> {
         children: resultingChildWidgetsLeftPage,
       ),
     ); //ScrollableList(childWidgets: resultingChildWidgetsLeftPage);
-    // return ListView(
-    //   children: resultingChildWidgetsLeftPage,
-    // ); //ScrollableList(childWidgets: resultingChildWidgetsLeftPage);
   }
 }

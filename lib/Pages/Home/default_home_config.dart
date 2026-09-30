@@ -4,10 +4,8 @@ import 'package:anthology/Pages/Home/button_names.dart';
 import 'package:anthology/Pages/Home/home_config.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 
-/// The [HomeConfig] both apps were carrying a private, byte-identical copy of.
-///
-/// Labels come from [AnthologyLocalizations], so its delegate must be
-/// registered on the enclosing [MaterialApp].
+/// The [HomeConfig] shared by both apps.
+/// Requires [AnthologyLocalizations.delegate] on the enclosing [MaterialApp].
 class DefaultHomeConfig extends HomeConfig {
   @override
   ButtonNames getButtonNames(BuildContext context) {

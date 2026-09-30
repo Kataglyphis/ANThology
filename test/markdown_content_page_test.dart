@@ -127,8 +127,7 @@ void main() {
     });
 
     test('deprecated loose-parameter constructor still resolves a config', () {
-      // Deliberately exercises the deprecated pre-1.2 signature: this package
-      // is published, so the passthrough must keep working until it is removed.
+      // The package is published, so the deprecated pre-1.2 signature must keep working until removed.
       final page = MarkdownContentPage(
         appAttributes: appAttributes,
         footer: footer,

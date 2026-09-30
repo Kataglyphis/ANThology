@@ -6,11 +6,7 @@ import 'package:anthology/Media/Files/file_table.dart';
 import 'package:anthology/Media/Markdown/markdown_page.dart';
 import 'package:anthology/app_attributes.dart';
 
-/// Configuration interface for pages that display markdown content with an
-/// appendix file table.
-///
-/// Implement this on a page config (a blog entry, a media review, ...) and pass
-/// the config straight to [MarkdownContentPage]; the page needs nothing else.
+/// Config for a page showing markdown plus an appendix file table; pass it to [MarkdownContentPage].
 abstract class MarkdownContentConfig {
   /// The path to the markdown file to display.
   String get filePath;
@@ -18,27 +14,11 @@ abstract class MarkdownContentConfig {
   /// The directory containing images referenced in the markdown.
   String get imageDir;
 
-  /// List of appendix documents with their metadata.
-  ///
-  /// Each map should contain:
-  /// - 'baseDir': The base directory for the file
-  /// - 'title': The display title
-  /// - 'additionalInfo': Additional information about the file
+  /// Appendix documents, each a map with 'baseDir', 'title' and 'additionalInfo'.
   List<Map<String, String>> get docsDesc;
 }
 
-/// A reusable widget for displaying markdown content with an appendix file
-/// table.
-///
-/// Example usage:
-/// ```dart
-/// MarkdownContentPage(
-///   appAttributes: appAttributes,
-///   footer: footer,
-///   config: blogPageConfig,
-///   appendixTitle: 'References',
-/// )
-/// ```
+/// Markdown content with an appendix file table, built from a [MarkdownContentConfig].
 class MarkdownContentPage extends StatelessWidget {
   /// The application-wide attributes for theming and layout.
   final AppAttributes appAttributes;
@@ -46,9 +26,7 @@ class MarkdownContentPage extends StatelessWidget {
   /// The footer widget to display at the bottom of the page.
   final Footer footer;
 
-  /// The title displayed above the appendix file table.
-  ///
-  /// Defaults to 'Appendix' if not specified.
+  /// The title above the appendix file table; defaults to 'Appendix'.
   final String appendixTitle;
 
   final MarkdownContentConfig? _config;
@@ -56,17 +34,8 @@ class MarkdownContentPage extends StatelessWidget {
   final String? _legacyImageDir;
   final List<Map<String, String>>? _legacyDocsDesc;
 
-  /// Creates a markdown content page.
-  ///
-  /// Pass [config]. The [filePath], [imageDir] and [docsDesc] parameters are
-  /// the pre-1.2 signature, kept so that existing consumers of this public
-  /// package keep compiling; they will be removed in a future major release.
-  /// Supply exactly one of the two forms.
-  ///
-  /// The `@Deprecated` annotations below are documentation only: this SDK's
-  /// analyzer does not raise `deprecated_member_use` for a formal parameter
-  /// (verified - a test calling the old form analyses clean), so a consumer
-  /// learns about the migration from the docs, not from a warning.
+  /// Pass [config] or the deprecated pre-1.2 [filePath]/[imageDir]/[docsDesc] trio, never both.
+  /// The analyzer does not flag the deprecated parameters, so only these docs announce the migration.
   const MarkdownContentPage({
     super.key,
     required this.appAttributes,
@@ -99,11 +68,7 @@ class MarkdownContentPage extends StatelessWidget {
          '`filePath:`/`imageDir:`/`docsDesc:` trio - not both, not neither.',
        );
 
-  /// The resolved configuration backing this page.
-  ///
-  /// Throws a [StateError] - in release builds too, where the constructor
-  /// assert does not run - when neither form was supplied, rather than
-  /// rendering a silently empty page.
+  /// The resolved configuration; throws [StateError], in release builds too, when neither form was supplied.
   MarkdownContentConfig get config {
     final MarkdownContentConfig? explicitConfig = _config;
     if (explicitConfig != null) {

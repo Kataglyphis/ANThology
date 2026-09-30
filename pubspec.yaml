@@ -10,9 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  # Needed by the generated AnthologyLocalizations (see l10n.yaml). The package
-  # ships its own catalogue, so its widgets no longer take localized strings in
-  # through `String Function(BuildContext)` closures.
+  # Needed by the generated AnthologyLocalizations (see l10n.yaml).
   flutter_localizations:
     sdk: flutter
   intl: ^0.20.2
@@ -35,18 +33,11 @@ dev_dependencies:
   flutter_lints: ^6.0.0
 
 flutter:
-  # Runs gen-l10n for this package. The generated Dart under lib/l10n/ is also
-  # committed, because a consumer's `flutter pub get` never runs gen-l10n for a
-  # dependency.
+  # The generated lib/l10n/ Dart is committed too: a consumer's `flutter pub get` never runs gen-l10n for it.
   generate: true
   uses-material-design: true
 
-  # The shared asset corpus. Both apps (OmniAccelerANT and jotrockenmitlocken)
-  # used to carry byte-identical copies of every file below; they now reference
-  # them as `packages/anthology/assets/...`. Keeping the legal texts under
-  # assets/documents/footer/ in one place is the point: imprint, privacy policy,
-  # cookie declaration, accessibility declaration, contact and copyright all
-  # describe the SAME legal entity, so a one-sided edit was a compliance defect.
+  # Shared by both apps as packages/anthology/assets/...; the footer legal texts must stay in this one place.
   assets:
     - assets/documents/blog/
     - assets/documents/footer/
@@ -55,29 +46,15 @@ flutter:
     - assets/images/books/
     - assets/images/cats/
     - assets/images/Pages/AboutMe/
-    # One FILE, not the directory: the four other portraits under
-    # Bewerbungsbilder/ shipped in both app bundles and were referenced by
-    # neither. Both apps name only this one, in global_user_settings.json.
+    # One file, not the directory: it is the only portrait either app names.
     - assets/images/Pages/AboutMe/Bewerbungsbilder/a95a64ca_runterskaliert.jpg
-    # assets/images/Pages/Blog/ is gone entirely. Its OpenGLRenderer/ and
-    # VulkanRenderer/ subdirectories held the old renderer screenshots, which no
-    # settings file, blog markdown or widget in either app ever named; the one
-    # blog image that IS rendered resolves against blog_settings.json's
-    # imageDir, assets/images/aiBlog/, which carried its own copy.
     - assets/images/Pages/Data/
     - assets/images/Pages/Error/
 
-  # Declared HERE, nested under `flutter:`. Both apps previously kept a `fonts:`
-  # block at column 0 - a top-level pubspec key that Flutter silently ignores -
-  # so no custom face ever reached FontManifest.json and `fontFamily: 'Roboto'`
-  # fell back to the platform default. Package fonts register under the
-  # `packages/anthology/<family>` name; use that (or `package: 'anthology'`).
+  # Nested under `flutter:` (top-level is silently ignored); use `packages/anthology/<family>` or `package: 'anthology'`.
   fonts:
     - family: Montserrat
       fonts:
-        # NOTE: the real files live under Montserrat/static/. Omni's old block
-        # omitted `static/` and jot's omitted `assets/fonts/Montserrat/`
-        # entirely, so every one of these paths used to be unresolvable.
         - asset: assets/fonts/Montserrat/static/Montserrat-Thin.ttf
           weight: 100
         - asset: assets/fonts/Montserrat/static/Montserrat-ThinItalic.ttf

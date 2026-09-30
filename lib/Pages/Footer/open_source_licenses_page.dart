@@ -6,12 +6,7 @@ import 'package:anthology/app_attributes.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 
 /// Lists every package registered with [LicenseRegistry] and its licence text.
-///
-/// All copy on this page comes from [AnthologyLocalizations], so the host app
-/// must register [AnthologyLocalizations.delegate] in its
-/// `localizationsDelegates`. It used to arrive through three
-/// `String Function(BuildContext)` closures, which forced every consuming app
-/// to keep its own duplicate of the same three strings.
+/// Requires [AnthologyLocalizations.delegate] in the host app's `localizationsDelegates`.
 class OpenSourceLicensesPage extends StatefulWidget {
   const OpenSourceLicensesPage({
     super.key,

@@ -10,7 +10,6 @@ import 'package:anthology/blog_page_config.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 
 /// Two-column landing page: one [LandingPageEntry] per configured blog post.
-///
 /// Requires [AnthologyLocalizations.delegate] on the enclosing [MaterialApp].
 class LandingPage extends StatefulWidget {
   final AppAttributes appAttributes;
@@ -51,9 +50,7 @@ class LandingPageState extends State<LandingPage> {
       ),
     );
 
-    // A missing GitHub link is not fatal: the entries still render, they just
-    // carry no repository icon. Indexing into a null config here used to throw
-    // and take the whole landing page down.
+    // A missing GitHub link only hides the repository icon; it must not take the page down.
     final socialLinks =
         widget.appAttributes.userSettings.socialMediaLinksConfig;
     final ExternalLinkConfig? gitHub = socialLinks?['GitHub'];

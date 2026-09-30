@@ -18,8 +18,7 @@ class SkillTable extends StatefulWidget {
   final UserSettings userSettings;
   final String aboutMeFile;
 
-  /// Bundle the skills JSON is read from; defaults to [rootBundle].
-  /// Injectable so a test can supply a fixture without a real asset.
+  /// Bundle the skills JSON is read from; defaults to [rootBundle], injectable for test fixtures.
   final AssetBundle? assetBundle;
 
   @override

@@ -12,27 +12,14 @@ import 'package:anthology/constants.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 import 'package:anthology/user_settings.dart';
 
-/// The default font family for both apps' themes.
-///
-/// Roboto is shipped by this package, so the family name carries the
-/// `packages/<name>/` prefix that Flutter registers package fonts under.
+/// Default font family; package fonts register under the `packages/<name>/` prefix.
 const String kAppShellFontFamily = 'packages/anthology/Roboto';
 
-/// Loads everything an app needs before its first frame.
-///
-/// Called exactly once, from the shell's `initState`. The two apps differ here
-/// on purpose: OmniAccelerANT reads five JSON assets (its WebRTC settings are
-/// the fifth), jotrockenmitlocken goes through its own `SettingsLoader`. The
-/// shell only cares that a future eventually produces a `T`.
+/// Loads everything an app needs before its first frame; called once, from the shell's `initState`.
 typedef AppShellDataLoader<T> = Future<T> Function();
 
 /// Turns the loaded `T` into the two objects the shared tail needs.
-///
-/// This is the seam that cannot be collapsed into plain parameters: both apps
-/// build their [AppAttributes] and their [RoutesCreator] out of *app-owned*
-/// types (their own `ScreenConfigurations` subclass, their own
-/// `BlogDependentAppAttributes`), and both derive them from one intermediate
-/// value, so a pair of independent closures would compute it twice.
+/// One callback, not two: both objects derive from one intermediate, app-owned value.
 typedef AppShellBindingBuilder<T> =
     KataglyphisAppShellBinding Function(
       T data,
@@ -50,15 +37,7 @@ typedef AppShellErrorBuilder =
       StackTrace? stackTrace,
     );
 
-/// The shell-owned state an app needs in order to fill in an [AppAttributes].
-///
-/// Every field here is state the shell alone owns: the rail animation it drives
-/// from the width breakpoints, the two layout flags it derives from them, and
-/// the four `handle*` callbacks that call `setState` on the shell. Handing them
-/// over as one value is what lets the app keep constructing [AppAttributes]
-/// itself - it may pass a subclass, or extra fields the shell knows nothing
-/// about - without having to own an [AnimationController].
-///
+/// The shell-owned state an app needs to build its own [AppAttributes], subclass included.
 /// Apps that need nothing special call [buildAppAttributes].
 @immutable
 class KataglyphisAppShellRuntime {
@@ -101,8 +80,7 @@ class KataglyphisAppShellRuntime {
   /// Selects [ColorSeed] `values[value]`; the shell rebuilds both themes.
   final void Function(int value) handleColorSelect;
 
-  /// Fills the shell-owned half of an [AppAttributes]; the app supplies the
-  /// half that comes out of its own settings.
+  /// Fills the shell-owned half of an [AppAttributes]; the app supplies the rest.
   AppAttributes buildAppAttributes({
     required FooterConfig footerConfig,
     required HomeConfig homeConfig,
@@ -140,36 +118,12 @@ class KataglyphisAppShellBinding {
   /// Everything the shared pages read.
   final AppAttributes appAttributes;
 
-  /// The app's route table. The shell calls [RoutesCreator.getRouterConfig] on
-  /// it with its own controller, page-change callback and page index.
+  /// The app's route table; the shell calls [RoutesCreator.getRouterConfig] on it.
   final RoutesCreator routesCreator;
 }
 
 /// The application shell both Kataglyphis Flutter apps are built on.
-///
-/// It owns everything the two `main.dart` files used to duplicate line for
-/// line: the [AnimationController]/[CurvedAnimation] pair, the width-breakpoint
-/// block in `didChangeDependencies`, the four `handle*` callbacks, the theme
-/// pair, the localization delegate list and the
-/// `FutureBuilder -> AppAttributes -> RoutesCreator -> MaterialApp.router`
-/// tail. The apps keep only what genuinely differs: how they load their
-/// settings, and which app-owned types those settings turn into.
-///
-/// Three inconsistencies between the two copies were resolved here, once:
-///
-///  * `AppSettings.supportedLocales` is null-checked rather than forced with
-///    `!`. `AppSettings.fromJsonFile` defaults a missing `supportedLocales` key
-///    to the empty list, so the bang was never the crash it looked like - it
-///    was an empty `supportedLocales` handed to [MaterialApp] and a `RangeError`
-///    one line later. [fallbackLocales] covers that case instead.
-///  * [MaterialApp.locale] follows the selected language index. Pinning it to
-///    the first supported locale (as OmniAccelerANT did) left the visible UI
-///    switching - `Localizations.override` inside this package's pages still
-///    worked - while `onGenerateTitle` stayed stuck on the first language,
-///    which made the language menu look half broken.
-///  * The failure screen is wrapped in a [MaterialApp]. A bare [Material]
-///    subtree has no [Directionality] above it at this point in the tree, so
-///    rendering one throws while trying to report the original error.
+/// The apps supply only how they load settings and which app-owned types those become.
 class KataglyphisAppShell<T> extends StatefulWidget {
   const KataglyphisAppShell({
     super.key,
@@ -190,11 +144,7 @@ class KataglyphisAppShell<T> extends StatefulWidget {
   /// Turns the loaded data into an [AppAttributes] and a [RoutesCreator].
   final AppShellBindingBuilder<T> buildBinding;
 
-  /// The app's own delegates - typically its generated `AppLocalizations`.
-  ///
-  /// The shell appends [AnthologyLocalizations.delegate] (without it every page
-  /// built from this package throws, because `AnthologyLocalizations.of` is
-  /// null) and the three `Global*Localizations` delegates.
+  /// The app's own delegates; the shell appends [AnthologyLocalizations.delegate] and the `Global*Localizations` ones.
   final List<LocalizationsDelegate<dynamic>> appLocalizationsDelegates;
 
   /// Font family for both generated themes.
@@ -206,9 +156,7 @@ class KataglyphisAppShell<T> extends StatefulWidget {
   /// Seed colour before the user touches the colour menu.
   final ColorSeed initialColorSeed;
 
-  /// Used when `AppSettings.supportedLocales` is null or empty.
-  ///
-  /// Must not be empty: [MaterialApp.supportedLocales] rejects an empty list.
+  /// Used when `AppSettings.supportedLocales` is null or empty; must not be empty itself.
   final List<Locale> fallbackLocales;
 
   /// Overrides the default progress indicator.
@@ -250,9 +198,7 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
 
   late final List<LocalizationsDelegate<dynamic>> localizationsDelegates = [
     ...widget.appLocalizationsDelegates,
-    // The shared chrome catalogue that anthology's own widgets read. Without
-    // this entry AnthologyLocalizations.of(context) is null and every page
-    // built from the package throws.
+    // Without it AnthologyLocalizations.of(context) is null and every package page throws.
     AnthologyLocalizations.delegate,
     GlobalMaterialLocalizations.delegate,
     GlobalWidgetsLocalizations.delegate,
@@ -334,8 +280,7 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
     });
   }
 
-  /// The locales the app declares, with [KataglyphisAppShell.fallbackLocales]
-  /// standing in for a missing or empty `supportedLocales`.
+  /// The app's declared locales, or [KataglyphisAppShell.fallbackLocales] when there are none.
   List<Locale> _supportedLocales(AppSettings appSettings) {
     final List<Locale> supportedLanguages =
         (appSettings.supportedLocales ?? const <String>[])
@@ -362,9 +307,7 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
     if (builder != null) {
       return builder(context, error, stack);
     }
-    // Wrapped in a MaterialApp on purpose: nothing above this point in the tree
-    // supplies a Directionality, so a bare Material subtree would throw while
-    // trying to display the very error it was reached for.
+    // A MaterialApp: nothing above supplies a Directionality, so a bare Material would throw.
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -445,6 +388,7 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
                 ? appAttributes.appSettings.appTitleDe
                 : appAttributes.appSettings.appTitleEn,
             themeMode: themeMode,
+            // Follows the selection; a pinned locale leaves onGenerateTitle on the first language.
             locale:
                 supportedLanguages[currentLanguageIndex %
                     supportedLanguages.length],

@@ -2,16 +2,10 @@ import 'package:anthology/Pages/markdown_content_page.dart';
 import 'package:anthology/Pages/stateful_branch_info_provider.dart';
 import 'package:anthology/json_helpers.dart';
 
-/// Configuration for a "My Two Cents" / media critics page loaded from JSON.
-///
-/// This class holds metadata and content paths for opinion/review pages.
-/// Implements [MarkdownContentConfig] to enable use with [MarkdownContentPage].
+/// A "My Two Cents" review page's metadata and content paths from JSON, usable with [MarkdownContentPage].
 class MyTwoCentsConfig extends StatefulBranchInfoProvider
     implements MarkdownContentConfig {
-  /// Creates a [MyTwoCentsConfig] from a JSON map.
-  ///
-  /// Throws [FormatException] if a required field is missing or has the wrong
-  /// type, rather than rendering a blank page from a malformed settings file.
+  /// Throws [FormatException] on a missing or mistyped field rather than rendering a blank page.
   MyTwoCentsConfig.fromJsonFile(Map<String, dynamic> jsonFile)
     : routingName = requireStringField(jsonFile, 'routingName'),
       filePath = requireStringField(jsonFile, 'filePath'),

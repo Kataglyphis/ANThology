@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-// The heights information is used to override the `estimateMaxScrollOffset` and
-// provide a more accurate estimation for the max scroll offset.
+// The known heights make `estimateMaxScrollOffset` exact instead of an average.
 class BuildSlivers extends SliverChildBuilderDelegate {
   BuildSlivers({
     required NullableIndexedWidgetBuilder builder,

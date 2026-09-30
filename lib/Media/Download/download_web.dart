@@ -19,8 +19,4 @@ void myPluginDownload(String url) {
     ..href = url
     ..download = trimAfterLastSlash(url)
     ..click();
-  // HTMLAnchorElement anchorElement = web.HTMLAnchorElement();
-  // anchorElement.download = trimAfterLastSlash(url);
-  // anchorElement.href = url;
-  // anchorElement.click();
 }

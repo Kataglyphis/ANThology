@@ -18,8 +18,7 @@ import 'package:anthology/app_shell.dart';
 import 'package:anthology/constants.dart';
 import 'package:anthology/user_settings.dart';
 
-/// The smallest [ScreenConfigurations] the shell will accept: one page, which
-/// doubles as the error page so [RoutesCreator]'s redirect has a target.
+/// One page that doubles as the error page, so [RoutesCreator]'s redirect has a target.
 class _FakeScreenConfigurations extends ScreenConfigurations {
   static const StatefulBranchInfoProvider _home = _FakeBranchInfo();
 
@@ -45,11 +44,7 @@ class _FakeBranchInfo extends StatefulBranchInfoProvider {
   String getRoutingName() => '/';
 }
 
-/// A [RoutesCreator] that skips the real `Home` chrome.
-///
-/// [RoutesCreator.getRouterConfig] is overridden with a one-route [GoRouter]
-/// whose page reports the locale the shell resolved, which is what these tests
-/// are about; building the full navigation shell would only test `Home`.
+/// A one-route [GoRouter] whose page reports the locale the shell resolved, skipping `Home`.
 class _FakeRoutesCreator extends RoutesCreator {
   @override
   List<(Widget, StatefulBranchInfoProvider)> getAllPagesWithConfigs(
@@ -107,8 +102,7 @@ UserSettings _userSettings() {
   );
 }
 
-/// Builds a shell over [data], capturing the runtime the shell hands out so a
-/// test can drive `handle*` exactly like the real UI does.
+/// Builds a shell and captures its runtime, so a test can drive `handle*` like the real UI.
 KataglyphisAppShell<(AppSettings, UserSettings)> _shell(
   Future<(AppSettings, UserSettings)> Function() load, {
   void Function(KataglyphisAppShellRuntime runtime)? onRuntime,
@@ -174,8 +168,7 @@ void main() {
     await tester.pumpAndSettle();
     expect(calls, 1);
 
-    // Any setState on the shell rebuilds the FutureBuilder; a future recreated
-    // in build() would restart the load and flash the spinner again.
+    // A setState rebuilds the FutureBuilder; a future recreated in build() would restart the load.
     seen.handleColorSelect(ColorSeed.pink.index);
     await tester.pumpAndSettle();
     expect(calls, 1);
@@ -239,8 +232,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    // A bare Material subtree here has no Directionality ancestor and throws
-    // while reporting the error; the MaterialApp wrapper is what fixes that.
+    // A bare Material here has no Directionality ancestor and would throw while reporting.
     expect(tester.takeException(), isNull);
     expect(find.text('Failed to load application settings'), findsOneWidget);
     expect(find.textContaining('bad settings json'), findsOneWidget);
