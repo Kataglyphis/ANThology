@@ -69,7 +69,7 @@ jobs:
           extra-args: --platform "linux/amd64"
           script: bash -c 'bash scripts/run-dart-checks.sh && dart doc'
 
-      # Push only: a PR must never reach the live doc domain (ANTfrastructure docs/ftp-deploys.md).
+      # Push only: a PR must never reach the live doc domain (https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/ftp-deploys.md).
       - name: 📂 Sync files to doc domain
         if: github.event_name == 'push'
         uses: Kataglyphis/ANTfrastructure/.github/actions/deploy-over-ftp@develop

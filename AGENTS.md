@@ -49,7 +49,7 @@ Start at
 | Renovate as a local CLI: managers, tokens, why the App is not installed | [`docs/dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/dependency-updates.md) |
 | The one FTP publish policy `docs.yml` deploys through | [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/ftp-deploys.md) |
 | What the CI image ships (uid, Flutter on PATH) and promises | [`docs/consumer-image-contract.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/consumer-image-contract.md) |
-| Code comments: one line, only the why; API docs short; gated | [`AGENTS.md` § Comments](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/AGENTS.md#comments-one-line-only-the-why) |
+| Code comments: one line, only the why; API docs short; gated | [the hub rule, Comments](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/AGENTS.md#comments-one-line-only-the-why) |
 
 The three upstream scripts this repo actually executes. None of them is copied
 here; a local file that looks like one of them is a wrapper that finds it and
@@ -72,15 +72,16 @@ the same reason.
 
 ## 4. Pitfalls specific to this project
 
-- **No ANTfrastructure submodule, by decision.** The reasoning is written down
-  by its owners and is not repeated here: the
-  [`docs.yml` `lint` job header](.github/workflows/docs.yml) (why there is no
-  local lint wrapper, and why the image ref is not repeated either) and the
-  [`renovate-local.sh` header](scripts/linux/renovate-local.sh) (why Renovate
-  still gets one). The README's
-  [Renovate section](README.md#what-is-behind-renovate-as-a-local-cli) covers
-  the user-facing side. `.antfrastructure-shared.manifest` is empty for the
-  same reason.
+- **No ANTfrastructure submodule, by decision.** A submodule would pin what `docs.yml` and
+  `renovate.json` deliberately keep floating at `develop`.
+  - **No local lint wrapper.** The canonical bootstrap's not-found hint
+    (`git submodule update ... third_party/ANTfrastructure`) would be false in a repo with no
+    `.gitmodules`, so `docs.yml` runs the hub's aggregator directly.
+  - **Renovate still gets a wrapper.** No CI lane runs it, so `scripts/linux/renovate-local.sh`
+    is this repo's only dependency watch.
+
+  The README's [Renovate section](README.md#what-is-behind-renovate-as-a-local-cli) covers
+  the user-facing side. `.antfrastructure-shared.manifest` is empty for the same reason.
 - **Both wrappers FIND the hub; neither assumes one.**
   [`scripts/lib/find-hub.sh`](scripts/lib/find-hub.sh) owns the one ladder:
   `--hub`, then `$ANTFRASTRUCTURE_DIR`, then `./antfrastructure-tools` (what
