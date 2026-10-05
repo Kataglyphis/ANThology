@@ -112,6 +112,10 @@ Full rationale lives in
 ### Prerequisites
 [Install Flutter/Dart](https://docs.flutter.dev/get-started/install)
 
+Search the tree with [ripgrep](https://github.com/BurntSushi/ripgrep) (`rg`):
+`winget install --id BurntSushi.ripgrep.MSVC -e --scope user` on Windows,
+`apt install ripgrep` on Linux.
+
 ### Installation
 
 1. Clone the repo
