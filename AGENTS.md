@@ -50,6 +50,7 @@ Start at
 | The one FTP publish policy `docs.yml` deploys through | [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/ftp-deploys.md) |
 | What the CI image ships (uid, Flutter on PATH) and promises | [`docs/consumer-image-contract.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/consumer-image-contract.md) |
 | Code comments: one line, only the why; API docs short; gated | [the hub rule, Comments](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/AGENTS.md#comments-one-line-only-the-why) |
+| Searching the tree: `rg`, not `grep -r` | [the hub rule, Searching](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/AGENTS.md#searching-the-tree-ripgrep-rg) |
 
 The three upstream scripts this repo actually executes. None of them is copied
 here; a local file that looks like one of them is a wrapper that finds it and
