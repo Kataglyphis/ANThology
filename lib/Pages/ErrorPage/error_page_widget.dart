@@ -2,9 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:anthology/Decoration/centered_box_decoration.dart';
 import 'package:anthology/Decoration/component_group_decoration.dart';
 
-/// A 404 error page with an animated GIF.
+/// A 404 error page with an animated picture.
 class ErrorPageWidget extends StatelessWidget {
   const ErrorPageWidget({super.key});
+
+  /// The animation, an 800x600 WebP of 100 frames.
+  static const String imageAsset =
+      'packages/anthology/assets/images/Pages/Error/error404.webp';
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +23,7 @@ class ErrorPageWidget extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(0),
-            child: Image.asset(
-              'packages/anthology/assets/images/Pages/Error/error404.gif',
-            ),
+            child: Image.asset(imageAsset),
           ),
         ),
         colDivider,
