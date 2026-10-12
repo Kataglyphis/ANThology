@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+- 2026-10-12: Three frontend fixes both consumers get with their next pin.
+  - The footer showed GitHub and no other social icon. Flutter's icon tree shaking keeps
+    only the glyphs it finds in constants, and `socialMediaIcons` was a `final` map, so a
+    web build's Font Awesome brands subset held GitHub alone, which
+    `landing_page_entry.dart` names directly. The map is `const` now, and a test fails if
+    it stops being one.
+  - `SkillTable` stacks each title above its list at 450 px and narrower, where two equal
+    columns broke "Programmiersprachen" mid-word.
+  - The footer's liability text is centred and wraps, and the copyright reads
+    2024–<this year> through a `{years}` placeholder (`copyrightYears`).
 - 2026-10-12: Montserrat is gone, 18 declared faces and 4.3 MB of files. No code
   here or in either consumer ever named `packages/anthology/Montserrat`, yet
   Flutter web downloads every font a manifest declares before the first frame, so
