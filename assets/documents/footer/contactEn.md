@@ -11,4 +11,4 @@ your questions before contacting me.
 
 - **Please note,**  
   - that we value a respectful interaction. Inquiries containing insults, 
-  	vulgar language, or degrading statements will not be answered.
+  vulgar language, or degrading statements will not be answered.
