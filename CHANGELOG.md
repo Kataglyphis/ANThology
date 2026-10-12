@@ -2,6 +2,20 @@
 
 ## [Unreleased]
 
+- 2026-10-12: A landing page with an image downloads about 4 MB less. Measured on
+  OmniAccelerANT's landing page in headless Chrome as a phone, which moved 9.1 MB cold:
+  - `OpenableImage` faded every image in from `Summy&Thundy_compressed.png`, a 766 kB
+    photo fetched only to be replaced. It fades in from a 1x1 transparent pixel now;
+    `placeholderImage` still takes an asset. The photo stays, as OmniAccelerANT's cat cam
+    test finds cats in it.
+  - Roboto's Thin, Light and Black faces and their italics go, six files: Material 3
+    renders weights 400 and 500, code here and in both consumers names only
+    `FontWeight.bold`, and Flutter web fetches every declared face before the first frame.
+  - `funny_programmer.webp` is `funny_programmer.gif` at 320 px, 151 frames at 100 ms as
+    before: 0.96 MB instead of 3.6 MB, and side by side at the card's size no difference
+    shows; the downscale smooths the GIF's dither, which is most of its size.
+    OmniAccelerANT shows the WebP; the GIF stays for jotrockenmitlocken until it switches.
+
 - 2026-10-12: Both consumers lay out at 200 % system font, Android's largest. A landing
   page entry's "last changed" line was a `Row` and overflowed a phone by 81 px; it is an
   `Align` now, so the date wraps. The desktop footer's three sections overflowed a 1280 px

@@ -1,25 +1,36 @@
+import 'dart:convert';
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:anthology/Decoration/centered_box_decoration.dart';
 import 'package:anthology/Decoration/row_divider.dart';
 import 'package:anthology/Media/Open/open_button.dart';
 
+/// A 1x1 transparent PNG, the fade-in's start when no placeholder is given.
+final Uint8List _transparentPixel = base64Decode(
+  'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNgYGBgAAAABQABeqhXUAAAAABJRU5ErkJggg==',
+);
+
 class OpenableImage extends StatefulWidget {
   OpenableImage({
     super.key,
     required this.displayedImage,
-    this.placeholderImage =
-        "packages/anthology/assets/images/cats/Summy&Thundy_compressed.png",
+    this.placeholderImage,
     this.imageCaptioning,
     this.captioningStyle,
     this.disableOpen = false,
   }) {
+    final String? placeholder = placeholderImage;
     ourMainImage = FadeInImage(
-      placeholder: AssetImage(placeholderImage),
+      placeholder: placeholder == null
+          ? MemoryImage(_transparentPixel)
+          : AssetImage(placeholder),
       image: AssetImage(displayedImage),
     );
   }
 
-  final String placeholderImage;
+  /// Shown while [displayedImage] loads; none by default, as a 766 kB cat photo was, on every page with an image.
+  final String? placeholderImage;
   final String displayedImage;
   final String? imageCaptioning;
   final TextStyle? captioningStyle;
