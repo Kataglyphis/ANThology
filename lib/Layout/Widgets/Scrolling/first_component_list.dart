@@ -30,6 +30,6 @@ class _FirstComponentListState extends State<FirstComponentList> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: resultingChildWidgetsLeftPage,
       ),
-    ); //ScrollableList(childWidgets: resultingChildWidgetsLeftPage);
+    );
   }
 }

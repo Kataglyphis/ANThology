@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+- 2026-10-12: Three widgets no consumer uses are gone: `ComponentDecoration`,
+  `ScrollableList` and `CopyButton`, with `CopyButton`'s `copyLabel` string in all three
+  locales. All three date from the first commit (May 2024); neither OmniAccelerANT nor
+  jotrockenmitlocken, nor anything else here, names them. `ComponentGroupDecoration` and
+  `FirstComponentList` stay.
+
 - 2026-10-12: The privacy policy and the accessibility statement render as written. A tab
   after a list number (`1. ⇥Title`) puts the text five columns in, which Markdown makes an
   indented code block. Thirteen lines showed as grey code boxes: five titles in the German

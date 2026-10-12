@@ -17,7 +17,6 @@
   "openSourceLicensesDescription": "Diese Seite listet Drittanbieter-Pakete und deren Lizenztexte auf, die in dieser App verwendet werden.",
   "openSourceLicensesError": "Die Open-Source-Lizenzen konnten nicht geladen werden.",
   "openSourceLicensesEmpty": "Derzeit sind keine Open-Source-Lizenzen verfügbar.",
-  "copyLabel": "Kopieren",
   "openLabel": "Öffnen",
   "sqliteSelfTestTitle": "SQLite Self-Test",
   "sqliteSelfTestDescription": "Führt eine minimale Query aus und zeigt das Ergebnis.",

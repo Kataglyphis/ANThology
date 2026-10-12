@@ -205,12 +205,6 @@ abstract class AnthologyLocalizations {
   /// **'No open source licenses are currently available.'**
   String get openSourceLicensesEmpty;
 
-  /// Label of CopyButton, which copies a code block or quote to the clipboard.
-  ///
-  /// In en, this message translates to:
-  /// **'Copy'**
-  String get copyLabel;
-
   /// Label of OpenButton, which opens the attached document.
   ///
   /// In en, this message translates to:
