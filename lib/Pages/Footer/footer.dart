@@ -53,25 +53,29 @@ class FooterState extends State<Footer> {
         mainAxisSize: MainAxisSize.min,
         children: [
           rowDivider,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              colDivider,
-              FooterPagesTextButtons(
-                footerPagesConfig: widget.footerPagesConfigs,
-              ),
-              colDivider,
-              FooterSocialIconsAndLiability(
-                footerConfig: widget.footerConfig,
-                userSettings: widget.userSettings,
-              ),
-              colDivider,
-              FooterExternalLinks(
-                footerConfig: widget.footerConfig,
-                userSettings: widget.userSettings,
-              ),
-            ],
+          // Scales the row down when a large text size makes it wider than the window; stacked, as on a phone, the pinned footer would fill it.
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                colDivider,
+                FooterPagesTextButtons(
+                  footerPagesConfig: widget.footerPagesConfigs,
+                ),
+                colDivider,
+                FooterSocialIconsAndLiability(
+                  footerConfig: widget.footerConfig,
+                  userSettings: widget.userSettings,
+                ),
+                colDivider,
+                FooterExternalLinks(
+                  footerConfig: widget.footerConfig,
+                  userSettings: widget.userSettings,
+                ),
+              ],
+            ),
           ),
           rowDivider,
         ],

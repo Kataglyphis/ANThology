@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+- 2026-10-12: Both consumers lay out at 200 % system font, Android's largest. A landing
+  page entry's "last changed" line was a `Row` and overflowed a phone by 81 px; it is an
+  `Align` now, so the date wraps. The desktop footer's three sections overflowed a 1280 px
+  window by 34 px; the row sits in a `FittedBox` that only scales down, because stacking
+  the sections as on a phone would make the pinned footer fill the window. At 100 % both
+  are pixel-identical to before. The footer test adds 1280 px at 200 %, which fails
+  without the `FittedBox`.
+
 - 2026-10-12: Three widgets no consumer uses are gone: `ComponentDecoration`,
   `ScrollableList` and `CopyButton`, with `CopyButton`'s `copyLabel` string in all three
   locales. All three date from the first commit (May 2024); neither OmniAccelerANT nor

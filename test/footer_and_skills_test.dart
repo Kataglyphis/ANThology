@@ -133,9 +133,10 @@ void main() {
     );
   });
 
-  // The desktop footer puts this section in a Row of unbounded width, where a Flexible cannot lay out; a phone at 150 % text cannot fit a row of links.
+  // The desktop footer puts this section in a Row of unbounded width, where a Flexible cannot lay out; 200 % text makes that row wider than a desktop, 150 % a phone's links.
   for (final (double width, double textScale) in <(double, double)>[
     (1280, 1),
+    (1280, 2),
     (360, 1),
     (360, 1.5),
   ]) {
