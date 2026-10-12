@@ -26,8 +26,6 @@ class Footer extends StatefulWidget {
 }
 
 class FooterState extends State<Footer> {
-  final double footerHeight = 150.0;
-
   @override
   Widget build(BuildContext context) {
     var currentWidth = MediaQuery.of(context).size.width;
@@ -50,33 +48,33 @@ class FooterState extends State<Footer> {
         ],
       );
     } else {
-      return SizedBox(
-        height: footerHeight,
-        child: Column(
-          children: [
-            rowDivider,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                colDivider,
-                FooterPagesTextButtons(
-                  footerPagesConfig: widget.footerPagesConfigs,
-                ),
-                colDivider,
-                FooterSocialIconsAndLiability(
-                  footerConfig: widget.footerConfig,
-                  userSettings: widget.userSettings,
-                ),
-                colDivider,
-                FooterExternalLinks(
-                  footerConfig: widget.footerConfig,
-                  userSettings: widget.userSettings,
-                ),
-              ],
-            ),
-          ],
-        ),
+      // Its content's height, not a fixed 150 px, which cut off the fourth row of page links; it is the Scaffold's bottom bar here.
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          rowDivider,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              colDivider,
+              FooterPagesTextButtons(
+                footerPagesConfig: widget.footerPagesConfigs,
+              ),
+              colDivider,
+              FooterSocialIconsAndLiability(
+                footerConfig: widget.footerConfig,
+                userSettings: widget.userSettings,
+              ),
+              colDivider,
+              FooterExternalLinks(
+                footerConfig: widget.footerConfig,
+                userSettings: widget.userSettings,
+              ),
+            ],
+          ),
+          rowDivider,
+        ],
       );
     }
   }

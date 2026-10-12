@@ -36,6 +36,48 @@ UserSettings _user() => UserSettings(
   assetPathImgOfMe: '',
 );
 
+/// A footer page with only a heading, enough for the footer to lay out its links.
+class _FooterPage extends FooterPageConfig {
+  _FooterPage(this.heading);
+
+  final String heading;
+
+  @override
+  String getHeading(BuildContext context) => heading;
+
+  @override
+  String getFilePathEn() => '';
+
+  @override
+  String getFilePathDe() => '';
+
+  @override
+  String getRoutingName() => '/${heading.hashCode}';
+}
+
+/// OmniAccelerANT's seven footer pages, German being the longest; four rows on a desktop.
+final List<FooterPageConfig> _footerPages = <FooterPageConfig>[
+  for (final String heading in <String>[
+    'Impressum',
+    'Kontakt',
+    'Datenschutz',
+    'Cookie Erklärung',
+    'Erklärung zur Barrierefreiheit',
+    'Urheberrecht',
+    'Open-Source-Lizenzen',
+  ])
+    _FooterPage(heading),
+];
+
+/// The real Roboto, so text measures as in an app: the test font's square glyphs overflow rows real text fits.
+Future<void> _loadRoboto() async {
+  final FontLoader roboto = FontLoader('Roboto');
+  for (final String face in <String>['Regular', 'Medium', 'Bold']) {
+    roboto.addFont(rootBundle.load('assets/fonts/Roboto/Roboto-$face.ttf'));
+  }
+  await roboto.load();
+}
+
 UserSettings _userWithLinks() => UserSettings(
   socialMediaLinksConfig: <String, ExternalLinkConfig>{
     'GitHub': ExternalLinkConfig(host: 'github.com', path: '/Kataglyphis'),
@@ -76,6 +118,8 @@ Future<void> _pumpSkills(WidgetTester tester, double width) async {
 }
 
 void main() {
+  setUpAll(_loadRoboto);
+
   test('the copyright runs from 2024 to the current year', () {
     expect(copyrightYears(DateTime(2024, 6)), '2024');
     expect(copyrightYears(DateTime(2026, 10, 12)), '2024–2026');
@@ -106,7 +150,7 @@ void main() {
             home: Scaffold(
               body: SingleChildScrollView(
                 child: Footer(
-                  footerPagesConfigs: const <FooterPageConfig>[],
+                  footerPagesConfigs: _footerPages,
                   userSettings: _userWithLinks(),
                   footerConfig: DefaultFooterConfig(),
                 ),
@@ -118,6 +162,7 @@ void main() {
         expect(tester.takeException(), isNull);
         expect(find.byType(FaIcon), findsNWidgets(2));
         expect(find.textContaining('Copyright © '), findsOneWidget);
+        expect(find.text('Open-Source-Lizenzen'), findsOneWidget);
       },
     );
   }
