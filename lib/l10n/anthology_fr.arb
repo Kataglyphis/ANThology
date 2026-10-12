@@ -17,7 +17,6 @@
   "openSourceLicensesDescription": "Cette page répertorie les paquets tiers et leurs textes de licence utilisés dans cette application.",
   "openSourceLicensesError": "Les licences open source n'ont pas pu être chargées.",
   "openSourceLicensesEmpty": "Aucune licence open source n'est actuellement disponible.",
-  "copyLabel": "Copier",
   "openLabel": "Ouvrir",
   "sqliteSelfTestTitle": "Auto-test SQLite",
   "sqliteSelfTestDescription": "Exécute une requête minimale et affiche le résultat.",

@@ -63,9 +63,6 @@ class AnthologyLocalizationsEn extends AnthologyLocalizations {
       'No open source licenses are currently available.';
 
   @override
-  String get copyLabel => 'Copy';
-
-  @override
   String get openLabel => 'Open';
 
   @override

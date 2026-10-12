@@ -28,7 +28,6 @@ final Map<String, String Function(AnthologyLocalizations)> _catalogue =
           l.openSourceLicensesError,
       'openSourceLicensesEmpty': (AnthologyLocalizations l) =>
           l.openSourceLicensesEmpty,
-      'copyLabel': (AnthologyLocalizations l) => l.copyLabel,
       'openLabel': (AnthologyLocalizations l) => l.openLabel,
       'sqliteSelfTestTitle': (AnthologyLocalizations l) =>
           l.sqliteSelfTestTitle,
@@ -77,7 +76,7 @@ void main() {
       // Tripwire: one getter per .arb key, so an unlisted new key fails here; bump it with the reader.
       expect(
         _catalogue,
-        hasLength(42),
+        hasLength(41),
         reason:
             'anthology_en.arb has a key this map does not read (or vice versa)',
       );
@@ -128,7 +127,6 @@ void main() {
           'lastModified',
           'externalLinks',
           'openSourceLicensesDescription',
-          'copyLabel',
           'openLabel',
           'sqliteSelfTestDescription',
           'sqliteSelfTestRunLabel',
