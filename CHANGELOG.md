@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+- 2026-10-12: The footer and the landing page lay out at every size the consumers test.
+  - A phone with its system font at 150 % overflowed by 77 px in the footer's link rows
+    and by 91 px in a landing-page entry's repo line. `AdaptiveGrid` wraps each row in
+    an `Align` around a `Wrap`, which keeps the `Row`'s placement in bounded and unbounded
+    widths alike, and the repo line is a `Wrap`. At 100 % both are pixel-identical to
+    before, on a phone and on a desktop.
+  - The desktop footer takes its content's height instead of a fixed 150 px, which cut off
+    a fourth row of links, and its liability text is a plain centred `Text`: in a
+    `Flexible` inside the desktop footer's unbounded `Row` it never laid out.
+  - `test/footer_and_skills_test.dart` pumps the footer at 1280 px, at 360 px and at
+    360 px with 150 % text, with the real Roboto and seven links.
+
 - 2026-10-12: Three frontend fixes both consumers get with their next pin.
   - The footer showed GitHub and no other social icon. Flutter's icon tree shaking keeps
     only the glyphs it finds in constants, and `socialMediaIcons` was a `final` map, so a

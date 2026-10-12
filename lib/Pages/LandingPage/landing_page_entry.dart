@@ -49,8 +49,10 @@ class LandingPageEntryState extends State<LandingPageEntry> {
   @override
   Widget build(BuildContext context) {
     List<Widget> undecoratedChilds = [
-      Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+      // Wrap, not Row: at a large text size a phone puts the description under the icon instead of overflowing.
+      Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
         children: [
           if (widget.githubRepo != null)
             IconButton(

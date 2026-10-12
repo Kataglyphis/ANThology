@@ -133,13 +133,19 @@ void main() {
     );
   });
 
-  // The desktop footer puts this section in a Row of unbounded width, where a Flexible cannot lay out.
-  for (final double width in <double>[1280, 360]) {
+  // The desktop footer puts this section in a Row of unbounded width, where a Flexible cannot lay out; a phone at 150 % text cannot fit a row of links.
+  for (final (double width, double textScale) in <(double, double)>[
+    (1280, 1),
+    (360, 1),
+    (360, 1.5),
+  ]) {
     testWidgets(
-      'the footer lays out at $width px, icons and liability text included',
+      'the footer lays out at $width px, text x$textScale, icons and liability text included',
       (WidgetTester tester) async {
         tester.view.physicalSize = Size(width, 900);
         tester.view.devicePixelRatio = 1;
+        tester.platformDispatcher.textScaleFactorTestValue = textScale;
+        addTearDown(tester.platformDispatcher.clearTextScaleFactorTestValue);
         addTearDown(tester.view.reset);
         await tester.pumpWidget(
           MaterialApp(
