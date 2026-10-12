@@ -104,14 +104,14 @@ class LandingPageEntryState extends State<LandingPageEntry> {
       rowDivider,
       Padding(
         padding: const EdgeInsets.only(right: 34.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              widget.lastModified,
-              style: Theme.of(context).textTheme.titleSmall,
-            ),
-          ],
+        // Align, not a Row: at a large text size the date wraps instead of overflowing.
+        child: Align(
+          alignment: AlignmentDirectional.centerEnd,
+          child: Text(
+            widget.lastModified,
+            textAlign: TextAlign.end,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
         ),
       ),
     ];
