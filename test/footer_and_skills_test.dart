@@ -6,6 +6,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:anthology/Pages/Footer/default_footer_config.dart';
+import 'package:anthology/Pages/Footer/footer.dart';
+import 'package:anthology/Pages/Footer/footer_page_config.dart';
+import 'package:anthology/Url/external_link_config.dart';
+import 'package:anthology/l10n/anthology_localizations.dart';
 import 'package:anthology/SocialMedia/Settings/social_media_settings.dart';
 import 'package:anthology/Widgets/skill_table.dart';
 import 'package:anthology/user_settings.dart';
@@ -23,6 +27,20 @@ class _SkillsBundle extends CachingAssetBundle {
 
 UserSettings _user() => UserSettings(
   socialMediaLinksConfig: const {},
+  businessEmail: 'someone@example.org',
+  myQuotation: '',
+  firstName: 'Some',
+  lastName: 'One',
+  aboutMeFileDe: 'skills.json',
+  aboutMeFileEn: 'skills.json',
+  assetPathImgOfMe: '',
+);
+
+UserSettings _userWithLinks() => UserSettings(
+  socialMediaLinksConfig: <String, ExternalLinkConfig>{
+    'GitHub': ExternalLinkConfig(host: 'github.com', path: '/Kataglyphis'),
+    'X': ExternalLinkConfig(host: 'x.com', path: '/someone'),
+  },
   businessEmail: 'someone@example.org',
   myQuotation: '',
   firstName: 'Some',
@@ -70,6 +88,39 @@ void main() {
       throwsUnsupportedError,
     );
   });
+
+  // The desktop footer puts this section in a Row of unbounded width, where a Flexible cannot lay out.
+  for (final double width in <double>[1280, 360]) {
+    testWidgets(
+      'the footer lays out at $width px, icons and liability text included',
+      (WidgetTester tester) async {
+        tester.view.physicalSize = Size(width, 900);
+        tester.view.devicePixelRatio = 1;
+        addTearDown(tester.view.reset);
+        await tester.pumpWidget(
+          MaterialApp(
+            localizationsDelegates:
+                AnthologyLocalizations.localizationsDelegates,
+            supportedLocales: AnthologyLocalizations.supportedLocales,
+            locale: const Locale('en'),
+            home: Scaffold(
+              body: SingleChildScrollView(
+                child: Footer(
+                  footerPagesConfigs: const <FooterPageConfig>[],
+                  userSettings: _userWithLinks(),
+                  footerConfig: DefaultFooterConfig(),
+                ),
+              ),
+            ),
+          ),
+        );
+        await tester.pump();
+        expect(tester.takeException(), isNull);
+        expect(find.byType(FaIcon), findsNWidgets(2));
+        expect(find.textContaining('Copyright © '), findsOneWidget);
+      },
+    );
+  }
 
   testWidgets('on a phone each skill title stacks above its list', (
     WidgetTester tester,
