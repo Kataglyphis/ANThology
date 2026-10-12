@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+- 2026-10-12: Montserrat is gone, 18 declared faces and 4.3 MB of files. No code
+  here or in either consumer ever named `packages/anthology/Montserrat`, yet
+  Flutter web downloads every font a manifest declares before the first frame, so
+  each consumer's web build fetched about 1.6 MB of it on every cold load.
+  jotrockenmitlocken's `web/css/cookie.css` asks for `"Montserrat"`, but CSS never
+  saw these files: no `@font-face` names them, and Flutter's renderers load
+  manifest fonts into their own font collection, not `document.fonts`. Roboto, the
+  theme font, stays complete.
 - 2026-09-25: `docs.yml` checks the hub out at `ref: develop` and calls its
   actions at `@develop`; hub `main` is a release branch that lags it. README.md
   and AGENTS.md follow, and link the hub's docs at `develop`. Three stale claims
