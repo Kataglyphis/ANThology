@@ -29,6 +29,11 @@ class DefaultFooterConfig extends FooterConfig {
   @override
   String getLiabilityText(BuildContext context) {
     final localizations = AnthologyLocalizations.of(context)!;
-    return "${localizations.disclaimer}\n${localizations.copyright}";
+    final years = copyrightYears(DateTime.now());
+    return "${localizations.disclaimer}\n${localizations.copyright(years)}";
   }
 }
+
+/// `2024` in 2024, `2024–2026` later: the site first went up in 2024, and a fixed year goes stale.
+String copyrightYears(DateTime now) =>
+    now.year > 2024 ? '2024–${now.year}' : '2024';

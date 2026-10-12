@@ -38,9 +38,13 @@ class FooterSocialIconsAndLiabilityState
             mainAxisAlignment: align,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                widget.footerConfig.getLiabilityText(context),
-                style: Theme.of(context).textTheme.labelSmall,
+              // Flexible, so a narrow phone wraps the lines instead of overflowing.
+              Flexible(
+                child: Text(
+                  widget.footerConfig.getLiabilityText(context),
+                  style: Theme.of(context).textTheme.labelSmall,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),

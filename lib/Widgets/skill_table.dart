@@ -87,13 +87,45 @@ class _SkillTableState extends State<SkillTable> {
         if (data.hasData) {
           List<String> keys = data.requireData.$1;
           List<List<dynamic>> values = data.requireData.$2;
+          final skillTableWidth = screenWidth >= mediumWidthBreakpoint
+              ? screenWidth * 0.4
+              : screenWidth * 0.9;
+          // Two columns leave a phone ~160 px per title, which breaks "Programmiersprachen" mid-word.
+          if (screenWidth <= narrowScreenWidthThreshold) {
+            return CenteredBoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+              child: SizedBox(
+                width: skillTableWidth,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    for (int i = 0; i < keys.length; i++) ...[
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: getSkillTableKeys(keys[i]),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(24, 4, 8, 8),
+                        child: Text(
+                          values[i].map((entry) => "• $entry").join("\n"),
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                      ),
+                      if (i < keys.length - 1) rowDivider,
+                    ],
+                  ],
+                ),
+              ),
+            );
+          }
           List<TableRow> skills = [];
           for (int i = 0; i < keys.length; i++) {
-            String entryVal = "";
-            var entryList = values[i];
-            for (int j = 0; j < entryList.length; j++) {
-              entryVal += "• ${entryList[j]}${"\n"}";
-            }
+            final String entryVal = values[i]
+                .map((entry) => "• $entry")
+                .join("\n");
             skills.add(
               TableRow(
                 children: [
@@ -126,9 +158,6 @@ class _SkillTableState extends State<SkillTable> {
             );
             skills.add(TableRow(children: [rowDivider, rowDivider]));
           }
-          final skillTableWidth = screenWidth >= mediumWidthBreakpoint
-              ? screenWidth * 0.4
-              : screenWidth * 0.9;
           return CenteredBoxDecoration(
             color: Theme.of(context).colorScheme.primary,
             child: SizedBox(
