@@ -2,6 +2,18 @@
 
 ## [Unreleased]
 
+- 2026-10-12: The privacy policy and the accessibility statement render as written. A tab
+  after a list number (`1. ⇥Title`) puts the text five columns in, which Markdown makes an
+  indented code block. Thirteen lines showed as grey code boxes: five titles in the German
+  privacy policy, all seven rights in the English one, and the English accessibility
+  statement's requirement. The first of seven bullets sat a level above the rest, and
+  `markdown_widget` ran a list item's paragraphs together ("ausgeschlossen.Die
+  IP-Adresse"). The numbered sections of both privacy policies are `### N. Title` headings
+  with plain paragraphs now, with no tab left in the footer pages; every word is unchanged
+  except six English rights titles that now start with a capital.
+  `test/markdown_assets_test.dart` parses every shipped page and fails on a code block
+  without a language, which only indentation produces.
+
 - 2026-10-12: The footer and the landing page lay out at every size the consumers test.
   - A phone with its system font at 150 % overflowed by 77 px in the footer's link rows
     and by 91 px in a landing-page entry's repo line. `AdaptiveGrid` wraps each row in
