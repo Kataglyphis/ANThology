@@ -1,6 +1,7 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-final Map<String, FaIconData> socialMediaIcons = {
+// const: icon tree shaking keeps only the glyphs it finds in constants, and a final map's values were dropped.
+const Map<String, FaIconData> socialMediaIcons = {
   'Facebook': FontAwesomeIcons.facebook,
   'GitHub': FontAwesomeIcons.github,
   'YouTube': FontAwesomeIcons.youtube,

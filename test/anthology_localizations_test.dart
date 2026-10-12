@@ -60,7 +60,7 @@ final Map<String, String Function(AnthologyLocalizations)> _catalogue =
       'visitBlogEntry': (AnthologyLocalizations l) => l.visitBlogEntry,
       'playgroundDescription': (AnthologyLocalizations l) =>
           l.playgroundDescription,
-      'copyright': (AnthologyLocalizations l) => l.copyright,
+      'copyright': (AnthologyLocalizations l) => l.copyright('2024'),
       'disclaimer': (AnthologyLocalizations l) => l.disclaimer,
     };
 

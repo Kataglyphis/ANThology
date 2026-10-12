@@ -229,6 +229,7 @@ void main() {
 
       expect(fr, contains('Avertissement'));
       expect(fr, contains('Jonas Heinle'));
+      expect(en, contains('Copyright © ${copyrightYears(DateTime.now())} '));
       expect(en, isNot(equals(fr)));
       expect(fr.split('\n'), hasLength(greaterThan(1)));
     });

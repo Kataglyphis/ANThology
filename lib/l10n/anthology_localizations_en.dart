@@ -136,8 +136,9 @@ class AnthologyLocalizationsEn extends AnthologyLocalizations {
   String get playgroundDescription => 'Visit my code repo';
 
   @override
-  String get copyright =>
-      'Copyright © 2024 Jonas Heinle. \nAll rights reserved.';
+  String copyright(String years) {
+    return 'Copyright © $years Jonas Heinle. \nAll rights reserved.';
+  }
 
   @override
   String get disclaimer =>

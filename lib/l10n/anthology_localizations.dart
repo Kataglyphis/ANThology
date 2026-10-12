@@ -346,8 +346,8 @@ abstract class AnthologyLocalizations {
   /// Copyright line rendered in the footer liability block.
   ///
   /// In en, this message translates to:
-  /// **'Copyright © 2024 Jonas Heinle. \nAll rights reserved.'**
-  String get copyright;
+  /// **'Copyright © {years} Jonas Heinle. \nAll rights reserved.'**
+  String copyright(String years);
 
   /// External-link liability disclaimer rendered in the footer.
   ///

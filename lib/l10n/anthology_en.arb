@@ -1,6 +1,5 @@
 {
   "@@locale": "en",
-
   "brightness": "Brightness",
   "@brightness": {
     "description": "Label for the light/dark mode affordance."
@@ -21,7 +20,6 @@
   "@selectSeedColor": {
     "description": "Label of the Material 3 seed-colour picker."
   },
-
   "imprint": "Imprint",
   "@imprint": {
     "description": "Footer page title for the legal imprint."
@@ -54,7 +52,6 @@
   "@lastModified": {
     "description": "Prefix in front of a document's last-modification date."
   },
-
   "openSourceLicenses": "Open source licenses",
   "@openSourceLicenses": {
     "description": "Title of OpenSourceLicensesPage."
@@ -71,7 +68,6 @@
   "@openSourceLicensesEmpty": {
     "description": "Shown by OpenSourceLicensesPage when LicenseRegistry yields nothing."
   },
-
   "copyLabel": "Copy",
   "@copyLabel": {
     "description": "Label of CopyButton, which copies a code block or quote to the clipboard."
@@ -80,7 +76,6 @@
   "@openLabel": {
     "description": "Label of OpenButton, which opens the attached document."
   },
-
   "sqliteSelfTestTitle": "SQLite self test",
   "@sqliteSelfTestTitle": {
     "description": "Headline of SqliteTestPage."
@@ -100,9 +95,7 @@
   "sqliteSelfTestErrorPrefix": "ERROR: ",
   "@sqliteSelfTestErrorPrefix": {
     "description": "Prefix in front of a thrown SQLite self-test error. Trailing space is intentional."
-  }
-,
-
+  },
   "myPerfectDay": "My perfect Day",
   "@myPerfectDay": {
     "description": "Title of the pie chart breaking a day down into activities."
@@ -131,7 +124,6 @@
   "@familyFriends": {
     "description": "Perfect-day chart slice."
   },
-
   "shortDescriptionTextMyPersona": "Interested in many things. I love breathing life into artificial neurons.",
   "@shortDescriptionTextMyPersona": {
     "description": "One-line bio under the portrait on the about-me table."
@@ -144,7 +136,6 @@
   "@spendCoffe": {
     "description": "Caption under the donation images. Key spelling kept from the apps' original catalogues so the hoist is a pure move."
   },
-
   "blockEntryOverview": "Overview of all my blog posts",
   "@blockEntryOverview": {
     "description": "Title of the blog-post overview table."
@@ -169,10 +160,14 @@
   "@playgroundDescription": {
     "description": "Description under a landing-page entry's source-repository link."
   },
-
-  "copyright": "Copyright © 2024 Jonas Heinle. \nAll rights reserved.",
+  "copyright": "Copyright © {years} Jonas Heinle. \nAll rights reserved.",
   "@copyright": {
-    "description": "Copyright line rendered in the footer liability block."
+    "description": "Copyright line rendered in the footer liability block.",
+    "placeholders": {
+      "years": {
+        "type": "String"
+      }
+    }
   },
   "disclaimer": "Disclaimer: I accept no liability for the content of external links.",
   "@disclaimer": {
