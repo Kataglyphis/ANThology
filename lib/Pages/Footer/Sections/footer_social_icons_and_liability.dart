@@ -32,21 +32,13 @@ class FooterSocialIconsAndLiabilityState
         SocialMediaWidgets(
           socialMediaLinksConfig: widget.userSettings.socialMediaLinksConfig!,
         ),
+        // No Row and no Flexible: the desktop footer lays this out at unbounded width, a phone at its own.
         Padding(
           padding: const EdgeInsets.all(1),
-          child: Row(
-            mainAxisAlignment: align,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              // Flexible, so a narrow phone wraps the lines instead of overflowing.
-              Flexible(
-                child: Text(
-                  widget.footerConfig.getLiabilityText(context),
-                  style: Theme.of(context).textTheme.labelSmall,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
+          child: Text(
+            widget.footerConfig.getLiabilityText(context),
+            style: Theme.of(context).textTheme.labelSmall,
+            textAlign: TextAlign.center,
           ),
         ),
       ],
