@@ -4,6 +4,7 @@ library;
 
 import 'dart:io';
 
+import 'package:anthology/Media/Markdown/markdown_page.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:markdown/markdown.dart' as m;
 
@@ -48,5 +49,33 @@ void main() {
     test('${page.path} has no accidental code block', () {
       expect(_unlabelledCodeBlocks(page.readAsStringSync()), isEmpty);
     });
+
+    // markdown_widget prints an HTML comment as text: the Impressum showed a phone number commented out.
+    test('${page.path} shows no HTML comment', () {
+      expect(
+        withoutHtmlComments(page.readAsStringSync()),
+        isNot(contains('<!--')),
+      );
+    });
   }
+
+  group('withoutHtmlComments', () {
+    test('drops a comment, on one line or several', () {
+      expect(withoutHtmlComments('a\n<!-- Telefon: 1 -->\nb'), 'a\n\nb');
+      expect(withoutHtmlComments('a <!-- x\ny --> b'), 'a  b');
+    });
+
+    test('keeps fenced code whole, comment and all', () {
+      const String fenced = '```html\n<!-- kept -->\n```';
+      expect(withoutHtmlComments('$fenced\n<!-- gone -->'), '$fenced\n');
+      expect(
+        withoutHtmlComments('~~~\n<!-- kept -->\n~~~'),
+        '~~~\n<!-- kept -->\n~~~',
+      );
+    });
+
+    test('leaves an unclosed comment for the page test to catch', () {
+      expect(withoutHtmlComments('a <!-- never closed'), contains('<!--'));
+    });
+  });
 }

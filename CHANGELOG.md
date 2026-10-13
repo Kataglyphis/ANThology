@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+- 2026-10-13: An HTML comment in a Markdown page no longer shows. markdown_widget printed
+  `<!-- Telefon: 030 18 305-0 -->` as text on the Impressum in both languages and on the
+  two blog pages that repeat it, the number its author had commented out.
+  `MarkdownFilePage` strips comments before rendering, except inside fenced code, and
+  `markdown_assets_test.dart` fails any shipped page that would still show one, an
+  unclosed comment included.
+
 - 2026-10-13: Roboto's Medium Italic face goes, 92 kB of every cold load of both
   consumers (Flutter web fetches every declared face before the first frame). Nothing
   sets italic in code, and no Markdown file puts emphasis in a heading, the only place

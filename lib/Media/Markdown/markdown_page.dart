@@ -5,6 +5,16 @@ import 'package:markdown_widget/markdown_widget.dart';
 import 'package:anthology/Decoration/row_divider.dart';
 import 'package:anthology/constants.dart';
 
+// A fenced code block, kept whole, or an HTML comment, which markdown_widget would print as text.
+final RegExp _fenceOrComment = RegExp(
+  r'(^[ \t]*(```|~~~)[\s\S]*?^[ \t]*\2)|<!--[\s\S]*?-->',
+  multiLine: true,
+);
+
+/// [markdown] without its HTML comments; fenced code keeps them.
+String withoutHtmlComments(String markdown) =>
+    markdown.replaceAllMapped(_fenceOrComment, (Match m) => m[1] ?? '');
+
 class MarkdownFilePage extends StatefulWidget {
   const MarkdownFilePage({
     super.key,
@@ -31,7 +41,7 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
   @override
   void initState() {
     super.initState();
-    _markupFileContent = _readMarkupFile();
+    _markupFileContent = _readMarkupFile().then(withoutHtmlComments);
   }
 
   Future<String> _readMarkupFile() async {
