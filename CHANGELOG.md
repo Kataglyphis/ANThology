@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+- 2026-10-13: Roboto's Medium Italic face goes, 92 kB of every cold load of both
+  consumers (Flutter web fetches every declared face before the first frame). Nothing
+  sets italic in code, and no Markdown file puts emphasis in a heading, the only place
+  weight 500 meets italic; body emphasis keeps Italic, `**_bold italic_**` keeps
+  BoldItalic. OmniAccelerANT's Impressum, which has both, is pixel-identical before and
+  after at 1280 and 360 px.
+
 - 2026-10-13: `CacheHeight` and its `RenderCacheHeight` go, 61 lines in two files: no file
   here, in OmniAccelerANT or in jotrockenmitlocken imported them.
 
