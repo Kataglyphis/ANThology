@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- 2026-10-13: `CacheHeight` and its `RenderCacheHeight` go, 61 lines in two files: no file
+  here, in OmniAccelerANT or in jotrockenmitlocken imported them.
+
 - 2026-10-12: 7.6 MB less in every build of both consumers. The 404 page's animation is
   `error404.webp`: the GIF's 100 frames at 40 ms and 800x600, the size the page shows it
   at, 0.85 MB instead of 4.9 MB (WebP quality 80; mean difference under 1 of 255 per
