@@ -180,6 +180,11 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
   late final CurvedAnimation railAnimation;
   late final Future<T> _bootstrapData;
 
+  // A new router drops every page's state, so it is rebuilt only when what the pages read changes.
+  GoRouter? _router;
+  AppAttributes? _appAttributes;
+  Object? _routerInputs;
+
   bool controllerInitialized = false;
   bool showMediumSizeLayout = false;
   bool showLargeSizeLayout = false;
@@ -230,7 +235,8 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
   void didChangeDependencies() {
     super.didChangeDependencies();
 
-    final double width = MediaQuery.of(context).size.width;
+    // The size alone: MediaQuery.of would rebuild the app when a keyboard opens.
+    final double width = MediaQuery.sizeOf(context).width;
     final AnimationStatus status = controller.status;
     if (width > mediumWidthBreakpoint) {
       if (width > largeWidthBreakpoint) {
@@ -355,28 +361,40 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
       future: _bootstrapData,
       builder: (BuildContext context, AsyncSnapshot<T> data) {
         if (data.hasData) {
-          final KataglyphisAppShellBinding binding = widget.buildBinding(
+          final Object inputs = (
             data.requireData,
-            KataglyphisAppShellRuntime(
-              railAnimation: railAnimation,
-              showMediumSizeLayout: showMediumSizeLayout,
-              showLargeSizeLayout: showLargeSizeLayout,
-              currentLanguageIndex: currentLanguageIndex,
-              useLightMode: useLightMode,
-              colorSelected: colorSelected,
-              handleBrightnessChange: handleBrightnessChange,
-              handleLanguageSelect: handleLanguageSelect,
-              handleColorSelect: handleColorSelect,
-            ),
+            showMediumSizeLayout,
+            showLargeSizeLayout,
+            currentLanguageIndex,
+            useLightMode,
+            colorSelected,
           );
-          final AppAttributes appAttributes = binding.appAttributes;
-
-          final GoRouter routerConfig = binding.routesCreator.getRouterConfig(
-            appAttributes,
-            controller,
-            handlePageChange,
-            currentPageIndex,
-          );
+          if (_router == null || inputs != _routerInputs) {
+            final KataglyphisAppShellBinding binding = widget.buildBinding(
+              data.requireData,
+              KataglyphisAppShellRuntime(
+                railAnimation: railAnimation,
+                showMediumSizeLayout: showMediumSizeLayout,
+                showLargeSizeLayout: showLargeSizeLayout,
+                currentLanguageIndex: currentLanguageIndex,
+                useLightMode: useLightMode,
+                colorSelected: colorSelected,
+                handleBrightnessChange: handleBrightnessChange,
+                handleLanguageSelect: handleLanguageSelect,
+                handleColorSelect: handleColorSelect,
+              ),
+            );
+            _appAttributes = binding.appAttributes;
+            _router = binding.routesCreator.getRouterConfig(
+              binding.appAttributes,
+              controller,
+              handlePageChange,
+              currentPageIndex,
+            );
+            _routerInputs = inputs;
+          }
+          final AppAttributes appAttributes = _appAttributes!;
+          final GoRouter routerConfig = _router!;
           final List<Locale> supportedLanguages = _supportedLocales(
             appAttributes.appSettings,
           );

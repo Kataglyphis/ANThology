@@ -57,6 +57,9 @@ class _FakeRoutesCreator extends RoutesCreator {
   Footer getFooter(AppAttributes appAttributes) =>
       throw UnimplementedError('the fake router never builds a footer');
 
+  /// Routers made so far, across instances: each new one drops every page's state.
+  static int routersBuilt = 0;
+
   @override
   GoRouter getRouterConfig(
     AppAttributes appAttributes,
@@ -64,6 +67,7 @@ class _FakeRoutesCreator extends RoutesCreator {
     void Function(int value) handleChangedPageIndex,
     int currentPageIndex,
   ) {
+    routersBuilt++;
     return GoRouter(
       routes: <RouteBase>[
         GoRoute(
@@ -129,6 +133,34 @@ KataglyphisAppShell<(AppSettings, UserSettings)> _shell(
 }
 
 void main() {
+  testWidgets(
+    'a resize within a breakpoint or an open keyboard keeps the router and its pages',
+    (WidgetTester tester) async {
+      tester.view.physicalSize = const Size(1100, 700);
+      tester.view.devicePixelRatio = 1.0;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(
+        _shell(
+          () async =>
+              (_appSettings(supportedLocales: <String>['en']), _userSettings()),
+        ),
+      );
+      await tester.pumpAndSettle();
+      final int before = _FakeRoutesCreator.routersBuilt;
+
+      tester.view.physicalSize = const Size(1180, 640);
+      await tester.pumpAndSettle();
+      tester.view.viewInsets = const FakeViewPadding(bottom: 300);
+      await tester.pumpAndSettle();
+      expect(_FakeRoutesCreator.routersBuilt, before);
+
+      // Past the large breakpoint the pages lay out anew, so a new router is right.
+      tester.view.physicalSize = const Size(1600, 700);
+      await tester.pumpAndSettle();
+      expect(_FakeRoutesCreator.routersBuilt, before + 1);
+    },
+  );
+
   testWidgets('shows the progress indicator until the loader completes', (
     WidgetTester tester,
   ) async {
