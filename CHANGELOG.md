@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+- 2026-10-14: The app no longer rebuilds itself on every resize or keyboard. `KataglyphisAppShell`
+  read `MediaQuery.of`, so an open keyboard or any window size change built a new binding and
+  a new `GoRouter`, which dropped every page's state: open panels closed, fetched data reloaded,
+  and on a phone a text field's keyboard could close itself. It now reads `MediaQuery.sizeOf`
+  and keeps its router until a layout breakpoint, the language, the brightness or the colour
+  changes; `app_shell_test.dart` resizes within a breakpoint and opens a keyboard without a
+  second router.
+
 - 2026-10-13: An HTML comment in a Markdown page no longer shows. markdown_widget printed
   `<!-- Telefon: 030 18 305-0 -->` as text on the Impressum in both languages and on the
   two blog pages that repeat it, the number its author had commented out.
