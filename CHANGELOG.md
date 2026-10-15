@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+- 2026-10-15: `AnthologyTable`, the sortable table behind the books, films, games and quotes
+  lists and the blog overview, sorts the way its header arrow points. A header tap sorted with
+  the direction from before the tap, so the first tap on a column put it in reverse; on a table
+  sorted on load (`sortOnLoaded`) a tap on another column only flipped the load column, since
+  every rebuild sorted that one again; and two cells with the same text in one row, two empty
+  ones say, both took the first one's width and kind. The table now sorts a copy by the column
+  and direction last chosen and never reorders the caller's list. `BlockEntryList` defaulted to
+  sorting by a fourth column its three-cell entries do not have. `anthology_table_test.dart`
+  covers each case, `CsvDataList`'s loading and its error, and fails 3 of 7 against the old table.
+
 - 2026-10-14: The app no longer rebuilds itself on every resize or keyboard. `KataglyphisAppShell`
   read `MediaQuery.of`, so an open keyboard or any window size change built a new binding and
   a new `GoRouter`, which dropped every page's state: open panels closed, fetched data reloaded,

@@ -55,35 +55,31 @@ class AnthologyTable<T extends TableData> extends StatefulWidget {
 
 class AnthologyTableState<T extends TableData>
     extends State<AnthologyTable<T>> {
-  late int sortColumnIndex;
-  late bool isAscending;
+  late int sortColumnIndex = widget.sortColumnIndex;
+  late bool isAscending = widget.isAscending;
 
-  @override
-  void initState() {
-    super.initState();
-    sortColumnIndex = widget.sortColumnIndex;
-    isAscending = widget.isAscending;
+  /// Rows keep the order they came in until sorted on load or by a header tap.
+  late bool _sorted = widget.sortOnLoaded;
 
-    if (widget.sortOnLoaded) {
-      widget.data.sort(
-        (data1, data2) => _compareString(
-          isAscending,
-          data1.getCells()[sortColumnIndex],
+  /// The rows in the order shown; the caller's list is never reordered.
+  List<T> sortedRows() {
+    final rows = List<T>.from(widget.data);
+    if (_sorted) {
+      rows.sort((data1, data2) {
+        final order = data1.getCells()[sortColumnIndex].compareTo(
           data2.getCells()[sortColumnIndex],
-        ),
-      );
+        );
+        return isAscending ? order : -order;
+      });
     }
-  }
-
-  int _compareString(bool ascending, String value1, String value2) {
-    return ascending ? value1.compareTo(value2) : value2.compareTo(value1);
+    return rows;
   }
 
   List<DataRow> getDataRows(List<T> csvData, double maxWidth) {
     return csvData.map((T data) {
       return DataRow(
-        cells: data.getCells().map((entry) {
-          int entryIndex = data.getCells().indexOf(entry);
+        cells: data.getCells().indexed.map((cell) {
+          final (entryIndex, entry) = cell;
           DataCellContentStrategies currentStrat =
               widget.dataCellContentStrategies[entryIndex];
           bool returnText =
@@ -118,18 +114,8 @@ class AnthologyTableState<T extends TableData>
       large: 0.8,
     );
 
-    final sortedData = List<T>.from(widget.data);
-    if (widget.sortOnLoaded) {
-      sortedData.sort(
-        (data1, data2) => _compareString(
-          isAscending,
-          data1.getCells()[widget.sortColumnIndex],
-          data2.getCells()[widget.sortColumnIndex],
-        ),
-      );
-    }
     final DataTableSource dataTableSource = _MyDataTableSource(
-      getDataRows(sortedData, dataTableWidth),
+      getDataRows(sortedRows(), dataTableWidth),
     );
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -163,16 +149,9 @@ class AnthologyTableState<T extends TableData>
                       label: Text(column),
                       onSort: (int columnIndex, bool ascending) {
                         setState(() {
-                          widget.data.sort(
-                            (data1, data2) => _compareString(
-                              isAscending,
-                              data1.getCells()[columnIndex],
-                              data2.getCells()[columnIndex],
-                            ),
-                          );
-
                           sortColumnIndex = columnIndex;
                           isAscending = ascending;
+                          _sorted = true;
                         });
                       },
                     ),
