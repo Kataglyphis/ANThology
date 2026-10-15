@@ -13,8 +13,8 @@ class BlockEntryList extends DataList {
     required super.dataCategories,
     required super.title,
     required super.description,
-    // all entries with a critic should be displayed in the very beginning :)
-    super.sortColumnIndex = 3,
+    // A BlockEntry has three cells; the last is its comment.
+    super.sortColumnIndex = 2,
     super.sortOnLoaded = true,
     required this.appAttributes,
   });
