@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- 2026-10-17: the README logo, `assets/images/logo.png` and `assets/icons/faviconNew.ico` are the
+  family's ant (owner: one icon in every repository).
+
 - 2026-10-15: `AnthologyTable`, the sortable table behind the books, films, games and quotes
   lists and the blog overview, sorts the way its header arrow points. A header tap sorted with
   the direction from before the tap, so the first tap on a column put it in reverse; on a table
