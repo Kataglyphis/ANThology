@@ -44,7 +44,7 @@
   `error404.webp`: the GIF's 100 frames at 40 ms and 800x600, the size the page shows it
   at, 0.85 MB instead of 4.9 MB (WebP quality 80; mean difference under 1 of 255 per
   channel, and none to see side by side). `funny_programmer.gif` (3.6 MB) goes, as
-  jotrockenmitlocken shows the WebP since its 4a74421 too. `ErrorPageWidget.imageAsset`
+  jotrockenmitlocken shows the WebP since its ff3978c too. `ErrorPageWidget.imageAsset`
   names the file, and a test decodes all 100 frames from it.
 
 - 2026-10-12: A landing page with an image downloads about 4 MB less. Measured on
