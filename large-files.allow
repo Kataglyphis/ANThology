@@ -1,0 +1,7 @@
+# Data files over 500 KiB this package must track, frozen for ANTfrastructure's large-files gate:
+# https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/data-repositories.md  <path> | <KiB> | <reason>
+assets/documents/blog/AIBlog.pdf | 578 | both sites' blog_settings.json link it
+assets/images/Pages/Error/error404.webp | 826 | the error page's image (error_page_widget.dart)
+assets/images/aiBlog/ScreenshotModernOpenGL.png | 764 | no reference in this tree or either site; kept for the WebDAV blog posts, which are not visible here
+assets/images/cats/Summy&Thundy_compressed.png | 748 | the cats image; OmniAccelerANT's ObservANT package test feeds it to the detector
+assets/images/funny_programmer.webp | 934 | both sites' blog_settings.json show it
