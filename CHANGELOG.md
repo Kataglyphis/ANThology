@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+- 2026-10-19: the docs site goes through the hub's reusable `build-docs.yml`: `docs.yml`'s new
+  `docs` job builds it with `scripts/build-docs.sh` (the family theme, `images/`, and
+  `docs/getting-started.md` as `guide-getting-started.html`), adds the hub's `.htaccess` and 404
+  page, fails on a dead internal link or anchor, and publishes only a push to `develop` or
+  `main`. The Dart checks are their own `checks` job and no longer build docs. Measured in
+  `:latest`: 1071 documents, 0 link findings.
+
 - 2026-10-19: the docs link the hub where they restated it (Renovate's `--apply`, the Dart
   format scope), and the lint gates' `doc-dupes --against-hub` is on (`doc-dupes-hub.allow`).
   Corrected: dependabot watches pub, so Renovate is the only watch over the actions, not over

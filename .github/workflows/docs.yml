@@ -1,5 +1,8 @@
 name: Docs · deploy
 
+permissions:
+  contents: read
+
 on:
   push:
     branches: ["main", "develop"]
@@ -8,7 +11,7 @@ on:
     branches: ["main", "develop"]
 
 jobs:
-  # In this file so `build` can need it (needs: does not cross files); local twin in AGENTS.md section 5.
+  # Local twin in AGENTS.md section 5.
   lint:
     name: 🧹 lint gates
     runs-on: ubuntu-26.04
@@ -35,12 +38,10 @@ jobs:
       - name: Lint gates
         run: bash antfrastructure-tools/linux/scripts/run-lint-gates.sh "${{ github.workspace }}" --ratchets
 
-  build:
-    name: 🚀 Deploy website on push
+  checks:
+    name: Dart checks
     runs-on: ubuntu-26.04
     timeout-minutes: 30
-    # The deploy job is gated on the lint job: see the block above `lint:`.
-    needs: lint
     permissions:
       contents: read
 
@@ -62,19 +63,21 @@ jobs:
           path: antfrastructure-tools
 
       # Via run-dart-checks.sh so the gate runs the same locally; the image's Flutter must satisfy pubspec's floor.
-      - name: Dart checks (format, analyze, test) + build docs
+      - name: Dart checks (format, analyze, test)
         uses: Kataglyphis/ANTfrastructure/.github/actions/run-in-linux-container@develop
         with:
           # `image:` omitted on purpose - see the note above `steps:`.
           extra-args: --platform "linux/amd64"
-          script: bash -c 'bash scripts/run-dart-checks.sh && dart doc'
+          script: bash scripts/run-dart-checks.sh
 
-      # Push only: a PR must never reach the live doc domain (https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/ftp-deploys.md).
-      - name: 📂 Sync files to doc domain
-        if: github.event_name == 'push'
-        uses: Kataglyphis/ANTfrastructure/.github/actions/deploy-over-ftp@develop
-        with:
-          server: ${{ secrets.SERVER }}
-          username: ${{ secrets.USERNAME }}
-          password: ${{ secrets.PW }}
-          local-dir: ./doc/api/
+  # The hub's lane builds, link-checks and publishes the site; it publishes only a push to develop or main (https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/docs-sites.md).
+  docs:
+    uses: Kataglyphis/ANTfrastructure/.github/workflows/build-docs.yml@develop
+    with:
+      # A command, not builder: dartdoc, because that builder takes no guide list.
+      command: bash scripts/build-docs.sh
+      site-dir: doc/api
+    secrets:
+      FTP_SERVER: ${{ secrets.SERVER }}
+      FTP_USERNAME: ${{ secrets.USERNAME }}
+      FTP_PASSWORD: ${{ secrets.PW }}

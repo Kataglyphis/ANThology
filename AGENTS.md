@@ -23,8 +23,9 @@ asset corpus (fonts, images, legal texts) they both load.
 | `lib/Widgets/` | Small shared widgets (skill table) |
 | `lib/l10n/` | The en/de/fr `.arb` catalogues and the committed generated Dart |
 | `assets/` | The shared corpus both apps reference as `packages/anthology/assets/...` |
-| `scripts/lib/find-hub.sh` | The hub lookup ladder both wrappers below share |
-| `scripts/run-dart-checks.sh` | The Dart gate as one command; what `docs.yml` runs |
+| `scripts/lib/find-hub.sh` | The hub lookup ladder the three wrappers below share |
+| `scripts/run-dart-checks.sh` | The Dart gate as one command; what `docs.yml`'s `checks` job runs |
+| `scripts/build-docs.sh` | The docs site into `doc/api`: `dart doc`, the family theme, the `docs/` guides; what `docs.yml`'s `docs` job runs |
 | `scripts/linux/renovate-local.sh` | Execs the hub's Renovate driver (section 4) |
 | `test/` | Widget and localisation tests, run by the Dart gate |
 
@@ -45,27 +46,28 @@ topic → owning document, so these links stay valid when upstream reorganises.
 | The Dart gate: which files it formats, analyzes and tests | [`docs/code-quality-tooling.md#dart-file-enumeration`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/code-quality-tooling.md#dart-file-enumeration) |
 | The shared shell libraries the hub scripts are built on | [`docs/shared-script-libraries.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/shared-script-libraries.md) |
 | Renovate as a local CLI: managers, tokens, why the App is not installed | [`docs/dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/dependency-updates.md) |
-| The one FTP publish policy `docs.yml` deploys through | [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/ftp-deploys.md) |
+| How the docs site is built, link-checked and published (`build-docs.yml`, which `docs.yml`'s `docs` job calls) | [`docs/docs-sites.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/docs-sites.md) |
 | What the CI image ships (uid, Flutter on PATH) and promises | [`docs/consumer-image-contract.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/consumer-image-contract.md) |
 | Code comments: one line, only the why; API docs short; gated | [the hub rule, Comments](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/AGENTS.md#comments-one-line-only-the-why) |
 | Searching the tree: `rg`, not `grep -r` | [the hub rule, Searching](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/AGENTS.md#searching-the-tree-ripgrep-rg) |
 
-The three hub scripts this repo executes. None is copied here; a local file that looks like one is
-a wrapper that finds and execs it (section 1), so fix behaviour upstream, never in the wrapper.
+The four hub scripts this repo executes. None is copied here; a local file that looks like one is
+a wrapper that finds and runs it (section 1), so fix behaviour upstream, never in the wrapper.
 
 | Hub script | What it is to this repo |
 | --- | --- |
 | [`linux/scripts/05-frameworks/flutter/flutter_checks.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/05-frameworks/flutter/flutter_checks.sh) | The Dart gate itself: pub get, pubspec structure, format, analyze, test. `scripts/run-dart-checks.sh` runs it at `--strict true` |
 | [`linux/scripts/run-lint-gates.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/run-lint-gates.sh) | The lint gates plus the `--ratchets` measurement gates, listed in its header. `docs.yml`'s `lint` job calls it directly — there is no wrapper (section 4) |
 | [`linux/scripts/renovate-local.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/renovate-local.sh) | The Renovate driver. `scripts/linux/renovate-local.sh` finds a hub and execs it; no lane does |
+| [`linux/scripts/lib/dartdoc-build.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/lib/dartdoc-build.sh) | The docs build. `scripts/build-docs.sh` sources it with the theme and the guide list, which `build-docs.yml`'s `builder: dartdoc` cannot take |
 
 ## 3. Critical invariant: the hub is checked out at `develop`
 
-`docs.yml` checks the hub out at `ref: develop` and calls its composite actions at `@develop`, so
-a hub change a lane depends on must be pushed **first**. No Submodule.Pins suite applies: there
-is no gitlink to guard. Both moved off `main` by owner directive on 2026-09-25, because hub `main`
-is a release branch that lags `develop`; the hub links in this file and README.md point at
-`develop` for the same reason.
+`docs.yml` checks the hub out at `ref: develop` and calls its composite actions and
+`build-docs.yml` at `@develop`, so a hub change a lane depends on must be pushed **first**. No
+Submodule.Pins suite applies: there is no gitlink to guard. Both moved off `main` by owner
+directive on 2026-09-25, because hub `main` is a release branch that lags `develop`; the hub links
+in this file and README.md point at `develop` for the same reason.
 
 ## 4. Pitfalls specific to this project
 
@@ -78,7 +80,7 @@ is a release branch that lags `develop`; the hub links in this file and README.m
   - **Renovate still gets a wrapper.** No CI lane runs it, so `scripts/linux/renovate-local.sh`
     is the only watch over the actions; dependabot watches only pub. User-facing side:
     [docs/getting-started.md § Dependency upgrades](docs/getting-started.md#dependency-upgrades).
-- **Both wrappers FIND the hub; neither assumes one.**
+- **The wrappers FIND the hub; none assumes one.**
   [`scripts/lib/find-hub.sh`](scripts/lib/find-hub.sh) owns the one ladder, in order:
   1. `--hub`
   2. `$ANTFRASTRUCTURE_DIR`
@@ -105,9 +107,9 @@ is a release branch that lags `develop`; the hub links in this file and README.m
 
 ## 5. Build, run, test
 
-`<hub>` is `./antfrastructure-tools` in CI (what the checkout step in `docs.yml` creates) and a
-sibling ANTfrastructure clone locally. The two wrappers find it on their own; the direct calls
-below pick a different one.
+`<hub>` is `./antfrastructure-tools` in CI (what the checkout steps in `docs.yml` and
+`build-docs.yml` create) and a sibling ANTfrastructure clone locally. The wrappers find it on
+their own; the direct calls below pick a different one.
 
 ```bash
 # The Dart gate CI runs: pub get, pubspec structure, format on tracked files,
@@ -116,8 +118,9 @@ bash scripts/run-dart-checks.sh
 bash <hub>/linux/scripts/05-frameworks/flutter/flutter_checks.sh --strict true
 # The lint gates CI runs (shellcheck, actionlint, gitleaks, ... + the ratchets)
 bash <hub>/linux/scripts/run-lint-gates.sh "$(pwd)" --ratchets
-# doc/api, which docs.yml deploys
-dart doc
+# doc/api as the docs job builds it, then its .htaccess, 404 page and link gate
+bash scripts/build-docs.sh
+bash <hub>/linux/scripts/docs-site.sh stage doc/api
 # after editing any lib/l10n/*.arb; commit the generated Dart
 flutter gen-l10n
 # what is behind (report only; no lane runs it)
@@ -132,9 +135,9 @@ how to run it and what breaks; no filler, no marketing, no repetition.
 | Doc | Holds |
 | --- | --- |
 | `README.md` | The overview, in the family's [README shape](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/repository-family.md#the-readme-rule). `dart doc` renders it as the docs site's front page, so its links into this repo are absolute GitHub URLs |
-| `docs/getting-started.md` | Prerequisites, the Dart gate, tips, and the Renovate wrapper's commands. Read on GitHub: the bare `dart doc` below publishes only the README and the API |
+| `docs/getting-started.md` | Prerequisites, the Dart gate, tips, and the Renovate wrapper's commands. Also on the docs site as `guide-getting-started.html`; a new page in `docs/` goes into `DARTDOC_BUILD_GUIDES` in `scripts/build-docs.sh` |
 | `CHANGELOG.md` | One entry per released `pubspec.yaml` version |
-| `doc/api` (not tracked) | The `dart doc` output, generated by `docs.yml` and published to **omnifronteer.jonasheinle.de**, the package's official docs site, which README.md links under its title. It goes out through the family's one FTP publish policy, not a per-repo action: [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/ftp-deploys.md) |
+| `doc/api` (not tracked) | The site `scripts/build-docs.sh` builds, published to **omnifronteer.jonasheinle.de**, the package's official docs site, which README.md links under its title. `docs.yml`'s `docs` job calls the hub's [`build-docs.yml`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/docs-sites.md): a pull request builds and link-checks it, only a push to `develop` or `main` publishes it, with the `SERVER`, `USERNAME` and `PW` secrets |
 
 A change to user-facing behaviour updates its doc in the same commit. A page that restates a hub
 page fails the lint gates (`doc-dupes --against-hub`): link to the hub instead. A passage that must
