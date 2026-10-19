@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+- 2026-10-19: the README is a short overview in the family's shape (owner: every README links
+  into `docs/` for the rest). Prerequisites, the Dart gate, the tips and the Renovate wrapper's
+  commands move to `docs/getting-started.md`; contributing, licence and contact are the family
+  page's. The README's links into this repo are absolute, since `dart doc` makes it the docs
+  site's front page.
+
 - 2026-10-17: the README logo, `assets/images/logo.png` and `assets/icons/faviconNew.ico` are the
   family's ant (owner: one icon in every repository).
 
