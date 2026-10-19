@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# renovate-local.sh - Renovate as a local CLI, this repo's only dependency watch since no lane runs it; run from WSL.
+# renovate-local.sh - Renovate as a local CLI, the only watch over the actions since no lane runs it; run from WSL.
 set -euo pipefail
 
 HUB_DRIVER_RELATIVE="linux/scripts/renovate-local.sh"

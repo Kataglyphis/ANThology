@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+- 2026-10-19: the docs link the hub where they restated it (Renovate's `--apply`, the Dart
+  format scope), and the lint gates' `doc-dupes --against-hub` is on (`doc-dupes-hub.allow`).
+  Corrected: dependabot watches pub, so Renovate is the only watch over the actions, not over
+  everything; the hub aggregator has more than six lint gates.
+
 - 2026-10-19: the README is a short overview in the family's shape (owner: every README links
   into `docs/` for the rest). Prerequisites, the Dart gate, the tips and the Renovate wrapper's
   commands move to `docs/getting-started.md`; contributing, licence and contact are the family

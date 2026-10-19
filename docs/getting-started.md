@@ -38,9 +38,9 @@ apps that consume it.
 
 ## Dependency upgrades
 
-The dependencies are the ones in `pubspec.yaml`. Only the shared Renovate CLI, run locally, reads
-`.github/renovate.json`, and no workflow runs it here, so it blocks nothing and nobody runs it for
-you.
+No workflow runs Renovate here, so it blocks nothing and nobody runs it for you; dependabot
+watches only pub (`.github/dependabot.yml`). How the local CLI works, `--apply`, the token and WSL:
+[ANTfrastructure's `dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/dependency-updates.md).
 
 ```sh
 bash scripts/linux/renovate-local.sh                          # report (managers detected from the tree)
@@ -48,9 +48,5 @@ bash scripts/linux/renovate-local.sh --hub ../ANTfrastructure # if it cannot fin
 bash scripts/linux/renovate-local.sh --managers pub           # narrow it
 ```
 
-`--apply --dry-run` shows the writes and `--apply` makes them. With no gitlinks here, each update
-it applies is one value rewritten on one line, `pubspec.yaml` included (how go_router reached
-`^18.0.0`). Nothing is staged or committed.
-
-Why Renovate runs as a local CLI, the token the actions half needs, and why it runs from WSL on
-Windows: [ANTfrastructure's `dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/dependency-updates.md).
+With no gitlinks here, every `--apply` update is a manifest edit, `pubspec.yaml` among them
+(go_router to `^18.0.0`, bb492b9).
