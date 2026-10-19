@@ -5,7 +5,7 @@
 
   <h1>ANThology</h1>
 
-  <h4>Reusable Dart code provided as a package for building beautiful cross-platform apps.</h4>
+  <h4>Shared Flutter/Dart UI package for the family's cross-platform apps.</h4>
 </div>
 
 [![Docs · deploy](https://github.com/Kataglyphis/ANThology/actions/workflows/docs.yml/badge.svg)](https://github.com/Kataglyphis/ANThology/actions/workflows/docs.yml)
