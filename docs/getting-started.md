@@ -1,8 +1,7 @@
 # Getting started
 
-How to work on ANThology: what it needs, the Dart gate CI runs, what to try when things go
-wrong, and how its dependencies move. The rules behind each command are in
-[AGENTS.md](../AGENTS.md).
+What ANThology needs, the Dart gate CI runs, what to try when things go wrong, and how its
+dependencies move. The rules behind each command: [AGENTS.md](../AGENTS.md).
 
 ## Prerequisites
 
@@ -10,7 +9,7 @@ wrong, and how its dependencies move. The rules behind each command are in
 family image instead, and its version must satisfy the `flutter:` floor in `pubspec.yaml`.
 
 The scripts under `scripts/` need an ANTfrastructure checkout, and this repository has none of
-its own: a sibling clone is enough.
+its own; a sibling clone is enough:
 
 ```sh
 git clone --branch develop https://github.com/Kataglyphis/ANThology.git
@@ -19,15 +18,14 @@ cd ANThology
 bash scripts/run-dart-checks.sh   # the Dart gate CI runs: pub get, format, analyze, test
 ```
 
-How the scripts find that checkout:
-[AGENTS.md § 4](../AGENTS.md#4-pitfalls-specific-to-this-project). When none of the paths
-they probe holds the tool, they print every path they tried and the `git clone` that fixes
-it; they never fail as a bare "command not found". Every other command, the
-lint gates and `flutter gen-l10n` among them: [AGENTS.md § 5](../AGENTS.md#5-build-run-test).
+How the scripts find that checkout: [AGENTS.md § 4](../AGENTS.md#4-pitfalls-specific-to-this-project).
+When none of the paths they probe holds the tool, they print every path they tried and the
+`git clone` that fixes it, never a bare "command not found". Every other command, the lint gates
+and `flutter gen-l10n` among them: [AGENTS.md § 5](../AGENTS.md#5-build-run-test).
 
 ## Tips
 
-If strange things happen, try these steps:
+When things go wrong:
 
 ```sh
 flutter clean
@@ -35,14 +33,14 @@ flutter pub get
 flutter test
 ```
 
-This is a package with no platform runner, so there is nothing to `flutter build` here; build
-one of the apps that consume it.
+A package has no platform runner, so there is nothing to `flutter build` here; build one of the
+apps that consume it.
 
 ## Dependency upgrades
 
-The dependencies are the ones in `pubspec.yaml`. `.github/renovate.json` is read by exactly one
-thing, the shared Renovate CLI run locally, and no workflow runs it here, so it blocks nothing
-and nobody runs it for you.
+The dependencies are the ones in `pubspec.yaml`. Only the shared Renovate CLI, run locally, reads
+`.github/renovate.json`, and no workflow runs it here, so it blocks nothing and nobody runs it for
+you.
 
 ```sh
 bash scripts/linux/renovate-local.sh                          # report (managers detected from the tree)
@@ -50,9 +48,9 @@ bash scripts/linux/renovate-local.sh --hub ../ANTfrastructure # if it cannot fin
 bash scripts/linux/renovate-local.sh --managers pub           # narrow it
 ```
 
-`--apply --dry-run` shows the writes and `--apply` makes them: with no gitlinks here, each
-update it applies is one value rewritten on one line, `pubspec.yaml` included (how go_router
-reached `^18.0.0`). Nothing is staged or committed.
+`--apply --dry-run` shows the writes and `--apply` makes them. With no gitlinks here, each update
+it applies is one value rewritten on one line, `pubspec.yaml` included (how go_router reached
+`^18.0.0`). Nothing is staged or committed.
 
 Why Renovate runs as a local CLI, the token the actions half needs, and why it runs from WSL on
 Windows: [ANTfrastructure's `dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/dependency-updates.md).

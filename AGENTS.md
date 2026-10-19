@@ -4,11 +4,10 @@ Guidance for coding agents (and new contributors) working in ANThology.
 
 ## 1. What this project is
 
-ANThology is the shared Flutter/Dart UI package (`anthology` in `pubspec.yaml`)
-that OmniAccelerANT and jotrockenmitlocken consume as the path dependency
-`third_party/ANThology`. It carries the half those two apps genuinely share:
-the page shells, routing, decoration and media widgets, the l10n catalogue and
-the asset corpus (fonts, images, legal texts) they both load.
+The shared Flutter/Dart UI package (`anthology` in `pubspec.yaml`) that OmniAccelerANT and
+jotrockenmitlocken consume as the path dependency `third_party/ANThology`. It carries what the two
+apps share: the page shells, routing, decoration and media widgets, the l10n catalogue and the
+asset corpus (fonts, images, legal texts) they both load.
 
 | Path | What lives there |
 | --- | --- |
@@ -26,21 +25,20 @@ the asset corpus (fonts, images, legal texts) they both load.
 | `assets/` | The shared corpus both apps reference as `packages/anthology/assets/...` |
 | `scripts/lib/find-hub.sh` | The hub lookup ladder both wrappers below share |
 | `scripts/run-dart-checks.sh` | The Dart gate as one command; what `docs.yml` runs |
-| `scripts/linux/renovate-local.sh` | Execs the hub's Renovate driver; no lane runs it |
+| `scripts/linux/renovate-local.sh` | Execs the hub's Renovate driver (section 4) |
 | `test/` | Widget and localisation tests, run by the Dart gate |
 
-There is **no `third_party/`** and no `.gitmodules`: this repo has no
-ANTfrastructure submodule (section 4).
+There is **no `third_party/`** and no `.gitmodules`: this repo has no ANTfrastructure submodule
+(section 4).
 
 ## 2. What ANTfrastructure owns — links only
 
-**Do not restate procedures in this section.** One line of orientation, then the
-link. If you catch yourself typing a command that would work in another repo,
-it belongs upstream.
+**Do not restate procedures here**: one line of orientation, then the link. A command that would
+work in another repo belongs upstream.
 
 Start at
-[ANTfrastructure `docs/INDEX.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/INDEX.md)
-— topic → owning document, so these links stay valid when upstream reorganises.
+[ANTfrastructure `docs/INDEX.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/INDEX.md):
+topic → owning document, so these links stay valid when upstream reorganises.
 
 | Topic | Where |
 | --- | --- |
@@ -52,9 +50,8 @@ Start at
 | Code comments: one line, only the why; API docs short; gated | [the hub rule, Comments](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/AGENTS.md#comments-one-line-only-the-why) |
 | Searching the tree: `rg`, not `grep -r` | [the hub rule, Searching](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/AGENTS.md#searching-the-tree-ripgrep-rg) |
 
-The three upstream scripts this repo actually executes. None of them is copied
-here; a local file that looks like one of them is a wrapper that finds it and
-execs it (section 1), so fix behaviour upstream, never in the wrapper.
+The three hub scripts this repo executes. None is copied here; a local file that looks like one is
+a wrapper that finds and execs it (section 1), so fix behaviour upstream, never in the wrapper.
 
 | Hub script | What it is to this repo |
 | --- | --- |
@@ -64,56 +61,55 @@ execs it (section 1), so fix behaviour upstream, never in the wrapper.
 
 ## 3. Critical invariant: the hub is checked out at `develop`
 
-`docs.yml` checks the hub out at `ref: develop` and calls its composite actions at
-`@develop`, so a hub change a lane depends on must be pushed **first**; no
-Submodule.Pins suite applies, because there is no gitlink to guard. Both moved
-off `main` by owner directive on 2026-09-25: hub `main` is a release branch that
-lags `develop`. The hub links in this file and README.md point at `develop` for
-the same reason.
+`docs.yml` checks the hub out at `ref: develop` and calls its composite actions at `@develop`, so
+a hub change a lane depends on must be pushed **first**. No Submodule.Pins suite applies: there
+is no gitlink to guard. Both moved off `main` by owner directive on 2026-09-25, because hub `main`
+is a release branch that lags `develop`; the hub links in this file and README.md point at
+`develop` for the same reason.
 
 ## 4. Pitfalls specific to this project
 
 - **No ANTfrastructure submodule, by decision.** A submodule would pin what `docs.yml` and
-  `renovate.json` deliberately keep floating at `develop`.
+  `renovate.json` deliberately keep floating at `develop`. `.antfrastructure-shared.manifest` is
+  empty for the same reason.
   - **No local lint wrapper.** The canonical bootstrap's not-found hint
     (`git submodule update ... third_party/ANTfrastructure`) would be false in a repo with no
     `.gitmodules`, so `docs.yml` runs the hub's aggregator directly.
   - **Renovate still gets a wrapper.** No CI lane runs it, so `scripts/linux/renovate-local.sh`
-    is this repo's only dependency watch.
-
-  [docs/getting-started.md § Dependency upgrades](docs/getting-started.md#dependency-upgrades)
-  covers the user-facing side. `.antfrastructure-shared.manifest` is empty for the same reason.
+    is this repo's only dependency watch. User-facing side:
+    [docs/getting-started.md § Dependency upgrades](docs/getting-started.md#dependency-upgrades).
 - **Both wrappers FIND the hub; neither assumes one.**
-  [`scripts/lib/find-hub.sh`](scripts/lib/find-hub.sh) owns the one ladder:
-  `--hub`, then `$ANTFRASTRUCTURE_DIR`, then `./antfrastructure-tools` (what
-  `docs.yml` creates in CI), then `./third_party/ANTfrastructure` (if this repo
-  ever grows the submodule), then `../ANTfrastructure` and
-  `../../ANTfrastructure` (a sibling clone on a dev box). A rung counts only if
-  the file the caller named is really inside it, an explicitly wrong `--hub` is
-  an error rather than something to probe past, and a miss prints every path it
-  tried. Do not retype the ladder into a new script — source that file.
-- **The Dart gate formats TRACKED files, never `dart format .`.** The hub
-  enumerates `git ls-files` instead of walking the tree: a recursive walk once
-  reformatted a Flutter SDK unpacked inside a consumer's workspace
-  (OmniAccelerANT, measured 2026-09-03). This lane takes Flutter from the image
-  (`/opt/flutter`, since 2026-09-07), but the enumeration stays, so a new
-  `.dart` file escapes the format check — not `dart analyze` or `flutter test`
-  — until it is `git add`ed. `scripts/run-dart-checks.sh` takes no arguments:
-  `--strict false` would turn the blocking gate into a warning.
-- The generated Dart under `lib/l10n/` is committed: a consumer's
-  `flutter pub get` never runs gen-l10n for a dependency (`pubspec.yaml`).
-- Package fonts register as `packages/anthology/<family>`; a bare family name
-  silently falls back to the platform default (`pubspec.yaml`, `fonts:`).
-- An asset is only in a bundle if `pubspec.yaml` declares it, and only worth
-  tracking if one of the two apps names it. Grep both consumers for a basename
-  before adding or deleting one. The Dart gate fails a declared path that
-  bundles nothing (a missing file, or a directory with no file directly in it).
+  [`scripts/lib/find-hub.sh`](scripts/lib/find-hub.sh) owns the one ladder, in order:
+  1. `--hub`
+  2. `$ANTFRASTRUCTURE_DIR`
+  3. `./antfrastructure-tools` (what `docs.yml` creates in CI)
+  4. `./third_party/ANTfrastructure` (if this repo ever grows the submodule)
+  5. `../ANTfrastructure` and `../../ANTfrastructure` (a sibling clone on a dev box)
+
+  A rung counts only if the file the caller named is really inside it; an explicitly wrong
+  `--hub` is an error, not something to probe past; a miss prints every path it tried. Never
+  retype the ladder into a new script: source that file.
+- **The Dart gate formats TRACKED files, never `dart format .`.** The hub enumerates
+  `git ls-files` instead of walking the tree: a recursive walk once reformatted a Flutter SDK
+  unpacked inside a consumer's workspace (OmniAccelerANT, measured 2026-09-03). This lane takes
+  Flutter from the image (`/opt/flutter`, since 2026-09-07), but the enumeration stays, so a new
+  `.dart` file escapes the format check (not `dart analyze` or `flutter test`) until it is
+  `git add`ed. `scripts/run-dart-checks.sh` takes no arguments: `--strict false` would turn the
+  blocking gate into a warning.
+- The generated Dart under `lib/l10n/` is committed: a consumer's `flutter pub get` never runs
+  gen-l10n for a dependency (`pubspec.yaml`).
+- Package fonts register as `packages/anthology/<family>`; a bare family name silently falls back
+  to the platform default (`pubspec.yaml`, `fonts:`).
+- An asset is in a bundle only if `pubspec.yaml` declares it, and worth tracking only if one of
+  the two apps names it. Grep both consumers for a basename before adding or deleting one. The
+  Dart gate fails a declared path that bundles nothing (a missing file, or a directory with no
+  file directly in it).
 
 ## 5. Build, run, test
 
-`<hub>` is `./antfrastructure-tools` in CI (what the checkout step in `docs.yml`
-creates) and a sibling ANTfrastructure clone locally. The two wrappers find it
-on their own; the direct calls below are for when you want a different one.
+`<hub>` is `./antfrastructure-tools` in CI (what the checkout step in `docs.yml` creates) and a
+sibling ANTfrastructure clone locally. The two wrappers find it on their own; the direct calls
+below pick a different one.
 
 ```bash
 # The Dart gate CI runs: pub get, pubspec structure, format on tracked files,
@@ -135,17 +131,11 @@ GITHUB_COM_TOKEN="$(gh auth token)" bash scripts/linux/renovate-local.sh
 **Write docs like a developer: short and precise** (owner, 2026-10-19). Say what a thing does,
 how to run it and what breaks; no filler, no marketing, no repetition.
 
-- `README.md` — the overview, in the family's [README shape](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/repository-family.md#the-readme-rule).
-  `dart doc` renders it as the docs site's front page, so its links into this
-  repo are absolute GitHub URLs.
-- `docs/getting-started.md` — prerequisites, the Dart gate, tips, and the
-  Renovate wrapper's commands. Read on GitHub: the bare `dart doc` below
-  publishes only the README and the API.
-- `CHANGELOG.md` — one entry per released `pubspec.yaml` version.
-- The `dart doc` output in `doc/api` (not tracked), generated by `docs.yml` and
-  published to **omnifronteer.jonasheinle.de** — the package's official docs
-  site, which README.md links under its title. It goes out through the
-  family's one FTP publish policy, not a per-repo action:
-  [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/ftp-deploys.md).
+| Doc | Holds |
+| --- | --- |
+| `README.md` | The overview, in the family's [README shape](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/repository-family.md#the-readme-rule). `dart doc` renders it as the docs site's front page, so its links into this repo are absolute GitHub URLs |
+| `docs/getting-started.md` | Prerequisites, the Dart gate, tips, and the Renovate wrapper's commands. Read on GitHub: the bare `dart doc` below publishes only the README and the API |
+| `CHANGELOG.md` | One entry per released `pubspec.yaml` version |
+| `doc/api` (not tracked) | The `dart doc` output, generated by `docs.yml` and published to **omnifronteer.jonasheinle.de**, the package's official docs site, which README.md links under its title. It goes out through the family's one FTP publish policy, not a per-repo action: [`docs/ftp-deploys.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/ftp-deploys.md) |
 
 A change to user-facing behaviour updates its doc in the same commit.
