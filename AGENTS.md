@@ -78,7 +78,7 @@ in this file and README.md point at `develop` for the same reason.
     (`git submodule update ... third_party/ANTfrastructure`) would be false in a repo with no
     `.gitmodules`, so `docs.yml` runs the hub's aggregator directly.
   - **Renovate still gets a wrapper.** No CI lane runs it, so `scripts/linux/renovate-local.sh`
-    is the only watch over the actions; dependabot watches only pub. User-facing side:
+    is the only dependency watch; Dependabot is off (owner, 2026-10-20). User-facing side:
     [docs/getting-started.md § Dependency upgrades](docs/getting-started.md#dependency-upgrades).
 - **The wrappers FIND the hub; none assumes one.**
   [`scripts/lib/find-hub.sh`](scripts/lib/find-hub.sh) owns the one ladder, in order:

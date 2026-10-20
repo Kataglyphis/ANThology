@@ -38,8 +38,9 @@ apps that consume it.
 
 ## Dependency upgrades
 
-No workflow runs Renovate here, so it blocks nothing and nobody runs it for you; dependabot
-watches only pub (`.github/dependabot.yml`). How the local CLI works, `--apply`, the token and WSL:
+No workflow runs Renovate here, so it blocks nothing and nobody runs it for you; it is the only
+dependency watch, since Dependabot is off (owner, 2026-10-20). How the local CLI works, `--apply`,
+the token and WSL:
 [ANTfrastructure's `dependency-updates.md`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/dependency-updates.md).
 
 ```sh

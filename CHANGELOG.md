@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+- 2026-10-20: Dependabot is off (owner: dependency upgrades go only through Renovate as a local
+  CLI, ANTfrastructure's `docs/dependency-updates.md`). `.github/dependabot.yml` (pub) is deleted
+  and the repository's Dependabot security-update PRs are disabled; Dependabot alerts stay on.
+  `renovate.json`, `AGENTS.md` and `docs/getting-started.md` call Renovate the only watch.
+
 - 2026-10-19: the docs site goes through the hub's reusable `build-docs.yml`: `docs.yml`'s new
   `docs` job builds it with `scripts/build-docs.sh` (the family theme, `images/`, and
   `docs/getting-started.md` as `guide-getting-started.html`), adds the hub's `.htaccess` and 404
