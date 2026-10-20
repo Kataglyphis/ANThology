@@ -2,6 +2,11 @@
 
 ## [Unreleased]
 
+- 2026-10-20: the imprint and privacy policy, German and English, publish the e-mail
+  `contact@jonasheinle.de` as a `mailto:` link, in place of `XX` and a link to `#` (owner). The
+  postal address and phone number stay placeholders by owner decision. The imprint copies in the
+  two sample blog pages carry the same line.
+
 - 2026-10-20: Dependabot is off (owner: dependency upgrades go only through Renovate as a local
   CLI, ANTfrastructure's `docs/dependency-updates.md`). `.github/dependabot.yml` (pub) is deleted
   and the repository's Dependabot security-update PRs are disabled; Dependabot alerts stay on.

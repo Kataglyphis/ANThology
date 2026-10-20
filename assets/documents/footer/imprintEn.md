@@ -10,7 +10,7 @@ Elchwinkel 42
 <!-- Phone: 030 18 305-0   -->
 
 ### E-Mail
-- for general inquiries: [Contact me](#)
+- for general inquiries: [contact@jonasheinle.de](mailto:contact@jonasheinle.de)
 
 ## External Links
 - [philoclopedia.de](#)

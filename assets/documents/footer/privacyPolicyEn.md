@@ -12,7 +12,7 @@ Elchwinkel 13
 10117 Bärstadt  
 Phone: 030 18 305-0 
 [Link](#) 
-Email Address: XX 
+Email Address: [contact@jonasheinle.de](mailto:contact@jonasheinle.de) 
 
 ## II. What information do I collect and for what purpose is it used?
 ### 1. Visit to the website (server logs)

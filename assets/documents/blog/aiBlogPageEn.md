@@ -252,7 +252,7 @@ Elchwinkel 42
 ## Links
 
 ### E-Mail
-- für allgemeine Anfragen: [Kontakt zu mir](#)
+- für allgemeine Anfragen: [contact@jonasheinle.de](mailto:contact@jonasheinle.de)
 
 ## Externe Links
 - [philoclopedia.de](#)

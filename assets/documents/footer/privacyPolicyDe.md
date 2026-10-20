@@ -13,7 +13,7 @@ Elchwinkel 1
 10117 Bärstadt  
 Telefon: 030 18 305-0 
 [Link](#) 
-E-Mail-Adresse: XX  
+E-Mail-Adresse: [contact@jonasheinle.de](mailto:contact@jonasheinle.de)  
 
 ## II. Welche Informationen erhebe ich und zu welchem Zweck werden diese genutzt?
 ### 1. Besuch der Website (Serverprotokolle)
