@@ -70,6 +70,13 @@ jobs:
           extra-args: --platform "linux/amd64"
           script: bash scripts/run-dart-checks.sh
 
+      # Again in the image's Chrome, for the web halves (lib/Boot/, lib/Sqlite/); the @TestOn('vm') files sit out.
+      - name: Dart checks in Chrome
+        uses: Kataglyphis/ANTfrastructure/.github/actions/run-in-linux-container@develop
+        with:
+          extra-args: --platform "linux/amd64"
+          script: bash scripts/run-dart-checks.sh --test-platform chrome
+
   # The hub's lane builds, link-checks and publishes the site; it publishes only a push to develop or main (https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/docs-sites.md).
   docs:
     uses: Kataglyphis/ANTfrastructure/.github/workflows/build-docs.yml@develop

@@ -2,6 +2,14 @@
 
 ## [Unreleased]
 
+- 2026-10-21: CI runs the suite in Chrome too: `docs.yml`'s `checks` job runs
+  `scripts/run-dart-checks.sh --test-platform chrome` after the VM run, so the web halves of
+  `lib/Boot/` and `lib/Sqlite/` are tested where they run: `boot_overlay_web_test.dart`, and the
+  new `sqlite_web_test.dart`, in which the web loader, the self test and the healthcheck name
+  `sqlite3.wasm` when the page serves none. `run-dart-checks.sh` takes `--test-platform
+  <vm|chrome>`, its only argument. `footer_and_skills_test.dart` is `@TestOn('vm')`: its
+  `setUpAll` loads Roboto through `rootBundle`, which a browser test does not serve.
+
 - 2026-10-21: what OmniAccelerANT and jotrockenmitlocken each kept for themselves now lives here,
   so both apps use one copy:
   - `dismissBootOverlay()` (`lib/Boot/`) fades out and removes the loading overlay of the shared web

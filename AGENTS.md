@@ -28,7 +28,7 @@ asset corpus (fonts, images, legal texts) they both load.
 | `lib/l10n/` | The en/de/fr `.arb` catalogues and the committed generated Dart |
 | `assets/` | The shared corpus both apps reference as `packages/anthology/assets/...` |
 | `scripts/lib/find-hub.sh` | The hub lookup ladder the three wrappers below share |
-| `scripts/run-dart-checks.sh` | The Dart gate as one command; what `docs.yml`'s `checks` job runs |
+| `scripts/run-dart-checks.sh` | The Dart gate as one command; what `docs.yml`'s `checks` job runs, on the VM and again in Chrome |
 | `scripts/build-docs.sh` | The docs site into `doc/api`: `dart doc`, the family theme, the `docs/` guides; what `docs.yml`'s `docs` job runs |
 | `scripts/linux/renovate-local.sh` | Execs the hub's Renovate driver (section 4) |
 | `test/` | Widget and localisation tests, run by the Dart gate |
@@ -98,8 +98,12 @@ in this file and README.md point at `develop` for the same reason.
 - **The Dart gate formats TRACKED files, never `dart format .`**
   ([hub § *`dart format`: the tracked files*](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/code-quality-tooling.md#dart-format-the-tracked-files-in-the-floors-style)),
   so a new `.dart` file escapes the format check (not `dart analyze` or `flutter test`) until it
-  is `git add`ed. `scripts/run-dart-checks.sh` takes no arguments: `--strict false` would turn
-  the blocking gate into a warning.
+  is `git add`ed. `scripts/run-dart-checks.sh` takes only `--test-platform <vm|chrome>`:
+  `--strict false` would turn the blocking gate into a warning.
+- **The suite runs twice, on the VM and in Chrome** (2026-10-21): the web halves of `lib/Boot/`
+  and `lib/Sqlite/` load only in a browser. A test that reads the checkout or loads an asset
+  through `rootBundle` (a browser test serves none) is `@TestOn('vm')`; a browser-only one is
+  `@TestOn('browser')`.
 - **`loadSqlite3(indexedDbName:)` names a database in the visitor's browser.** OmniAccelerANT
   passes `kataglyphis_inference_engine` and jotrockenmitlocken passes none (in memory). A new name
   opens a new, empty database and orphans the old one, so an app never renames its own.
@@ -120,8 +124,9 @@ their own; the direct calls below pick a different one.
 
 ```bash
 # The Dart gate CI runs: pub get, pubspec structure, format on tracked files,
-# analyze, test
+# analyze, test; then again with the tests in the image's Chrome
 bash scripts/run-dart-checks.sh
+bash scripts/run-dart-checks.sh --test-platform chrome
 bash <hub>/linux/scripts/05-frameworks/flutter/flutter_checks.sh --strict true
 # The lint gates CI runs (shellcheck, actionlint, gitleaks, ... + the ratchets)
 bash <hub>/linux/scripts/run-lint-gates.sh "$(pwd)" --ratchets

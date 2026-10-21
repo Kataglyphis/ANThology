@@ -16,6 +16,7 @@ git clone --branch develop https://github.com/Kataglyphis/ANThology.git
 git clone --depth 1 --branch develop https://github.com/Kataglyphis/ANTfrastructure.git
 cd ANThology
 bash scripts/run-dart-checks.sh   # the Dart gate CI runs: pub get, format, analyze, test
+bash scripts/run-dart-checks.sh --test-platform chrome   # the same, the tests in Chrome
 ```
 
 How the scripts find that checkout: [AGENTS.md § 4](../AGENTS.md#4-pitfalls-specific-to-this-project).

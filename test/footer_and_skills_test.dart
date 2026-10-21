@@ -1,3 +1,7 @@
+// A browser test serves no asset to rootBundle, so the real Roboto in setUpAll loads on the VM only.
+@TestOn('vm')
+library;
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
