@@ -241,6 +241,24 @@ abstract class AnthologyLocalizations {
   /// **'ERROR: '**
   String get sqliteSelfTestErrorPrefix;
 
+  /// Button of Sqlite3HealthcheckWidget that runs the check again.
+  ///
+  /// In en, this message translates to:
+  /// **'Re-run SQLite Healthcheck'**
+  String get rerunSqliteHealthcheck;
+
+  /// Prefix in front of a failed SQLite healthcheck's error.
+  ///
+  /// In en, this message translates to:
+  /// **'SQLite Error'**
+  String get sqliteError;
+
+  /// Hint under a failed SQLite healthcheck: where the web build serves sqlite3.wasm from.
+  ///
+  /// In en, this message translates to:
+  /// **'Note: on the web, sqlite3.wasm must be served beside the page (the build copies web/sqlite3.wasm there).'**
+  String get sqliteWebHint;
+
   /// Title of the pie chart breaking a day down into activities.
   ///
   /// In en, this message translates to:

@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 
 import 'package:go_router/go_router.dart';
+import 'package:anthology/Pages/ErrorPage/error_page.dart';
+import 'package:anthology/Pages/Footer/default_footer_pages.dart';
 import 'package:anthology/Pages/Footer/footer.dart';
+import 'package:anthology/Pages/Footer/footer_page.dart';
+import 'package:anthology/Pages/Footer/open_source_licenses_page.dart';
 import 'package:anthology/Pages/Home/home.dart';
+import 'package:anthology/Pages/markdown_content_page.dart';
 
 import 'package:anthology/app_attributes.dart';
+import 'package:anthology/blog_page_config.dart';
+import 'package:anthology/my_two_cents_config.dart';
 import 'package:anthology/Pages/stateful_branch_info_provider.dart';
 
 abstract class RoutesCreator {
@@ -28,7 +35,98 @@ abstract class RoutesCreator {
   List<(Widget, StatefulBranchInfoProvider)> getAllPagesWithConfigs(
     AppAttributes appAttributes,
   );
-  Footer getFooter(AppAttributes appAttributes);
+
+  /// The footer under every page: the app's footer pages and the user's links.
+  Footer getFooter(AppAttributes appAttributes) {
+    return Footer(
+      footerPagesConfigs: appAttributes.screenConfigurations
+          .getFooterPagesConfig(),
+      userSettings: appAttributes.userSettings,
+      footerConfig: appAttributes.footerConfig,
+    );
+  }
+
+  /// [pages] paired with [configs] in order; both lists must be equally long.
+  List<(Widget, StatefulBranchInfoProvider)> pairPagesWithConfigs(
+    List<Widget> pages,
+    List<StatefulBranchInfoProvider> configs,
+  ) {
+    assert(
+      pages.length == configs.length,
+      '${pages.length} pages for ${configs.length} configs',
+    );
+    return [for (int i = 0; i < pages.length; i++) (pages[i], configs[i])];
+  }
+
+  /// A [FooterPage] per footer config, and [OpenSourceLicensesPage] on [openSourceLicensesRoute].
+  List<(Widget, StatefulBranchInfoProvider)> footerPagesWithConfigs(
+    AppAttributes appAttributes,
+  ) {
+    return appAttributes.screenConfigurations.getFooterPagesConfig().map((
+      pageConfig,
+    ) {
+      final Widget page = pageConfig.getRoutingName() == openSourceLicensesRoute
+          ? OpenSourceLicensesPage(
+              footer: getFooter(appAttributes),
+              appAttributes: appAttributes,
+            )
+          : FooterPage(
+              footer: getFooter(appAttributes),
+              appAttributes: appAttributes,
+              filePathDe: pageConfig.getFilePathDe(),
+              filePathEn: pageConfig.getFilePathEn(),
+            );
+      return (page, pageConfig);
+    }).toList();
+  }
+
+  /// A [MarkdownContentPage] per blog post.
+  List<(Widget, StatefulBranchInfoProvider)> blogPagesWithConfigs(
+    AppAttributes appAttributes,
+    List<BlogPageConfig> configs,
+  ) => _markdownPagesWithConfigs(appAttributes, configs, (config) => config);
+
+  /// A [MarkdownContentPage] per media review.
+  List<(Widget, StatefulBranchInfoProvider)> mediaCriticsPagesWithConfigs(
+    AppAttributes appAttributes,
+    List<MyTwoCentsConfig> configs,
+  ) => _markdownPagesWithConfigs(appAttributes, configs, (config) => config);
+
+  List<(Widget, StatefulBranchInfoProvider)>
+  _markdownPagesWithConfigs<C extends StatefulBranchInfoProvider>(
+    AppAttributes appAttributes,
+    List<C> configs,
+    MarkdownContentConfig Function(C) content,
+  ) {
+    return configs
+        .map(
+          (pageConfig) => (
+            MarkdownContentPage(
+              footer: getFooter(appAttributes),
+              appAttributes: appAttributes,
+              config: content(pageConfig),
+            ),
+            pageConfig,
+          ),
+        )
+        .toList();
+  }
+
+  /// An [ErrorPage] per error config; the router redirects unknown routes to the first.
+  List<(Widget, StatefulBranchInfoProvider)> errorPagesWithConfigs(
+    AppAttributes appAttributes,
+  ) {
+    final List<StatefulBranchInfoProvider> configs = appAttributes
+        .screenConfigurations
+        .getErrorPagesConfig();
+    return pairPagesWithConfigs(<Widget>[
+      for (final _ in configs)
+        ErrorPage(
+          footer: getFooter(appAttributes),
+          appAttributes: appAttributes,
+        ),
+    ], configs);
+  }
 
   GoRouter getRouterConfig(
     AppAttributes appAttributes,

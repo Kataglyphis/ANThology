@@ -1,6 +1,26 @@
-import 'sqlite_self_test_impl_stub.dart'
-    if (dart.library.js_interop) 'sqlite_self_test_impl_web.dart'
-    if (dart.library.io) 'sqlite_self_test_impl_io.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:sqlite3/common.dart';
 
-/// Runs a minimal SQLite smoke test on the current platform and returns a readable status.
-Future<String> runSqliteSelfTest() => runSqliteSelfTestImpl();
+import 'package:anthology/Sqlite/sqlite3_loader.dart';
+
+/// Runs a minimal SQLite query in memory and returns a readable status; throws when SQLite cannot load.
+Future<String> runSqliteSelfTest() async {
+  final CommonSqlite3 sqlite = await loadSqlite3();
+  final CommonDatabase db = sqlite.openInMemory();
+  try {
+    db.execute('CREATE TABLE t (id INTEGER PRIMARY KEY, name TEXT NOT NULL);');
+    db.execute('INSERT INTO t (name) VALUES (?)', ['hello']);
+
+    final ResultSet row = db.select(
+      'SELECT id, name, sqlite_version() AS v FROM t LIMIT 1;',
+    );
+
+    final Object? id = row.first['id'];
+    final Object? name = row.first['name'];
+    final Object? version = row.first['v'];
+
+    return 'OK (${kIsWeb ? 'web/wasm' : 'native'}): id=$id name=$name sqlite=$version';
+  } finally {
+    db.close();
+  }
+}

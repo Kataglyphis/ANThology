@@ -82,6 +82,16 @@ class AnthologyLocalizationsDe extends AnthologyLocalizations {
   String get sqliteSelfTestErrorPrefix => 'FEHLER: ';
 
   @override
+  String get rerunSqliteHealthcheck => 'SQLite Healthcheck erneut ausführen';
+
+  @override
+  String get sqliteError => 'SQLite Fehler';
+
+  @override
+  String get sqliteWebHint =>
+      'Hinweis: Im Web muss sqlite3.wasm neben der Seite liegen (der Build kopiert web/sqlite3.wasm dorthin).';
+
+  @override
   String get myPerfectDay => 'Mein perfekter Tag';
 
   @override

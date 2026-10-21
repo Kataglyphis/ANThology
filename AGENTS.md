@@ -12,13 +12,17 @@ asset corpus (fonts, images, legal texts) they both load.
 | Path | What lives there |
 | --- | --- |
 | `lib/app_shell.dart`, `lib/app_settings.dart`, `lib/app_attributes.dart`, `lib/blog_page_config.dart` | The top-level entry points an app wires its settings, attributes and blog config into |
+| `lib/settings_loader.dart` | `SettingsLoader`: the three settings files both apps boot from, read in parallel, logged and rethrown on failure |
+| `lib/Boot/` | `dismissBootOverlay()`: removes the loading overlay of the hub's shared web shell (`shared/web/` in ANTfrastructure); a no-op off the web |
+| `lib/locale_helpers.dart` | `isGermanLocale`, `localizedValue`: by language code, so `de_AT` is German |
 | `lib/Decoration/` (incl. `Charts/`) | Box/component decoration, dividers, the fl_chart pie chart |
 | `lib/Layout/` | Adaptive grid and the responsive-design helpers |
 | `lib/Media/` | Markdown, image, data table, file table, download/open/copy/email widgets |
 | `lib/Pages/` | The `Home` navigation scaffold and the consolidated pages (landing, about, data, error, footer, sqlite, markdown content), with their configs |
 | `lib/Routing/` | go_router creation, navigation bars, screen configurations |
 | `lib/SocialMedia/` | Social media icons and their settings |
-| `lib/Sqlite/` | The sqlite3 self-test with io/web/stub implementations |
+| `lib/Sqlite/` | `loadSqlite3`: FFI natively, `sqlite3.wasm` on the web over IndexedDB or in memory; the self-test, the healthcheck and its widget |
+| `lib/Testing/` | `loadAnthologyFonts()` for widget tests that measure real text; no `flutter_test` dependency |
 | `lib/Url/` | Browser helper and external link config |
 | `lib/Widgets/` | Small shared widgets (skill table) |
 | `lib/l10n/` | The en/de/fr `.arb` catalogues and the committed generated Dart |
@@ -96,6 +100,9 @@ in this file and README.md point at `develop` for the same reason.
   so a new `.dart` file escapes the format check (not `dart analyze` or `flutter test`) until it
   is `git add`ed. `scripts/run-dart-checks.sh` takes no arguments: `--strict false` would turn
   the blocking gate into a warning.
+- **`loadSqlite3(indexedDbName:)` names a database in the visitor's browser.** OmniAccelerANT
+  passes `kataglyphis_inference_engine` and jotrockenmitlocken passes none (in memory). A new name
+  opens a new, empty database and orphans the old one, so an app never renames its own.
 - The generated Dart under `lib/l10n/` is committed: a consumer's `flutter pub get` never runs
   gen-l10n for a dependency (`pubspec.yaml`).
 - Package fonts register as `packages/anthology/<family>`; a bare family name silently falls back

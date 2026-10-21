@@ -2,6 +2,25 @@
 
 ## [Unreleased]
 
+- 2026-10-21: what OmniAccelerANT and jotrockenmitlocken each kept for themselves now lives here,
+  so both apps use one copy:
+  - `dismissBootOverlay()` (`lib/Boot/`) fades out and removes the loading overlay of the shared web
+    shell (ANTfrastructure `shared/web/`). jotrockenmitlocken's JavaScript timer could remove the
+    overlay before Flutter was ready.
+  - `lib/Sqlite/`: `loadSqlite3`, `runSqliteHealthcheck` and `Sqlite3HealthcheckWidget`, from
+    OmniAccelerANT. The IndexedDB name is a parameter, and the strings are in en/de/fr. The
+    self-test runs on the same loader; its web error names where `sqlite3.wasm` is served. The
+    three `sqlite_self_test_impl_*` files are gone.
+  - `isGermanLocale`/`localizedValue` and `UserSettings.aboutMeFileFor`. jotrockenmitlocken
+    compared the whole locale, so `de_AT` got English.
+  - `defaultFooterPageConfigs()`, the seven footer pages both apps listed.
+  - `RoutesCreator`: `getFooter` by default, plus `pairPagesWithConfigs`, `footerPagesWithConfigs`
+    (the licence route gets `OpenSourceLicensesPage`), `blogPagesWithConfigs`,
+    `mediaCriticsPagesWithConfigs` and `errorPagesWithConfigs`.
+  - `BlogDependentScreenConfigurations` lists `getAllPagesConfigs()`.
+  - `SettingsLoader` and the settings parsers, from jotrockenmitlocken.
+  - `loadAnthologyFonts()` for layout tests; `socialNetworksWithoutIcon`.
+
 - 2026-10-20: the imprint and privacy policy, German and English, publish the e-mail
   `contact@jonasheinle.de` as a `mailto:` link, in place of `XX` and a link to `#` (owner). The
   postal address and phone number stay placeholders by owner decision. The imprint copies in the

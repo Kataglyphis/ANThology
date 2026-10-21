@@ -1,3 +1,5 @@
+import 'dart:ui' show Locale;
+
 import 'package:anthology/Url/external_link_config.dart';
 
 class UserSettings {
@@ -43,6 +45,16 @@ class UserSettings {
   String? aboutMeFileDe;
   String? aboutMeFileEn;
   String? aboutMeFileFr;
+
+  /// The about-me file for [locale]'s language, whatever its country; English when that language has none.
+  String aboutMeFileFor(Locale locale) {
+    final String? file = switch (locale.languageCode) {
+      'de' => aboutMeFileDe,
+      'fr' => aboutMeFileFr,
+      _ => null,
+    };
+    return file ?? aboutMeFileEn!;
+  }
 
   ExternalLinkConfig getFullPathToGithubRepo(String repo) {
     final config = socialMediaLinksConfig;

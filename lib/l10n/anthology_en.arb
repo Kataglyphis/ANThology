@@ -92,6 +92,18 @@
   "@sqliteSelfTestErrorPrefix": {
     "description": "Prefix in front of a thrown SQLite self-test error. Trailing space is intentional."
   },
+  "rerunSqliteHealthcheck": "Re-run SQLite Healthcheck",
+  "@rerunSqliteHealthcheck": {
+    "description": "Button of Sqlite3HealthcheckWidget that runs the check again."
+  },
+  "sqliteError": "SQLite Error",
+  "@sqliteError": {
+    "description": "Prefix in front of a failed SQLite healthcheck's error."
+  },
+  "sqliteWebHint": "Note: on the web, sqlite3.wasm must be served beside the page (the build copies web/sqlite3.wasm there).",
+  "@sqliteWebHint": {
+    "description": "Hint under a failed SQLite healthcheck: where the web build serves sqlite3.wasm from."
+  },
   "myPerfectDay": "My perfect Day",
   "@myPerfectDay": {
     "description": "Title of the pie chart breaking a day down into activities."
