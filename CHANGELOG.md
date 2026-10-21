@@ -4,7 +4,8 @@
 
 - 2026-10-21: the README header shows ANThology's own logo, `images/logo.svg`: an ant in an app
   window with a phone behind it, from the family set DocumANTation's `scripts/make_repo_logos.py`
-  draws. `images/logo.png` is unchanged.
+  draws. `images/logo.png`, `assets/images/logo.png` and `assets/icons/faviconNew.ico` (16 to
+  256 px) are rendered from it.
 
 - 2026-10-21: CI runs the suite in Chrome too: `docs.yml`'s `checks` job runs
   `scripts/run-dart-checks.sh --test-platform chrome` after the VM run, so the web halves of
