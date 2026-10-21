@@ -1,6 +1,6 @@
 import 'dart:developer' as developer;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:flutter/services.dart' show AssetManifest, rootBundle;
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:anthology/Decoration/row_divider.dart';
 import 'package:anthology/constants.dart';
@@ -11,9 +11,76 @@ final RegExp _fenceOrComment = RegExp(
   multiLine: true,
 );
 
+final RegExp _fence = RegExp(
+  r'^[ \t]*(```|~~~)[\s\S]*?^[ \t]*\1',
+  multiLine: true,
+);
+
+final RegExp _imageDestination = RegExp(r'(!\[[^\]]*\]\()([^)\s]+)');
+
 /// [markdown] without its HTML comments; fenced code keeps them.
 String withoutHtmlComments(String markdown) =>
     markdown.replaceAllMapped(_fenceOrComment, (Match m) => m[1] ?? '');
+
+/// The asset an image [src] of the Markdown file [markdownPath] shows: [src], relative to the file, or under [imageDirectory] by path or name; null when none is bundled.
+String? resolveMarkdownImage(
+  String src, {
+  required String markdownPath,
+  required String imageDirectory,
+  required Set<String> assets,
+}) {
+  if (src.contains('://') || src.startsWith('data:')) return null;
+  final String directory = markdownPath.substring(
+    0,
+    markdownPath.lastIndexOf('/') + 1,
+  );
+  final String images = imageDirectory.isEmpty || imageDirectory.endsWith('/')
+      ? imageDirectory
+      : '$imageDirectory/';
+  String relativeTo(String dir) =>
+      Uri.decodeFull(Uri(path: dir).resolve(src).path);
+  for (final String candidate in <String>[
+    src,
+    relativeTo(directory),
+    relativeTo(images),
+    '$images${src.split('/').last}',
+  ]) {
+    if (assets.contains(candidate)) return candidate;
+  }
+  return null;
+}
+
+/// [markdown] with each image destination [resolve] maps replaced by its result; fenced code is kept as written.
+String withResolvedImages(
+  String markdown,
+  String? Function(String src) resolve,
+) {
+  String rewrite(String text) => text.replaceAllMapped(
+    _imageDestination,
+    (Match m) => '${m[1]}${resolve(m[2]!) ?? m[2]}',
+  );
+  final StringBuffer out = StringBuffer();
+  int last = 0;
+  for (final Match fence in _fence.allMatches(markdown)) {
+    out
+      ..write(rewrite(markdown.substring(last, fence.start)))
+      ..write(fence[0]);
+    last = fence.end;
+  }
+  return (out..write(rewrite(markdown.substring(last)))).toString();
+}
+
+Future<Set<String>>? _bundledAssets;
+
+/// Every asset key of the app's bundle, read once; empty when the manifest cannot be read.
+Future<Set<String>> bundledAssets() =>
+    _bundledAssets ??= AssetManifest.loadFromAssetBundle(rootBundle).then(
+      (AssetManifest manifest) => manifest.listAssets().toSet(),
+      onError: (Object e) {
+        developer.log('Error reading the asset manifest: $e');
+        return <String>{};
+      },
+    );
 
 class MarkdownFilePage extends StatefulWidget {
   const MarkdownFilePage({
@@ -41,22 +108,37 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
   @override
   void initState() {
     super.initState();
-    _markupFileContent = _readMarkupFile().then(withoutHtmlComments);
+    final String path = _markupPath();
+    // An image path the bundle lacks would be fetched anyway and 404: blog posts name theirs relative to the file.
+    _markupFileContent =
+        Future.wait<Object>(<Future<Object>>[
+          _readMarkupFile(path),
+          bundledAssets(),
+        ]).then(
+          (List<Object> read) => withResolvedImages(
+            withoutHtmlComments(read[0] as String),
+            (String src) => resolveMarkdownImage(
+              src,
+              markdownPath: path,
+              imageDirectory: widget.imageDirectory,
+              assets: read[1] as Set<String>,
+            ),
+          ),
+        );
   }
 
-  Future<String> _readMarkupFile() async {
+  /// German when the locale asks for it and the page has it, else English, else German.
+  String _markupPath() {
+    if (widget.currentLocale == const Locale('de') &&
+        widget.filePathDe.isNotEmpty) {
+      return widget.filePathDe;
+    }
+    return widget.filePathEn.isNotEmpty ? widget.filePathEn : widget.filePathDe;
+  }
+
+  Future<String> _readMarkupFile(String path) async {
     try {
-      if (widget.currentLocale == const Locale('de') &&
-          widget.filePathDe.isNotEmpty) {
-        return await rootBundle.loadString(widget.filePathDe);
-      } else if (widget.currentLocale == const Locale('en') &&
-          widget.filePathEn.isNotEmpty) {
-        return await rootBundle.loadString(widget.filePathEn);
-      } else if (widget.filePathEn.isNotEmpty) {
-        return await rootBundle.loadString(widget.filePathEn);
-      } else {
-        return await rootBundle.loadString(widget.filePathDe);
-      }
+      return await rootBundle.loadString(path);
     } catch (e) {
       developer.log("Error reading file: $e");
       return '';

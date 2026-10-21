@@ -40,6 +40,12 @@ void main() {
           .where((File f) => f.path.endsWith('.md'))
           .toList()
         ..sort((File a, File b) => a.path.compareTo(b.path));
+  final Set<String> bundled = <String>{
+    for (final FileSystemEntity f in Directory(
+      'assets',
+    ).listSync(recursive: true))
+      if (f is File) 'packages/anthology/${f.path.replaceAll(r'\', '/')}',
+  };
 
   test('the shipped pages are found', () {
     expect(pages.length, greaterThanOrEqualTo(12));
@@ -48,6 +54,26 @@ void main() {
   for (final File page in pages) {
     test('${page.path} has no accidental code block', () {
       expect(_unlabelledCodeBlocks(page.readAsStringSync()), isEmpty);
+    });
+
+    // An image the bundle lacks is fetched anyway and 404s: aiBlogPageEn.md named one on jonasheinle.de until 2026-10-21.
+    test('${page.path} names only images this package bundles', () {
+      final String path = page.path.replaceAll(r'\', '/');
+      final List<String> missing = <String>[
+        for (final Match m in RegExp(
+          r'!\[[^\]]*\]\(([^)\s]+)',
+        ).allMatches(page.readAsStringSync()))
+          if (!m[1]!.contains('://') &&
+              resolveMarkdownImage(
+                    m[1]!,
+                    markdownPath: 'packages/anthology/$path',
+                    imageDirectory: 'packages/anthology/assets/images/',
+                    assets: bundled,
+                  ) ==
+                  null)
+            m[1]!,
+      ];
+      expect(missing, isEmpty);
     });
 
     // markdown_widget prints an HTML comment as text: the Impressum showed a phone number commented out.

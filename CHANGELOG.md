@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+- 2026-10-21: `MarkdownFilePage` shows a Markdown image by the asset it names: relative to the
+  file, else under `imageDirectory` by path or by name (`resolveMarkdownImage`,
+  `withResolvedImages`). The `imageDirectory` it took went unused, so the AI blog's
+  `../../images/aiBlog/...` and a review's bare `ScreenshotWorleyNoise.png` were fetched from
+  `/images/` and `/assets/` and 404ed on jonasheinle.de. `markdown_assets_test.dart` fails a
+  shipped page that names an image this package does not bundle.
+
 - 2026-10-21: the README header shows ANThology's own logo, `images/logo.svg`: an ant in an app
   window with a phone behind it, from the family set DocumANTation's `scripts/make_repo_logos.py`
   draws. `images/logo.png`, `assets/images/logo.png` and `assets/icons/faviconNew.ico` (16 to
