@@ -34,6 +34,15 @@ class _SkillTableState extends State<SkillTable> {
     _skillTableJson = _readJson();
   }
 
+  @override
+  void didUpdateWidget(SkillTable oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.aboutMeFile != widget.aboutMeFile ||
+        oldWidget.assetBundle != widget.assetBundle) {
+      _skillTableJson = _readJson();
+    }
+  }
+
   // Fetch content from the json file
   Future<(List<String>, List<List<dynamic>>)> _readJson() async {
     final jsonData = await (widget.assetBundle ?? rootBundle).loadString(

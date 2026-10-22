@@ -1,5 +1,4 @@
-import 'package:web/web.dart';
-import 'package:flutter/foundation.dart';
+import 'package:anthology/Media/Files/file_actions.dart';
 
 String trimAfterLastSlash(String input) {
   int lastSlashIndex = input.lastIndexOf('/');
@@ -11,12 +10,4 @@ String trimAfterLastSlash(String input) {
   return input.substring(lastSlashIndex + 1);
 }
 
-void myPluginDownload(String url) {
-  if (kReleaseMode) {
-    url = "assets/$url";
-  }
-  HTMLAnchorElement()
-    ..href = url
-    ..download = trimAfterLastSlash(url)
-    ..click();
-}
+Future<void> myPluginDownload(String url) => defaultFileActions.save(url);

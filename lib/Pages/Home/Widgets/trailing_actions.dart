@@ -22,7 +22,8 @@ class TrailingActionsState extends State<TrailingActions> {
         if (buttonNames.language != null &&
             widget.appAttributes.handleLanguageSelect != null &&
             widget.appAttributes.currentLanguageIndex != null &&
-            widget.appAttributes.appSettings.supportedLocales!.length >= 2)
+            (widget.appAttributes.appSettings.supportedLocales?.length ?? 0) >=
+                2)
           Flexible(
             child: LanguageButton(
               supportedLocales:

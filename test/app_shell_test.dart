@@ -13,6 +13,7 @@ import 'package:anthology/Pages/stateful_branch_info_provider.dart';
 import 'package:anthology/Routing/router_creater.dart';
 import 'package:anthology/Routing/screen_configurations.dart';
 import 'package:anthology/app_attributes.dart';
+import 'package:anthology/app_attributes_scope.dart';
 import 'package:anthology/app_settings.dart';
 import 'package:anthology/app_shell.dart';
 import 'package:anthology/constants.dart';
@@ -72,9 +73,16 @@ class _FakeRoutesCreator extends RoutesCreator {
       routes: <RouteBase>[
         GoRoute(
           path: '/',
-          builder: (BuildContext context, GoRouterState state) => Text(
-            'locale=${Localizations.localeOf(context)}',
-            textDirection: TextDirection.ltr,
+          builder: (BuildContext context, GoRouterState state) => Material(
+            child: Column(
+              children: [
+                Text('locale=${Localizations.localeOf(context)}'),
+                Text(
+                  'seed=${AppAttributesScope.maybeOf(context)?.colorSelected.name}',
+                ),
+                const TextField(key: ValueKey('draft')),
+              ],
+            ),
           ),
         ),
       ],
@@ -134,6 +142,43 @@ KataglyphisAppShell<(AppSettings, UserSettings)> _shell(
 
 void main() {
   testWidgets(
+    'appearance changes keep a routed form and publish current attributes',
+    (tester) async {
+      late KataglyphisAppShellRuntime runtime;
+      tester.view.physicalSize = const Size(800, 900);
+      tester.view.devicePixelRatio = 1;
+      addTearDown(tester.view.reset);
+      await tester.pumpWidget(
+        _shell(
+          () async =>
+              (_appSettings(supportedLocales: ['en', 'de']), _userSettings()),
+          onRuntime: (value) => runtime = value,
+        ),
+      );
+      await tester.pumpAndSettle();
+      final router = GoRouter.of(
+        tester.element(find.byKey(const ValueKey('draft'))),
+      );
+      final state = tester.state(find.byType(EditableText));
+      await tester.enterText(find.byType(TextField), 'unsaved camera name');
+      runtime.handleBrightnessChange(true);
+      await tester.pumpAndSettle();
+      runtime.handleColorSelect(ColorSeed.pink.index);
+      await tester.pumpAndSettle();
+      runtime.handleLanguageSelect(1);
+      await tester.pumpAndSettle();
+      tester.view.physicalSize = const Size(1600, 900);
+      await tester.pumpAndSettle();
+      expect(GoRouter.of(tester.element(find.byType(TextField))), same(router));
+      expect(tester.state(find.byType(EditableText)), same(state));
+      expect(find.text('unsaved camera name'), findsOneWidget);
+      expect(find.text('locale=de'), findsOneWidget);
+      expect(find.text('seed=pink'), findsOneWidget);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+
+  testWidgets(
     'a resize within a breakpoint or an open keyboard keeps the router and its pages',
     (WidgetTester tester) async {
       tester.view.physicalSize = const Size(1100, 700);
@@ -154,10 +199,10 @@ void main() {
       await tester.pumpAndSettle();
       expect(_FakeRoutesCreator.routersBuilt, before);
 
-      // Past the large breakpoint the pages lay out anew, so a new router is right.
+      // The layout updates without discarding routed page state.
       tester.view.physicalSize = const Size(1600, 700);
       await tester.pumpAndSettle();
-      expect(_FakeRoutesCreator.routersBuilt, before + 1);
+      expect(_FakeRoutesCreator.routersBuilt, before);
     },
   );
 

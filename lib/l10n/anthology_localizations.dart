@@ -103,6 +103,12 @@ abstract class AnthologyLocalizations {
     Locale('fr'),
   ];
 
+  /// Shown when a bundled file cannot be opened or saved.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not open or save this file.'**
+  String get fileActionFailed;
+
   /// Label for the light/dark mode affordance.
   ///
   /// In en, this message translates to:

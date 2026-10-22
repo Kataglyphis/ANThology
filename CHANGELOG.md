@@ -2,6 +2,16 @@
 
 ## [Unreleased]
 
+- 2026-10-22: keep one router across theme, language and breakpoint changes, update pages through
+  `AppAttributesScope`, and dispose the router with the shell. Bottom navigation reports its
+  selection consistently with the rail. Retained Markdown, skills and CSV widgets refresh changed
+  asset inputs; locale variants such as `de_AT` load German Markdown.
+- 2026-10-22: `FileActions` opens and saves bundled files on native platforms instead of throwing
+  from enabled buttons. Browser actions use the asset prefix in debug and release; failures show
+  localized feedback. Native extraction and actual button taps have regression tests.
+- 2026-10-22: `packages/anthology_test_support` supplies both apps' layout and navigation
+  contracts as a dev dependency. Remove unused direct Markdown/highlighter and mock dependencies.
+
 - 2026-10-21: `MarkdownFilePage` shows a Markdown image by the asset it names: relative to the
   file, else under `imageDirectory` by path or by name (`resolveMarkdownImage`,
   `withResolvedImages`). The `imageDirectory` it took went unused, so the AI blog's

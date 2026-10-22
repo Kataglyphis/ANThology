@@ -74,13 +74,18 @@ Future<Set<String>>? _bundledAssets;
 
 /// Every asset key of the app's bundle, read once; empty when the manifest cannot be read.
 Future<Set<String>> bundledAssets() =>
-    _bundledAssets ??= AssetManifest.loadFromAssetBundle(rootBundle).then(
-      (AssetManifest manifest) => manifest.listAssets().toSet(),
-      onError: (Object e) {
-        developer.log('Error reading the asset manifest: $e');
-        return <String>{};
-      },
-    );
+    _bundledAssets ??= _assetsFromBundle(rootBundle);
+
+Future<Set<String>> _assetsFromBundle(AssetBundle bundle) async {
+  try {
+    // Cached manifests return a SynchronousFuture, which Future.wait cannot combine safely.
+    final manifest = await AssetManifest.loadFromAssetBundle(bundle);
+    return manifest.listAssets().toSet();
+  } catch (error) {
+    developer.log('Error reading the asset manifest: $error');
+    return <String>{};
+  }
+}
 
 class MarkdownFilePage extends StatefulWidget {
   const MarkdownFilePage({
@@ -90,6 +95,7 @@ class MarkdownFilePage extends StatefulWidget {
     required this.filePathEn,
     this.imageDirectory = 'packages/anthology/assets/images/',
     required this.useLightMode,
+    this.assetBundle,
   });
 
   final Locale currentLocale;
@@ -97,6 +103,7 @@ class MarkdownFilePage extends StatefulWidget {
   final String filePathEn;
   final String imageDirectory;
   final bool useLightMode;
+  final AssetBundle? assetBundle;
 
   @override
   MarkdownFilePageState createState() => MarkdownFilePageState();
@@ -108,37 +115,54 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
   @override
   void initState() {
     super.initState();
+    _markupFileContent = _loadMarkup();
+  }
+
+  @override
+  void didUpdateWidget(MarkdownFilePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.currentLocale != widget.currentLocale ||
+        oldWidget.filePathDe != widget.filePathDe ||
+        oldWidget.filePathEn != widget.filePathEn ||
+        oldWidget.imageDirectory != widget.imageDirectory ||
+        oldWidget.assetBundle != widget.assetBundle) {
+      _markupFileContent = _loadMarkup();
+    }
+  }
+
+  Future<String> _loadMarkup() {
     final String path = _markupPath();
+    final String imageDirectory = widget.imageDirectory;
+    final AssetBundle bundle = widget.assetBundle ?? rootBundle;
     // An image path the bundle lacks would be fetched anyway and 404: blog posts name theirs relative to the file.
-    _markupFileContent =
-        Future.wait<Object>(<Future<Object>>[
-          _readMarkupFile(path),
-          bundledAssets(),
-        ]).then(
-          (List<Object> read) => withResolvedImages(
-            withoutHtmlComments(read[0] as String),
-            (String src) => resolveMarkdownImage(
-              src,
-              markdownPath: path,
-              imageDirectory: widget.imageDirectory,
-              assets: read[1] as Set<String>,
-            ),
-          ),
-        );
+    return Future.wait<Object>(<Future<Object>>[
+      _readMarkupFile(path, bundle),
+      widget.assetBundle == null ? bundledAssets() : _assetsFromBundle(bundle),
+    ]).then(
+      (List<Object> read) => withResolvedImages(
+        withoutHtmlComments(read[0] as String),
+        (String src) => resolveMarkdownImage(
+          src,
+          markdownPath: path,
+          imageDirectory: imageDirectory,
+          assets: read[1] as Set<String>,
+        ),
+      ),
+    );
   }
 
   /// German when the locale asks for it and the page has it, else English, else German.
   String _markupPath() {
-    if (widget.currentLocale == const Locale('de') &&
+    if (widget.currentLocale.languageCode == 'de' &&
         widget.filePathDe.isNotEmpty) {
       return widget.filePathDe;
     }
     return widget.filePathEn.isNotEmpty ? widget.filePathEn : widget.filePathDe;
   }
 
-  Future<String> _readMarkupFile(String path) async {
+  Future<String> _readMarkupFile(String path, AssetBundle bundle) async {
     try {
-      return await rootBundle.loadString(path);
+      return await bundle.loadString(path);
     } catch (e) {
       developer.log("Error reading file: $e");
       return '';

@@ -9,6 +9,9 @@ class AnthologyLocalizationsEn extends AnthologyLocalizations {
   AnthologyLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get fileActionFailed => 'Could not open or save this file.';
+
+  @override
   String get brightness => 'Brightness';
 
   @override
