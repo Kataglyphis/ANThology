@@ -45,6 +45,15 @@ abstract class CsvDataListState<T extends TableData, U extends CsvDataList>
     _rawCsvData = _loadDataFromCSV();
   }
 
+  @override
+  void didUpdateWidget(covariant U oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.dataFilePath != widget.dataFilePath ||
+        oldWidget.assetBundle != widget.assetBundle) {
+      _rawCsvData = _loadDataFromCSV();
+    }
+  }
+
   Future<(List<T>, List<String>)> _loadDataFromCSV() async {
     final rawData = await (widget.assetBundle ?? rootBundle).loadString(
       widget.dataFilePath,

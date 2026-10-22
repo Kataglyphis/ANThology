@@ -29,7 +29,7 @@ class ExpandedTrailingActions extends StatelessWidget {
           if (buttonNames.language != null &&
               appAttributes.handleLanguageSelect != null)
             if (appAttributes.currentLanguageIndex != null &&
-                appAttributes.appSettings.supportedLocales!.length >= 2)
+                (appAttributes.appSettings.supportedLocales?.length ?? 0) >= 2)
               Row(
                 children: [
                   Text(buttonNames.language!),

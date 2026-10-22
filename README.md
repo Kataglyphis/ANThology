@@ -26,7 +26,8 @@ build on it. Targets: Linux, Windows, web, Android, iOS.
 ## Highlights
 
 - **Layout:** cross-platform page layout.
-- **Media and files:** open and download files, image handling.
+- **Media and files:** browser downloads, native open/save dialogs and image handling.
+- **Application state:** theme, locale and layout changes preserve routes and page state.
 - **Rendering:** Markdown and responsive tables.
 - **UI elements:** widget decoration, social media icons.
 - **Email** handling.

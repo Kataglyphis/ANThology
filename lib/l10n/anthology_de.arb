@@ -1,5 +1,6 @@
 {
   "@@locale": "de",
+  "fileActionFailed": "Die Datei konnte nicht geöffnet oder gespeichert werden.",
   "brightness": "Helligkeit",
   "toogleBrightness": "Wechsel Helligkeit",
   "switchLang": "Sprache",

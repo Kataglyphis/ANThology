@@ -10,6 +10,7 @@ import 'package:anthology/Pages/Home/home.dart';
 import 'package:anthology/Pages/markdown_content_page.dart';
 
 import 'package:anthology/app_attributes.dart';
+import 'package:anthology/app_attributes_scope.dart';
 import 'package:anthology/blog_page_config.dart';
 import 'package:anthology/my_two_cents_config.dart';
 import 'package:anthology/Pages/stateful_branch_info_provider.dart';
@@ -145,12 +146,14 @@ abstract class RoutesCreator {
                 GoRouterState state,
                 StatefulNavigationShell navigationShell,
               ) {
+                final currentAttributes =
+                    AppAttributesScope.maybeOf(context) ?? appAttributes;
                 // navigationShell lets Home switch branches while keeping each branch's state.
                 return Home(
                   handleChangedPageIndex: handleChangedPageIndex,
                   scaffoldKey: scaffoldKey,
-                  footer: getFooter(appAttributes),
-                  appAttributes: appAttributes,
+                  footer: getFooter(currentAttributes),
+                  appAttributes: currentAttributes,
                   controller: controller,
                   navigationShell: navigationShell,
                 );
@@ -180,7 +183,21 @@ abstract class RoutesCreator {
     return GoRoute(
       path: allPagesWithConfigs.$2.getRoutingName(),
       pageBuilder: (context, state) {
-        return NoTransitionPage(child: allPagesWithConfigs.$1);
+        return NoTransitionPage(
+          child: Builder(
+            builder: (context) {
+              final currentAttributes = AppAttributesScope.maybeOf(context);
+              if (currentAttributes == null) return allPagesWithConfigs.$1;
+              return getAllPagesWithConfigs(currentAttributes)
+                  .firstWhere(
+                    (page) =>
+                        page.$2.getRoutingName() ==
+                        allPagesWithConfigs.$2.getRoutingName(),
+                  )
+                  .$1;
+            },
+          ),
+        );
       },
     );
   }

@@ -1,5 +1,9 @@
 {
   "@@locale": "en",
+  "fileActionFailed": "Could not open or save this file.",
+  "@fileActionFailed": {
+    "description": "Shown when a bundled file cannot be opened or saved."
+  },
   "brightness": "Brightness",
   "@brightness": {
     "description": "Label for the light/dark mode affordance."

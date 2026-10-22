@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 
-import 'open_stub.dart' if (dart.library.js_interop) 'open_web.dart';
+import 'package:anthology/Media/Files/file_actions.dart';
 import 'package:mime/mime.dart';
 
 class OpenButton extends StatelessWidget {
   final String assetFullPath;
-  const OpenButton({super.key, required this.assetFullPath});
-
-  void _onPressed() async {
-    myPluginOpen(assetFullPath);
-  }
+  final FileActions? fileActions;
+  const OpenButton({super.key, required this.assetFullPath, this.fileActions});
 
   // https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/MIME_types/Common_types
   bool isDisabled() {
@@ -28,7 +25,12 @@ class OpenButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: isDisabled() ? null : _onPressed,
+      onPressed: isDisabled()
+          ? null
+          : () => performFileAction(
+              context,
+              () => (fileActions ?? defaultFileActions).open(assetFullPath),
+            ),
       style: ElevatedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
       ),

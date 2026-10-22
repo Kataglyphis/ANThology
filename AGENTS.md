@@ -23,6 +23,7 @@ asset corpus (fonts, images, legal texts) they both load.
 | `lib/SocialMedia/` | Social media icons and their settings |
 | `lib/Sqlite/` | `loadSqlite3`: FFI natively, `sqlite3.wasm` on the web over IndexedDB or in memory; the self-test, the healthcheck and its widget |
 | `lib/Testing/` | `loadAnthologyFonts()` for widget tests that measure real text; no `flutter_test` dependency |
+| `packages/anthology_test_support/` | Dev-only layout and navigation contracts both apps run; owns the `flutter_test` dependency |
 | `lib/Url/` | Browser helper and external link config |
 | `lib/Widgets/` | Small shared widgets (skill table) |
 | `lib/l10n/` | The en/de/fr `.arb` catalogues and the committed generated Dart |
@@ -75,6 +76,16 @@ in this file and README.md point at `develop` for the same reason.
 
 ## 4. Pitfalls specific to this project
 
+- **The shell owns one router for its lifetime.** `AppAttributesScope` updates the routed
+  widgets when language, theme or breakpoints change. Replacing the router discards drafts and
+  stops OmniAccelerANT's webcam and ESP32 sessions. A stateful asset widget reloads its future
+  in `didUpdateWidget` when its path, locale or bundle changes, never just on a theme change.
+- **File buttons use `Media/Files/file_actions.dart`.** Native actions extract bundled bytes
+  before opening a system application or save dialog; the web uses the bundle's asset URL.
+  Inject `FileActions` for button tests and handle a failed action through the shared feedback.
+- **Consumer widget contracts are dev dependencies.** Point `anthology_test_support` at
+  `third_party/ANThology/packages/anthology_test_support`; keep `flutter_test` out of this
+  package's production dependencies. Each consumer supplies its app factory and route list.
 - **No ANTfrastructure submodule, by decision.** A submodule would pin what `docs.yml` and
   `renovate.json` deliberately keep floating at `develop`. `.antfrastructure-shared.manifest` is
   empty for the same reason.

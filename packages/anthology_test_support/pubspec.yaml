@@ -1,0 +1,17 @@
+name: anthology_test_support
+description: Shared widget contracts for apps built with ANThology.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: ">=3.12.0 <4.0.0"
+  flutter: ">=3.44.0"
+
+dependencies:
+  anthology:
+    path: ../..
+  flutter:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+  go_router: ^18.0.0

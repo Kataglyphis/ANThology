@@ -1,10 +1,3 @@
-import 'package:web/web.dart';
+import 'package:anthology/Media/Files/file_actions.dart';
 
-import 'package:flutter/foundation.dart';
-
-void myPluginOpen(String url) {
-  if (kReleaseMode) {
-    url = "assets/$url";
-  }
-  window.open(url, "_blank");
-}
+Future<void> myPluginOpen(String url) => defaultFileActions.open(url);

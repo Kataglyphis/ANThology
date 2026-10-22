@@ -53,7 +53,8 @@ class HomeState extends State<Home> {
               if (buttonNames.language != null &&
                   widget.appAttributes.handleLanguageSelect != null &&
                   widget.appAttributes.currentLanguageIndex != null &&
-                  widget.appAttributes.appSettings.supportedLocales!.length >=
+                  (widget.appAttributes.appSettings.supportedLocales?.length ??
+                          0) >=
                       2)
                 LanguageButton(
                   supportedLocales:
@@ -85,16 +86,7 @@ class HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    List<Locale> supportedLang = widget
-        .appAttributes
-        .appSettings
-        .supportedLocales!
-        .map((element) => Locale(element))
-        .toList();
-    assert(supportedLang.isNotEmpty, "You need at least 1 supported lang :)");
-    Locale currentLocale =
-        supportedLang[(widget.appAttributes.currentLanguageIndex ?? 0) %
-            supportedLang.length];
+    final Locale currentLocale = Localizations.localeOf(context);
     return Localizations.override(
       context: context,
       locale: currentLocale,
@@ -158,6 +150,7 @@ class HomeState extends State<Home> {
                         : currentNavBarIndex,
                     navigationShell: widget.navigationShell,
                     handleChangedNavBarIndex: (index) {
+                      widget.handleChangedPageIndex(index);
                       currentNavBarIndex = index;
                       widget.navigationShell.goBranch(index);
                     },

@@ -37,6 +37,21 @@ flutter test
 A package has no platform runner, so there is nothing to `flutter build` here; build one of the
 apps that consume it.
 
+## Application state and files
+
+`KataglyphisAppShell` keeps its router and routed page states when the user changes language,
+theme or window size. `AppAttributesScope` supplies the current settings to page builders.
+Stateful widgets which cache asset content refresh it when their input path or locale changes.
+
+`OpenButton` and `DownloadButton` share `FileActions`: browsers open or download the asset URL;
+native apps extract bundle bytes and use the system application or save dialog. A failed action
+shows a localized message. Tests can inject `FileActions` without opening another application.
+
+The dev-only package under `packages/anthology_test_support` registers layout checks and taps the
+real bottom navigation, brightness and language buttons. Consumers provide their app factory,
+route list and navigation target; see its
+[README](https://github.com/Kataglyphis/ANThology/blob/develop/packages/anthology_test_support/README.md).
+
 ## Dependency upgrades
 
 No workflow runs Renovate here, so it blocks nothing and nobody runs it for you; it is the only

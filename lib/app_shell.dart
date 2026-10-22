@@ -7,6 +7,7 @@ import 'package:anthology/Pages/Home/home_config.dart';
 import 'package:anthology/Routing/router_creater.dart';
 import 'package:anthology/Routing/screen_configurations.dart';
 import 'package:anthology/app_attributes.dart';
+import 'package:anthology/app_attributes_scope.dart';
 import 'package:anthology/app_settings.dart';
 import 'package:anthology/constants.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
@@ -180,7 +181,7 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
   late final CurvedAnimation railAnimation;
   late final Future<T> _bootstrapData;
 
-  // A new router drops every page's state, so it is rebuilt only when what the pages read changes.
+  // Appearance changes update the scope; replacing this router would stop native sessions.
   GoRouter? _router;
   AppAttributes? _appAttributes;
   Object? _routerInputs;
@@ -227,6 +228,8 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
 
   @override
   void dispose() {
+    _router?.dispose();
+    railAnimation.dispose();
     controller.dispose();
     super.dispose();
   }
@@ -385,7 +388,7 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
               ),
             );
             _appAttributes = binding.appAttributes;
-            _router = binding.routesCreator.getRouterConfig(
+            _router ??= binding.routesCreator.getRouterConfig(
               binding.appAttributes,
               controller,
               handlePageChange,
@@ -399,6 +402,8 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
             appAttributes.appSettings,
           );
           return MaterialApp.router(
+            builder: (context, child) =>
+                AppAttributesScope(attributes: appAttributes, child: child!),
             debugShowCheckedModeBanner: false,
             localizationsDelegates: localizationsDelegates,
             onGenerateTitle: (BuildContext context) =>

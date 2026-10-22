@@ -1,5 +1,6 @@
 {
   "@@locale": "fr",
+  "fileActionFailed": "Impossible d’ouvrir ou d’enregistrer ce fichier.",
   "brightness": "Luminosité",
   "toogleBrightness": "Changer la luminosité",
   "switchLang": "Langue",
