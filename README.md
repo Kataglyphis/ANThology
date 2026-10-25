@@ -50,6 +50,7 @@ gate CI runs and dependency upgrades: [docs/getting-started.md](https://github.c
 | --- | --- |
 | The API | [omnifronteer.jonasheinle.de](https://omnifronteer.jonasheinle.de/) |
 | Getting started: prerequisites, the Dart gate, tips, dependency upgrades | [docs/getting-started.md](https://github.com/Kataglyphis/ANThology/blob/develop/docs/getting-started.md) |
+| CI quality reports and submodule pin checks | [Shared quality tooling](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/code-quality-tooling.md) |
 | Rules for agents and contributors | [AGENTS.md](https://github.com/Kataglyphis/ANThology/blob/develop/AGENTS.md) |
 | Changes | [CHANGELOG.md](https://github.com/Kataglyphis/ANThology/blob/develop/CHANGELOG.md) |
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# find-hub.sh - sourced, never run: finds an ANTfrastructure checkout, since this repo has no submodule.
+# Marker probes keep a half-initialized hub submodule from passing as a valid checkout.
 
 _ANTHOLOGY_LIB_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
@@ -30,8 +30,8 @@ antfrastructure_find_hub() {
   fi
 
   ANTFRASTRUCTURE_HUB_CANDIDATES=(
-    "${KATAGLYPHIS_REPO_ROOT}/antfrastructure-tools"
     "${KATAGLYPHIS_REPO_ROOT}/third_party/ANTfrastructure"
+    "${KATAGLYPHIS_REPO_ROOT}/antfrastructure-tools"
     "${KATAGLYPHIS_REPO_ROOT}/../ANTfrastructure"
     "${KATAGLYPHIS_REPO_ROOT}/../../ANTfrastructure"
   )
@@ -67,18 +67,15 @@ antfrastructure_hub_not_found() {
   local candidate
   echo "${2}: no ANTfrastructure checkout holding ${1}." >&2
   echo "" >&2
-  echo "This repository has no ANTfrastructure submodule - by decision, not by" >&2
-  echo "omission - so the hub has to be found rather than assumed. Probed:" >&2
+  echo "Initialize the pinned hub submodule, or provide a checkout. Probed:" >&2
   for candidate in "${ANTFRASTRUCTURE_HUB_CANDIDATES[@]}"; do
     echo "  ${candidate}" >&2
   done
   echo "" >&2
-  echo "Fix it either way:" >&2
-  echo "  git clone --depth 1 https://github.com/Kataglyphis/ANTfrastructure" >&2
-  echo "  export ANTFRASTRUCTURE_DIR=\"\${PWD}/ANTfrastructure\"" >&2
+  echo "Fix it with: git submodule update --init -- third_party/ANTfrastructure" >&2
+  echo "Or point ANTFRASTRUCTURE_DIR at another hub checkout." >&2
   echo "or pass --hub <checkout> to the wrapper that takes it (renovate-local.sh)." >&2
   echo "" >&2
-  echo "A checkout that IS there but too old is a different failure: it holds the" >&2
-  echo "directory and not the file above, and lands here too. Pull it." >&2
+  echo "A checkout without ${1} also lands here; advance its recorded gitlink." >&2
   return 0
 }

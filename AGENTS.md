@@ -34,8 +34,8 @@ asset corpus (fonts, images, legal texts) they both load.
 | `scripts/linux/renovate-local.sh` | Execs the hub's Renovate driver (section 4) |
 | `test/` | Widget and localisation tests, run by the Dart gate |
 
-There is **no `third_party/`** and no `.gitmodules`: this repo has no ANTfrastructure submodule
-(section 4).
+`third_party/ANTfrastructure` pins the reusable quality and build tooling; its
+`.gitmodules` branch is `develop` (section 3).
 
 ## 2. What ANTfrastructure owns — links only
 
@@ -62,17 +62,16 @@ a wrapper that finds and runs it (section 1), so fix behaviour upstream, never i
 | Hub script | What it is to this repo |
 | --- | --- |
 | [`linux/scripts/05-frameworks/flutter/flutter_checks.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/05-frameworks/flutter/flutter_checks.sh) | The Dart gate itself: pub get, pubspec structure, format, analyze, test. `scripts/run-dart-checks.sh` runs it at `--strict true` |
-| [`linux/scripts/run-lint-gates.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/run-lint-gates.sh) | The lint gates plus the `--ratchets` measurement gates, listed in its header. `docs.yml`'s `lint` job calls it directly — there is no wrapper (section 4) |
+| [`linux/scripts/run-lint-gates.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/run-lint-gates.sh) | The lint gates plus the `--ratchets` measurement gates; `docs.yml` calls the reusable lint workflow |
 | [`linux/scripts/renovate-local.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/renovate-local.sh) | The Renovate driver. `scripts/linux/renovate-local.sh` finds a hub and execs it; no lane does |
 | [`linux/scripts/lib/dartdoc-build.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/lib/dartdoc-build.sh) | The docs build. `scripts/build-docs.sh` sources it with the theme and the guide list, which `build-docs.yml`'s `builder: dartdoc` cannot take |
 
-## 3. Critical invariant: the hub is checked out at `develop`
+## 3. Critical invariant: the hub is pinned from `develop`
 
-`docs.yml` checks the hub out at `ref: develop` and calls its composite actions and
-`build-docs.yml` at `@develop`, so a hub change a lane depends on must be pushed **first**. No
-Submodule.Pins suite applies: there is no gitlink to guard. Both moved off `main` by owner
-directive on 2026-09-25, because hub `main` is a release branch that lags `develop`; the hub links
-in this file and README.md point at `develop` for the same reason.
+`third_party/ANTfrastructure` is a recorded gitlink taken from hub `develop`.
+`docs.yml` calls the reusable workflows and actions at `@develop`, so a hub change a
+lane depends on must be pushed first, then the gitlink advanced and checked by
+`submodule-pins.yml`. The hub's `main` is a release branch that lags `develop`.
 
 ## 4. Pitfalls specific to this project
 
@@ -86,21 +85,17 @@ in this file and README.md point at `develop` for the same reason.
 - **Consumer widget contracts are dev dependencies.** Point `anthology_test_support` at
   `third_party/ANThology/packages/anthology_test_support`; keep `flutter_test` out of this
   package's production dependencies. Each consumer supplies its app factory and route list.
-- **No ANTfrastructure submodule, by decision.** A submodule would pin what `docs.yml` and
-  `renovate.json` deliberately keep floating at `develop`. `.antfrastructure-shared.manifest` is
-  empty for the same reason.
-  - **No local lint wrapper.** The canonical bootstrap's not-found hint
-    (`git submodule update ... third_party/ANTfrastructure`) would be false in a repo with no
-    `.gitmodules`, so `docs.yml` runs the hub's aggregator directly.
-  - **Renovate still gets a wrapper.** No CI lane runs it, so `scripts/linux/renovate-local.sh`
-    is the only dependency watch; Dependabot is off (owner, 2026-10-20). User-facing side:
-    [docs/getting-started.md § Dependency upgrades](docs/getting-started.md#dependency-upgrades).
+- **The hub submodule is the local tooling source.** `.antfrastructure-shared.manifest`
+  remains empty because this package copies no hub assets. `docs.yml` calls the
+  reusable lint workflow and builds docs from the pinned submodule. The Renovate
+  wrapper remains the dependency updater; Dependabot is off. User-facing side:
+  [docs/getting-started.md § Dependency upgrades](docs/getting-started.md#dependency-upgrades).
 - **The wrappers FIND the hub; none assumes one.**
   [`scripts/lib/find-hub.sh`](scripts/lib/find-hub.sh) owns the one ladder, in order:
   1. `--hub`
   2. `$ANTFRASTRUCTURE_DIR`
-  3. `./antfrastructure-tools` (what `docs.yml` creates in CI)
-  4. `./third_party/ANTfrastructure` (if this repo ever grows the submodule)
+  3. `./third_party/ANTfrastructure` (the pinned submodule)
+  4. `./antfrastructure-tools` (an optional separate checkout)
   5. `../ANTfrastructure` and `../../ANTfrastructure` (a sibling clone on a dev box)
 
   A rung counts only if the file the caller named is really inside it; an explicitly wrong
@@ -129,9 +124,9 @@ in this file and README.md point at `develop` for the same reason.
 
 ## 5. Build, run, test
 
-`<hub>` is `./antfrastructure-tools` in CI (what the checkout steps in `docs.yml` and
-`build-docs.yml` create) and a sibling ANTfrastructure clone locally. The wrappers find it on
-their own; the direct calls below pick a different one.
+`<hub>` is `./third_party/ANTfrastructure` in CI and after
+`git submodule update --init -- third_party/ANTfrastructure` locally. The wrappers
+find it; the direct calls below name it explicitly.
 
 ```bash
 # The Dart gate CI runs: pub get, pubspec structure, format on tracked files,

@@ -14,29 +14,11 @@ jobs:
   # Local twin in AGENTS.md section 5.
   lint:
     name: 🧹 lint gates
-    runs-on: ubuntu-26.04
-    timeout-minutes: 20
-    permissions:
-      contents: read
-
-    steps:
-      # No container: the hub runner bootstraps its pinned gate binaries itself.
-      - name: 🚚 Check out
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 1
-
-      # No submodule, so CI checks the tooling out; it stays untracked, so no gate grades it.
-      - name: 🚚 Get ANTfrastructure tooling
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: Kataglyphis/ANTfrastructure
-          ref: develop
-          path: antfrastructure-tools
-
-      # The root is explicit: a self-derived one would grade ANTfrastructure's tree instead.
-      - name: Lint gates
-        run: bash antfrastructure-tools/linux/scripts/run-lint-gates.sh "${{ github.workspace }}" --ratchets
+    uses: Kataglyphis/ANTfrastructure/.github/workflows/lint-gates.yml@develop
+    with:
+      submodules: 'true'
+      ratchets: true
+      code-dupes-report: true
 
   checks:
     name: Dart checks
@@ -52,15 +34,7 @@ jobs:
       - name: 🚚 Prepare CI host
         uses: Kataglyphis/ANTfrastructure/.github/actions/prepare-linux-ci-host@develop
         with:
-          submodules: 'false'
-
-      # The gate script comes from here, the Flutter toolchain from the image; find-hub.sh probes this path first.
-      - name: 🚚 Get ANTfrastructure tooling
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          repository: Kataglyphis/ANTfrastructure
-          ref: develop
-          path: antfrastructure-tools
+          submodules: 'true'
 
       # Via run-dart-checks.sh so the gate runs the same locally; the image's Flutter must satisfy pubspec's floor.
       - name: Dart checks (format, analyze, test)
@@ -84,6 +58,7 @@ jobs:
       # A command, not builder: dartdoc, because that builder takes no guide list.
       command: bash scripts/build-docs.sh
       site-dir: doc/api
+      hub-path: third_party/ANTfrastructure
     secrets:
       FTP_SERVER: ${{ secrets.SERVER }}
       FTP_USERNAME: ${{ secrets.USERNAME }}

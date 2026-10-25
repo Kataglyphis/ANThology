@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- 2026-10-25: add shared size, complexity, duplication and submodule-pin checks to CI;
+  generated local reports stay in ignored `logs/`.
 - 2026-10-22: keep one router across theme, language and breakpoint changes, update pages through
   `AppAttributesScope`, and dispose the router with the shell. Bottom navigation reports its
   selection consistently with the rail. Retained Markdown, skills and CSV widgets refresh changed
