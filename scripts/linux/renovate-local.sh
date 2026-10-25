@@ -28,7 +28,7 @@ Every option other than --hub is passed straight through to ANTfrastructure's
 linux/scripts/renovate-local.sh. Do not pass a repo root: this wrapper supplies
 it, and upstream refuses a second one.
 
-The github-actions half is incomplete without a token and warns when it is:
+Live runs fail before scanning if no GitHub token is available. Authenticate gh or supply one:
   GITHUB_COM_TOKEN="$(gh auth token)" bash scripts/linux/renovate-local.sh
 EOF
 }

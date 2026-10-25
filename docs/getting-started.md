@@ -65,5 +65,5 @@ bash scripts/linux/renovate-local.sh --hub ../ANTfrastructure # if it cannot fin
 bash scripts/linux/renovate-local.sh --managers pub           # narrow it
 ```
 
-With no gitlinks here, every `--apply` update is a manifest edit, `pubspec.yaml` among them
-(go_router to `^18.0.0`, bb492b9).
+With `--apply`, Renovate can update `pubspec.yaml` and the recorded
+`third_party/ANTfrastructure` gitlink. Review its plan first with `--apply --dry-run`.
