@@ -23,6 +23,10 @@ widgets, the localization catalogues and the assets the apps load.
 [jonasheinle.de](https://jonasheinle.de)) and [OmniAccelerANT](https://github.com/Kataglyphis/OmniAccelerANT/)
 build on it. Targets: Linux, Windows, web, Android, iOS.
 
+Dependency updates: run `bash scripts/linux/renovate-local.sh` to report, `--apply --dry-run` to plan,
+and `--apply` to update. CI checks the wrapper and config; see
+[the shared Renovate guide](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/dependency-updates.md).
+
 ## Highlights
 
 - **Layout:** cross-platform page layout.
