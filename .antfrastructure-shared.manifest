@@ -1,1 +1,2 @@
-# No hub assets are copied; the submodule supplies the shared tools.
+# The Renovate bootstrap must exist before an uninitialized hub can supply its driver.
+antfrastructure-sh scripts/lib/antfrastructure.sh

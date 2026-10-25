@@ -24,7 +24,8 @@ widgets, the localization catalogues and the assets the apps load.
 build on it. Targets: Linux, Windows, web, Android, iOS.
 
 Dependency updates: run `bash scripts/linux/renovate-local.sh` to report, `--apply --dry-run` to plan,
-and `--apply` to update. CI checks the wrapper and config; see
+and `--apply` to update. A real apply initializes a missing pinned hub and follows its remote
+default branch; reports and previews need an existing hub checkout. CI checks the wrapper and config; see
 [the shared Renovate guide](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/dependency-updates.md).
 
 ## Highlights

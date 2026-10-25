@@ -29,9 +29,11 @@ asset corpus (fonts, images, legal texts) they both load.
 | `lib/l10n/` | The en/de/fr `.arb` catalogues and the committed generated Dart |
 | `assets/` | The shared corpus both apps reference as `packages/anthology/assets/...` |
 | `scripts/lib/find-hub.sh` | The hub lookup ladder the three wrappers below share |
+| `scripts/lib/antfrastructure.sh` | Copied shared bootstrap for Renovate's first real apply when the pinned hub is absent |
 | `scripts/run-dart-checks.sh` | The Dart gate as one command; what `docs.yml`'s `checks` job runs, on the VM and again in Chrome |
 | `scripts/build-docs.sh` | The docs site into `doc/api`: `dart doc`, the family theme, the `docs/` guides; what `docs.yml`'s `docs` job runs |
-| `scripts/linux/renovate-local.sh` | Execs the hub's Renovate driver (section 4) |
+| `scripts/linux/renovate-local.sh` | Resolves a hub or bootstraps its pinned gitlink, then runs the driver (section 4) |
+| `scripts/tests/test-renovate-wrapper.sh` | Offline Git fixture for the custom hub lookup and first real apply, run by `renovate-entrypoint.yml` |
 | `test/` | Widget and localisation tests, run by the Dart gate |
 
 `third_party/ANTfrastructure` pins the reusable quality and build tooling; its
@@ -63,7 +65,7 @@ a wrapper that finds and runs it (section 1), so fix behaviour upstream, never i
 | --- | --- |
 | [`linux/scripts/05-frameworks/flutter/flutter_checks.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/05-frameworks/flutter/flutter_checks.sh) | The Dart gate itself: pub get, pubspec structure, format, analyze, test. `scripts/run-dart-checks.sh` runs it at `--strict true` |
 | [`linux/scripts/run-lint-gates.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/run-lint-gates.sh) | The lint gates plus the `--ratchets` measurement gates; `docs.yml` calls the reusable lint workflow |
-| [`linux/scripts/renovate-local.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/renovate-local.sh) | The Renovate driver. `scripts/linux/renovate-local.sh` finds a hub and execs it; CI checks the entrypoint but never applies upgrades |
+| [`linux/scripts/renovate-local.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/renovate-local.sh) | The Renovate driver. `scripts/linux/renovate-local.sh` resolves a hub or initializes its pinned gitlink for a real apply; CI checks the entrypoint with an offline fixture instead of applying live upgrades |
 | [`linux/scripts/lib/dartdoc-build.sh`](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/linux/scripts/lib/dartdoc-build.sh) | The docs build. `scripts/build-docs.sh` sources it with the theme and the guide list, which `build-docs.yml`'s `builder: dartdoc` cannot take |
 
 ## 3. Critical invariant: the hub is pinned from `develop`
@@ -86,7 +88,7 @@ lane depends on must be pushed first, then the gitlink advanced and checked by
   `third_party/ANThology/packages/anthology_test_support`; keep `flutter_test` out of this
   package's production dependencies. Each consumer supplies its app factory and route list.
 - **The hub submodule is the local tooling source.** `.antfrastructure-shared.manifest`
-  remains empty because this package copies no hub assets. `docs.yml` calls the
+  declares only the copied shell bootstrap needed before that submodule exists. `docs.yml` calls the
   reusable lint workflow and builds docs from the pinned submodule. The Renovate
   wrapper remains the dependency updater; Dependabot is off. User-facing side:
   [docs/getting-started.md § Dependency upgrades](docs/getting-started.md#dependency-upgrades).
@@ -101,6 +103,8 @@ lane depends on must be pushed first, then the gitlink advanced and checked by
   A rung counts only if the file the caller named is really inside it; an explicitly wrong
   `--hub` is an error, not something to probe past; a miss prints every path it tried. Never
   retype the ladder into a new script: source that file.
+  Renovate initializes the pinned hub only for a real `--apply` when none of those candidates
+  provides its driver. Report and dry-run leave it absent; explicit `--hub` errors remain fatal.
 - **The Dart gate formats TRACKED files, never `dart format .`**
   ([hub § *`dart format`: the tracked files*](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/code-quality-tooling.md#dart-format-the-tracked-files-in-the-floors-style)),
   so a new `.dart` file escapes the format check (not `dart analyze` or `flutter test`) until it

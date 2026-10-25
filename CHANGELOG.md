@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- 2026-10-26: bootstrap a missing pinned ANTfrastructure checkout during a real Renovate apply;
+  keep the explicit hub lookup order and leave reports and previews without cloning. CI runs an
+  offline Git fixture for the custom wrapper.
 - 2026-10-25: verify the Renovate wrapper and shared config in CI without applying updates.
 - 2026-10-25: add shared size, complexity, duplication and submodule-pin checks to CI;
   generated local reports stay in ignored `logs/`.

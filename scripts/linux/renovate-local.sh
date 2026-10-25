@@ -57,6 +57,29 @@ while [ $# -gt 0 ]; do
   shift
 done
 
+if [ "${HUB_EXPLICIT_SET}" -eq 0 ] && [ -z "${ANTFRASTRUCTURE_DIR:-}" ]; then
+  antfrastructure_hub_candidates
+  _HUB_FOUND=0
+  for _candidate in "${ANTFRASTRUCTURE_HUB_CANDIDATES[@]}"; do
+    if antfrastructure_hub_holds "${_candidate}" "${HUB_DRIVER_RELATIVE}"; then
+      _HUB_FOUND=1
+      break
+    fi
+  done
+  if [ "${_HUB_FOUND}" -eq 0 ] && (
+    source "${_RENOVATE_LOCAL_DIR}/../lib/antfrastructure.sh"
+    antfrastructure_renovate_will_apply "${FORWARD[@]}"
+  ); then
+    # This copy exists so a real apply can initialize a missing pinned hub.
+    source "${_RENOVATE_LOCAL_DIR}/../lib/antfrastructure.sh"
+    if antfrastructure_renovate_exec "${HUB_DRIVER_RELATIVE}" "${KATAGLYPHIS_REPO_ROOT}" "${FORWARD[@]}"; then
+      exit 0
+    else
+      exit $?
+    fi
+  fi
+fi
+
 antfrastructure_find_hub "${HUB_DRIVER_RELATIVE}" "renovate-local.sh" \
   "${HUB_EXPLICIT_SET}" "${HUB_EXPLICIT}"
 

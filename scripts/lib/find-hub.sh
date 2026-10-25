@@ -14,6 +14,15 @@ antfrastructure_hub_holds() {
   return 1
 }
 
+antfrastructure_hub_candidates() {
+  ANTFRASTRUCTURE_HUB_CANDIDATES=(
+    "${KATAGLYPHIS_REPO_ROOT}/third_party/ANTfrastructure"
+    "${KATAGLYPHIS_REPO_ROOT}/antfrastructure-tools"
+    "${KATAGLYPHIS_REPO_ROOT}/../ANTfrastructure"
+    "${KATAGLYPHIS_REPO_ROOT}/../../ANTfrastructure"
+  )
+}
+
 # antfrastructure_find_hub <marker> <label> <explicit-set> <explicit-dir> - sets ANTFRASTRUCTURE_DIR; an explicit (even empty) path is never probed past.
 antfrastructure_find_hub() {
   local marker="${1:?antfrastructure_find_hub: marker path required}"
@@ -29,12 +38,7 @@ antfrastructure_find_hub() {
     return 1
   fi
 
-  ANTFRASTRUCTURE_HUB_CANDIDATES=(
-    "${KATAGLYPHIS_REPO_ROOT}/third_party/ANTfrastructure"
-    "${KATAGLYPHIS_REPO_ROOT}/antfrastructure-tools"
-    "${KATAGLYPHIS_REPO_ROOT}/../ANTfrastructure"
-    "${KATAGLYPHIS_REPO_ROOT}/../../ANTfrastructure"
-  )
+  antfrastructure_hub_candidates
 
   for named in "${explicit}" "${ANTFRASTRUCTURE_DIR:-}"; do
     [ -n "${named}" ] || continue
