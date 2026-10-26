@@ -30,6 +30,7 @@ asset corpus (fonts, images, legal texts) they both load.
 | `assets/` | The shared corpus both apps reference as `packages/anthology/assets/...` |
 | `scripts/lib/find-hub.sh` | The hub lookup ladder the three wrappers below share |
 | `scripts/lib/antfrastructure.sh` | Copied shared bootstrap for Renovate's first real apply when the pinned hub is absent |
+| `scripts/lib/renovate-git-mode.sh` | Exact shared companion for choosing Windows Git in a Windows-authored WSL checkout |
 | `scripts/run-dart-checks.sh` | The Dart gate as one command; what `docs.yml`'s `checks` job runs, on the VM and again in Chrome |
 | `scripts/build-docs.sh` | The docs site into `doc/api`: `dart doc`, the family theme, the `docs/` guides; what `docs.yml`'s `docs` job runs |
 | `scripts/linux/renovate-local.sh` | Resolves a hub or bootstraps its pinned gitlink, then runs the driver (section 4) |

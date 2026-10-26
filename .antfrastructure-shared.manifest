@@ -1,2 +1,3 @@
 # The Renovate bootstrap must exist before an uninitialized hub can supply its driver.
 antfrastructure-sh scripts/lib/antfrastructure.sh
+renovate-git-mode-sh scripts/lib/renovate-git-mode.sh

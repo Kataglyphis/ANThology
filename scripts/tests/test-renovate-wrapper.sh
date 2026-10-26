@@ -29,7 +29,8 @@ SH
   git -C "${repo}" config user.name Fixture
   git -C "${repo}" config user.email fixture@example.invalid
   cp "${REPO_ROOT}/scripts/linux/renovate-local.sh" "${repo}/scripts/linux/"
-  cp "${REPO_ROOT}/scripts/lib/find-hub.sh" "${REPO_ROOT}/scripts/lib/antfrastructure.sh" "${repo}/scripts/lib/"
+  cp "${REPO_ROOT}/scripts/lib/find-hub.sh" "${REPO_ROOT}/scripts/lib/antfrastructure.sh" \
+    "${REPO_ROOT}/scripts/lib/renovate-git-mode.sh" "${repo}/scripts/lib/"
   printf '[submodule "third_party/ANTfrastructure"]\n\tpath = third_party/ANTfrastructure\n\turl = %s\n' "${remote}" > "${repo}/.gitmodules"
   git -C "${repo}" add .gitmodules scripts
   git -C "${repo}" update-index --add --cacheinfo "160000,${sha},third_party/ANTfrastructure"

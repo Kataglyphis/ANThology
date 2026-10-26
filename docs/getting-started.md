@@ -69,4 +69,5 @@ With `--apply`, Renovate can update `pubspec.yaml` and the recorded
 `third_party/ANTfrastructure` gitlink to its remote default tip. A real apply initializes a
 missing pinned hub through the copied shared bootstrap. To review the plan first with
 `--apply --dry-run`, initialize that checkout or provide an existing hub with `--hub`; a
-preview never clones it. An explicit invalid `--hub` still fails rather than falling back.
+preview never clones it. The copied Git mode helper selects Windows Git when WSL opens a
+Windows-authored checkout. An explicit invalid `--hub` still fails rather than falling back.

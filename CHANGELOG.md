@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- 2026-10-26: copy the shared Renovate Git mode helper so a Windows-authored WSL checkout uses
+  Windows Git for hub bootstrap and restores its parent config after a failure.
 - 2026-10-26: bootstrap a missing pinned ANTfrastructure checkout during a real Renovate apply;
   keep the explicit hub lookup order and leave reports and previews without cloning. CI runs an
   offline Git fixture for the custom wrapper.
