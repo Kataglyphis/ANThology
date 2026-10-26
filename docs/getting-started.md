@@ -52,6 +52,13 @@ real bottom navigation, brightness and language buttons. Consumers provide their
 route list and navigation target; see its
 [README](https://github.com/Kataglyphis/ANThology/blob/develop/packages/anthology_test_support/README.md).
 
+## Shared scripts
+
+Before adding a Bash or PowerShell helper, search this repository and its direct submodules,
+including ANTfrastructure. Reuse or extend the existing owner and pass ANThology-specific values
+as arguments. [AGENTS.md](https://github.com/Kataglyphis/ANThology/blob/develop/AGENTS.md)
+holds the contributor rule; product-specific behavior stays here.
+
 ## Dependency upgrades
 
 No workflow runs Renovate here, so it blocks nothing and nobody runs it for you; it is the only

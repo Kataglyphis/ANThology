@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+- 2026-10-26: require a search of local and direct-submodule Bash/PowerShell helpers before
+  adding a new implementation; share behavior needed by multiple consumers upstream.
 - 2026-10-26: pin the shared Bash/PowerShell reuse scanner so CI reports consumer-to-hub
   overlap candidates.
 - 2026-10-26: reuse ANTfrastructure's offline Renovate Git fixture in the wrapper test while
