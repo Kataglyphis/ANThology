@@ -2,6 +2,10 @@
 
 ## [Unreleased]
 
+- 2026-10-26: pin the shared Bash/PowerShell reuse scanner so CI reports consumer-to-hub
+  overlap candidates.
+- 2026-10-26: reuse ANTfrastructure's offline Renovate Git fixture in the wrapper test while
+  retaining ANThology's own hub lookup and failure cases.
 - 2026-10-26: keep the copied Renovate bootstrap within strict complexity and trailing-return
   limits in CI.
 - 2026-10-26: copy the shared Renovate Git mode helper so a Windows-authored WSL checkout uses

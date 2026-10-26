@@ -34,7 +34,7 @@ asset corpus (fonts, images, legal texts) they both load.
 | `scripts/run-dart-checks.sh` | The Dart gate as one command; what `docs.yml`'s `checks` job runs, on the VM and again in Chrome |
 | `scripts/build-docs.sh` | The docs site into `doc/api`: `dart doc`, the family theme, the `docs/` guides; what `docs.yml`'s `docs` job runs |
 | `scripts/linux/renovate-local.sh` | Resolves a hub or bootstraps its pinned gitlink, then runs the driver (section 4) |
-| `scripts/tests/test-renovate-wrapper.sh` | Offline Git fixture for the custom hub lookup and first real apply, run by `renovate-entrypoint.yml` |
+| `scripts/tests/test-renovate-wrapper.sh` | Offline Git fixture for the custom hub lookup and first real apply, run by `renovate-entrypoint.yml`; its Git setup comes from the hub's `renovate-bootstrap-fixture.sh` |
 | `test/` | Widget and localisation tests, run by the Dart gate |
 
 `third_party/ANTfrastructure` pins the reusable quality and build tooling; its

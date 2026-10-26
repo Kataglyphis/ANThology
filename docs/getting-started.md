@@ -71,3 +71,5 @@ missing pinned hub through the copied shared bootstrap. To review the plan first
 `--apply --dry-run`, initialize that checkout or provide an existing hub with `--hub`; a
 preview never clones it. The copied Git mode helper selects Windows Git when WSL opens a
 Windows-authored checkout. An explicit invalid `--hub` still fails rather than falling back.
+`bash scripts/tests/test-renovate-wrapper.sh` checks those lookup and bootstrap rules with a local
+Git remote; its repository setup is shared from ANTfrastructure's `renovate-bootstrap-fixture.sh`.
