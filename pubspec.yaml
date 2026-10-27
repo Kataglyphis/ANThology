@@ -50,6 +50,8 @@ flutter:
     - assets/images/Pages/AboutMe/Bewerbungsbilder/a95a64ca_runterskaliert.jpg
     - assets/images/Pages/Data/
     - assets/images/Pages/Error/
+    # Roboto's Apache-2.0 text; lib/Licenses/bundled_licenses.dart lists it beside the fonts.
+    - assets/fonts/Roboto/LICENSE.txt
 
   # Nested under `flutter:` (top-level is silently ignored); use `packages/anthology/<family>` or `package: 'anthology'`.
   fonts:

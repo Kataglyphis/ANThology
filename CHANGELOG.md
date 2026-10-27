@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- 2026-10-27: ship Roboto's Apache-2.0 text with its fonts and list it on the licences page;
+  `KataglyphisAppShell` registers it, so every consuming app's bundle names it.
+  `registerAssetLicense` lets an app add its own bundled licence texts the same way.
 - 2026-10-26: require a search of local and direct-submodule Bash/PowerShell helpers before
   adding a new implementation; share behavior needed by multiple consumers upstream.
 - 2026-10-26: pin the shared Bash/PowerShell reuse scanner so CI reports consumer-to-hub

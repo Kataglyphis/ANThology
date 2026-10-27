@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:anthology/Licenses/bundled_licenses.dart';
 import 'package:anthology/Pages/Footer/footer_config.dart';
 import 'package:anthology/Pages/Home/home_config.dart';
 import 'package:anthology/Routing/router_creater.dart';
@@ -214,6 +215,8 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
   @override
   void initState() {
     super.initState();
+    // The package's own fonts ship in every consumer, so their licence must too.
+    registerAnthologyLicenses();
     controller = AnimationController(
       duration: Duration(milliseconds: transitionLength.toInt() * 2),
       value: 0,

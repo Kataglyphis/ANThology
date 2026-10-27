@@ -22,6 +22,7 @@ asset corpus (fonts, images, legal texts) they both load.
 | `lib/Boot/` | `dismissBootOverlay()`: removes the loading overlay of the hub's shared web shell (`shared/web/` in ANTfrastructure); a no-op off the web |
 | `lib/locale_helpers.dart` | `isGermanLocale`, `localizedValue`: by language code, so `de_AT` is German |
 | `lib/Decoration/` (incl. `Charts/`) | Box/component decoration, dividers, the fl_chart pie chart |
+| `lib/Licenses/` | `registerAnthologyLicenses()` (the shell calls it) and `registerAssetLicense()`: licence texts of bundled files pub's NOTICES omits |
 | `lib/Layout/` | Adaptive grid and the responsive-design helpers |
 | `lib/Media/` | Markdown, image, data table, file table, download/open/copy/email widgets |
 | `lib/Pages/` | The `Home` navigation scaffold and the consolidated pages (landing, about, data, error, footer, sqlite, markdown content), with their configs |
@@ -126,6 +127,9 @@ lane depends on must be pushed first, then the gitlink advanced and checked by
   opens a new, empty database and orphans the old one, so an app never renames its own.
 - The generated Dart under `lib/l10n/` is committed: a consumer's `flutter pub get` never runs
   gen-l10n for a dependency (`pubspec.yaml`).
+- **A bundled third-party file ships its licence text.** Pub's NOTICES covers packages, not
+  fonts or other assets: declare the text in `pubspec.yaml` and register it in
+  `lib/Licenses/bundled_licenses.dart` (`test/bundled_licenses_test.dart`).
 - Package fonts register as `packages/anthology/<family>`; a bare family name silently falls back
   to the platform default (`pubspec.yaml`, `fonts:`).
 - An asset is in a bundle only if `pubspec.yaml` declares it, and worth tracking only if one of

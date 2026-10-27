@@ -1,9 +1,13 @@
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:anthology/Licenses/bundled_licenses.dart';
 import 'package:anthology/Pages/Footer/default_footer_config.dart';
 import 'package:anthology/Pages/Footer/footer.dart';
 import 'package:anthology/Pages/Footer/footer_page_config.dart';
@@ -343,5 +347,44 @@ void main() {
     await tester.pumpAndSettle();
     expect(seen.showMediumSizeLayout, isFalse);
     expect(seen.showLargeSizeLayout, isTrue);
+  });
+
+  testWidgets('the shell lists the Roboto licence its fonts ship with', (
+    WidgetTester tester,
+  ) async {
+    LicenseRegistry.reset();
+    resetAnthologyLicenseRegistration();
+    addTearDown(LicenseRegistry.reset);
+    final List<String> asked = <String>[];
+    tester.binding.defaultBinaryMessenger.setMockMessageHandler(
+      'flutter/assets',
+      (ByteData? message) async {
+        final String key = utf8.decode(message!.buffer.asUint8List());
+        asked.add(key);
+        return ByteData.sublistView(utf8.encode('Apache License'));
+      },
+    );
+    addTearDown(
+      () => tester.binding.defaultBinaryMessenger.setMockMessageHandler(
+        'flutter/assets',
+        null,
+      ),
+    );
+
+    await tester.pumpWidget(
+      _shell(
+        () async =>
+            (_appSettings(supportedLocales: <String>['en']), _userSettings()),
+      ),
+    );
+    await tester.pumpAndSettle();
+    final LicenseEntry? roboto = await tester.runAsync(
+      () => LicenseRegistry.licenses.firstWhere(
+        (LicenseEntry entry) => entry.packages.contains('Roboto'),
+      ),
+    );
+    expect(roboto!.paragraphs.single.text, 'Apache License');
+    expect(asked, contains(robotoLicenseAsset));
+    await tester.pumpWidget(const SizedBox());
   });
 }
