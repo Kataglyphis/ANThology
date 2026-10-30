@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- 2026-10-30: chat widgets for language models (LAI-F3): `ChatPanel`, `ChatMessageList` with Markdown
+  answers and the speed figures, and `ChatInput`, whose Enter sends and whose button stops a running
+  answer; their strings are in the English, German and French catalogues. See `docs/chat-widgets.md`.
 - 2026-10-27: ship Roboto's Apache-2.0 text with its fonts and list it on the licences page;
   `KataglyphisAppShell` registers it, so every consuming app's bundle names it.
   `registerAssetLicense` lets an app add its own bundled licence texts the same way.

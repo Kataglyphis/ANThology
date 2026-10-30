@@ -154,4 +154,24 @@ class AnthologyLocalizationsFr extends AnthologyLocalizations {
   @override
   String get disclaimer =>
       'Avertissement : je décline toute responsabilité quant au contenu des liens externes.';
+
+  @override
+  String get chatInputHint => 'Message';
+
+  @override
+  String get chatSend => 'Envoyer';
+
+  @override
+  String get chatStop => 'Arrêter';
+
+  @override
+  String chatFigures(int tokens, String ttft, String rate) {
+    return '$tokens jetons · $ttft ms jusqu\'au premier · $rate jetons/s';
+  }
+
+  @override
+  String get chatStopped => 'Interrompu';
+
+  @override
+  String get chatTruncated => 'Coupé à la limite de jetons';
 }

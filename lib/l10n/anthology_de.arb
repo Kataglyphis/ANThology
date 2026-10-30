@@ -44,5 +44,11 @@
   "visitBlogEntry": "Besuche Blogeintrag",
   "playgroundDescription": "Besuchen Sie gerne auch mein Repo",
   "copyright": "Copyright © {years} Jonas Heinle. \nAlle Rechte vorbehalten.",
-  "disclaimer": "Haftungsausschluss: Für die Inhalte externer \nLinks übernehme ich keine Haftung."
+  "disclaimer": "Haftungsausschluss: Für die Inhalte externer \nLinks übernehme ich keine Haftung.",
+  "chatInputHint": "Nachricht",
+  "chatSend": "Senden",
+  "chatStop": "Stopp",
+  "chatFigures": "{tokens} Tokens · {ttft} ms bis zum ersten · {rate} Tokens/s",
+  "chatStopped": "Abgebrochen",
+  "chatTruncated": "Am Token-Limit abgeschnitten"
 }

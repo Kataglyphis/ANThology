@@ -184,5 +184,40 @@
   "disclaimer": "Disclaimer: I accept no liability for the content of external links.",
   "@disclaimer": {
     "description": "External-link liability disclaimer rendered in the footer."
+  },
+  "chatInputHint": "Message",
+  "@chatInputHint": {
+    "description": "Placeholder of the chat input field."
+  },
+  "chatSend": "Send",
+  "@chatSend": {
+    "description": "Tooltip of the button that sends the typed message to the model."
+  },
+  "chatStop": "Stop",
+  "@chatStop": {
+    "description": "Tooltip of the button that stops the answer being generated."
+  },
+  "chatFigures": "{tokens} tokens · {ttft} ms to the first · {rate} tokens/s",
+  "@chatFigures": {
+    "description": "Speed figures under a finished answer: generated tokens, time to the first token, decode rate.",
+    "placeholders": {
+      "tokens": {
+        "type": "int"
+      },
+      "ttft": {
+        "type": "String"
+      },
+      "rate": {
+        "type": "String"
+      }
+    }
+  },
+  "chatStopped": "Stopped",
+  "@chatStopped": {
+    "description": "Marks an answer the user stopped before it finished."
+  },
+  "chatTruncated": "Cut off at the token limit",
+  "@chatTruncated": {
+    "description": "Marks an answer that ended because it reached its token budget."
   }
 }

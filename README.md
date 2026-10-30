@@ -34,6 +34,7 @@ default branch; reports and previews need an existing hub checkout. CI checks th
 - **Media and files:** browser downloads, native open/save dialogs and image handling.
 - **Application state:** theme, locale and layout changes preserve routes and page state.
 - **Rendering:** Markdown and responsive tables.
+- **Chat:** a message list with Markdown answers, an input and the speed figures, for language models.
 - **UI elements:** widget decoration, social media icons.
 - **Email** handling.
 - **Localization:** English, German and French catalogues (`lib/l10n`; `flutter gen-l10n`).
@@ -55,6 +56,7 @@ gate CI runs and dependency upgrades: [docs/getting-started.md](https://github.c
 | --- | --- |
 | The API | [omnifronteer.jonasheinle.de](https://omnifronteer.jonasheinle.de/) |
 | Getting started: prerequisites, the Dart gate, tips, dependency upgrades | [docs/getting-started.md](https://github.com/Kataglyphis/ANThology/blob/develop/docs/getting-started.md) |
+| Chat widgets for language models | [docs/chat-widgets.md](https://github.com/Kataglyphis/ANThology/blob/develop/docs/chat-widgets.md) |
 | CI quality reports and submodule pin checks | [Shared quality tooling](https://github.com/Kataglyphis/ANTfrastructure/blob/develop/docs/code-quality-tooling.md) |
 | Rules for agents and contributors, including shared Bash/PowerShell reuse | [AGENTS.md](https://github.com/Kataglyphis/ANThology/blob/develop/AGENTS.md) |
 | Changes | [CHANGELOG.md](https://github.com/Kataglyphis/ANThology/blob/develop/CHANGELOG.md) |

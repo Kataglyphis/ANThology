@@ -372,6 +372,42 @@ abstract class AnthologyLocalizations {
   /// In en, this message translates to:
   /// **'Disclaimer: I accept no liability for the content of external links.'**
   String get disclaimer;
+
+  /// Placeholder of the chat input field.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get chatInputHint;
+
+  /// Tooltip of the button that sends the typed message to the model.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get chatSend;
+
+  /// Tooltip of the button that stops the answer being generated.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get chatStop;
+
+  /// Speed figures under a finished answer: generated tokens, time to the first token, decode rate.
+  ///
+  /// In en, this message translates to:
+  /// **'{tokens} tokens · {ttft} ms to the first · {rate} tokens/s'**
+  String chatFigures(int tokens, String ttft, String rate);
+
+  /// Marks an answer the user stopped before it finished.
+  ///
+  /// In en, this message translates to:
+  /// **'Stopped'**
+  String get chatStopped;
+
+  /// Marks an answer that ended because it reached its token budget.
+  ///
+  /// In en, this message translates to:
+  /// **'Cut off at the token limit'**
+  String get chatTruncated;
 }
 
 class _AnthologyLocalizationsDelegate

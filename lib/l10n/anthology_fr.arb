@@ -44,5 +44,11 @@
   "visitBlogEntry": "Visiter l'article de blog",
   "playgroundDescription": "Visitez mon dépôt de code",
   "copyright": "Copyright © {years} Jonas Heinle. \nTous droits réservés.",
-  "disclaimer": "Avertissement : je décline toute responsabilité quant au contenu des liens externes."
+  "disclaimer": "Avertissement : je décline toute responsabilité quant au contenu des liens externes.",
+  "chatInputHint": "Message",
+  "chatSend": "Envoyer",
+  "chatStop": "Arrêter",
+  "chatFigures": "{tokens} jetons · {ttft} ms jusqu'au premier · {rate} jetons/s",
+  "chatStopped": "Interrompu",
+  "chatTruncated": "Coupé à la limite de jetons"
 }
