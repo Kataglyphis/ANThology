@@ -123,10 +123,12 @@ KataglyphisAppShell<(AppSettings, UserSettings)> _shell(
   Future<(AppSettings, UserSettings)> Function() load, {
   void Function(KataglyphisAppShellRuntime runtime)? onRuntime,
   List<Locale> fallbackLocales = const <Locale>[Locale('en')],
+  Locale? initialLocale,
 }) {
   return KataglyphisAppShell<(AppSettings, UserSettings)>(
     loadBootstrapData: load,
     fallbackLocales: fallbackLocales,
+    initialLocale: initialLocale,
     buildBinding:
         ((AppSettings, UserSettings) data, KataglyphisAppShellRuntime runtime) {
           onRuntime?.call(runtime);
@@ -228,6 +230,51 @@ void main() {
 
     expect(find.byType(CircularProgressIndicator), findsNothing);
     expect(find.text('locale=en'), findsOneWidget);
+  });
+
+  testWidgets(
+    'initialLocale picks the starting language, matched by its code',
+    (WidgetTester tester) async {
+      Future<(AppSettings, UserSettings)> load() async => (
+        _appSettings(supportedLocales: <String>['de', 'en']),
+        _userSettings(),
+      );
+      late KataglyphisAppShellRuntime runtime;
+      await tester.pumpWidget(
+        _shell(
+          load,
+          initialLocale: const Locale('en', 'US'),
+          onRuntime: (KataglyphisAppShellRuntime r) => runtime = r,
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('locale=en'), findsOneWidget);
+      // The language menu reads the same index, so it shows the language on screen.
+      expect(runtime.currentLanguageIndex, 1);
+
+      // Only the start: the user's later choice wins.
+      runtime.handleLanguageSelect(0);
+      await tester.pumpAndSettle();
+      expect(find.text('locale=de'), findsOneWidget);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+
+  testWidgets('an initialLocale the app does not support keeps the first', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      _shell(
+        () async => (
+          _appSettings(supportedLocales: <String>['de', 'en']),
+          _userSettings(),
+        ),
+        initialLocale: const Locale('fr'),
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('locale=de'), findsOneWidget);
+    await tester.pumpWidget(const SizedBox());
   });
 
   testWidgets('the loader runs exactly once across rebuilds', (

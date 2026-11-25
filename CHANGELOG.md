@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- 2026-11-25: `KataglyphisAppShell.initialLocale` picks the starting language by its language code
+  before the user touches the language menu; an unsupported one keeps the first locale. OmniAccelerANT
+  passes `?lang=` from the page address.
 - 2026-10-30: chat widgets for language models (LAI-F3): `ChatPanel`, `ChatMessageList` with Markdown
   answers and the speed figures, and `ChatInput`, whose Enter sends and whose button stops a running
   answer; their strings are in the English, German and French catalogues. See `docs/chat-widgets.md`.

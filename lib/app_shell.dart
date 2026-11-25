@@ -22,22 +22,20 @@ typedef AppShellDataLoader<T> = Future<T> Function();
 
 /// Turns the loaded `T` into the two objects the shared tail needs.
 /// One callback, not two: both objects derive from one intermediate, app-owned value.
-typedef AppShellBindingBuilder<T> =
-    KataglyphisAppShellBinding Function(
-      T data,
-      KataglyphisAppShellRuntime runtime,
-    );
+typedef AppShellBindingBuilder<T> = KataglyphisAppShellBinding Function(
+  T data,
+  KataglyphisAppShellRuntime runtime,
+);
 
 /// Builds the screen shown while [AppShellDataLoader] is still running.
 typedef AppShellLoadingBuilder = Widget Function(BuildContext context);
 
 /// Builds the screen shown when [AppShellDataLoader] failed.
-typedef AppShellErrorBuilder =
-    Widget Function(
-      BuildContext context,
-      Object? error,
-      StackTrace? stackTrace,
-    );
+typedef AppShellErrorBuilder = Widget Function(
+  BuildContext context,
+  Object? error,
+  StackTrace? stackTrace,
+);
 
 /// The shell-owned state an app needs to build its own [AppAttributes], subclass included.
 /// Apps that need nothing special call [buildAppAttributes].
@@ -136,6 +134,7 @@ class KataglyphisAppShell<T> extends StatefulWidget {
     this.initialThemeMode = ThemeMode.dark,
     this.initialColorSeed = ColorSeed.baseColor,
     this.fallbackLocales = const <Locale>[Locale('en')],
+    this.initialLocale,
     this.loadingBuilder,
     this.errorBuilder,
   });
@@ -161,6 +160,10 @@ class KataglyphisAppShell<T> extends StatefulWidget {
   /// Used when `AppSettings.supportedLocales` is null or empty; must not be empty itself.
   final List<Locale> fallbackLocales;
 
+  /// The language before the user touches the language menu, matched by language code; null, or one
+  /// the app does not support, keeps the first supported locale.
+  final Locale? initialLocale;
+
   /// Overrides the default progress indicator.
   final AppShellLoadingBuilder? loadingBuilder;
 
@@ -176,6 +179,7 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
   late ThemeMode themeMode = widget.initialThemeMode;
   late ColorSeed colorSelected = widget.initialColorSeed;
   int currentLanguageIndex = 0;
+  bool _initialLocaleApplied = false;
   int currentPageIndex = 0;
 
   late final AnimationController controller;
@@ -292,6 +296,42 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
     });
   }
 
+  /// Once, before the first binding: [KataglyphisAppShell.initialLocale] picks the starting language index.
+  void _applyInitialLocale(T data) {
+    if (_initialLocaleApplied) {
+      return;
+    }
+    _initialLocaleApplied = true;
+    final Locale? wanted = widget.initialLocale;
+    if (wanted == null) {
+      return;
+    }
+    // The supported locales live in the app's settings, which only a binding exposes; this one is discarded.
+    final AppSettings appSettings = widget
+        .buildBinding(
+          data,
+          KataglyphisAppShellRuntime(
+            railAnimation: railAnimation,
+            showMediumSizeLayout: showMediumSizeLayout,
+            showLargeSizeLayout: showLargeSizeLayout,
+            currentLanguageIndex: currentLanguageIndex,
+            useLightMode: useLightMode,
+            colorSelected: colorSelected,
+            handleBrightnessChange: handleBrightnessChange,
+            handleLanguageSelect: handleLanguageSelect,
+            handleColorSelect: handleColorSelect,
+          ),
+        )
+        .appAttributes
+        .appSettings;
+    final int index = _supportedLocales(
+      appSettings,
+    ).indexWhere((Locale locale) => locale.languageCode == wanted.languageCode);
+    if (index >= 0) {
+      currentLanguageIndex = index;
+    }
+  }
+
   /// The app's declared locales, or [KataglyphisAppShell.fallbackLocales] when there are none.
   List<Locale> _supportedLocales(AppSettings appSettings) {
     final List<Locale> supportedLanguages =
@@ -367,6 +407,7 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
       future: _bootstrapData,
       builder: (BuildContext context, AsyncSnapshot<T> data) {
         if (data.hasData) {
+          _applyInitialLocale(data.requireData);
           final Object inputs = (
             data.requireData,
             showMediumSizeLayout,
