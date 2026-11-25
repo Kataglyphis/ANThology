@@ -22,20 +22,22 @@ typedef AppShellDataLoader<T> = Future<T> Function();
 
 /// Turns the loaded `T` into the two objects the shared tail needs.
 /// One callback, not two: both objects derive from one intermediate, app-owned value.
-typedef AppShellBindingBuilder<T> = KataglyphisAppShellBinding Function(
-  T data,
-  KataglyphisAppShellRuntime runtime,
-);
+typedef AppShellBindingBuilder<T> =
+    KataglyphisAppShellBinding Function(
+      T data,
+      KataglyphisAppShellRuntime runtime,
+    );
 
 /// Builds the screen shown while [AppShellDataLoader] is still running.
 typedef AppShellLoadingBuilder = Widget Function(BuildContext context);
 
 /// Builds the screen shown when [AppShellDataLoader] failed.
-typedef AppShellErrorBuilder = Widget Function(
-  BuildContext context,
-  Object? error,
-  StackTrace? stackTrace,
-);
+typedef AppShellErrorBuilder =
+    Widget Function(
+      BuildContext context,
+      Object? error,
+      StackTrace? stackTrace,
+    );
 
 /// The shell-owned state an app needs to build its own [AppAttributes], subclass included.
 /// Apps that need nothing special call [buildAppAttributes].
