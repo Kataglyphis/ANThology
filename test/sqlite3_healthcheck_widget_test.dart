@@ -3,7 +3,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:anthology/framework_localizations.dart';
+import 'package:anthology/material_compatibility.dart';
 import 'package:anthology/Sqlite/sqlite3_healthcheck_widget.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 
@@ -12,6 +12,7 @@ Future<void> _pump(WidgetTester tester, Future<String> Function() check) async {
     MaterialApp(
       locale: const Locale('en'),
       localizationsDelegates: anthologyLocalizationsDelegates,
+      builder: anthologyMaterialBuilder,
       supportedLocales: AnthologyLocalizations.supportedLocales,
       home: Scaffold(body: Sqlite3HealthcheckWidget(check: check)),
     ),

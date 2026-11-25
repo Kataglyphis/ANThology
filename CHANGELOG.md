@@ -2,12 +2,18 @@
 
 ## [Unreleased]
 
+- 2026-11-25: one host path for the split Material packages. `material_compatibility.dart` exports
+  `anthologyLocalizationsDelegates` (ANThology's catalogue and material_ui's), `anthologyMaterialBuilder`, the
+  `MaterialApp.builder` that wraps the app in material_ui's `MaterialUiCompatibilityBridge` so packages still
+  on `flutter/material` (markdown_widget, fl_chart) get the app's theme and localizations, and
+  `anthologyMarkdownConfig`, whose images tap through material_ui's `InkWell`: markdown_widget's own needs
+  `flutter/material`'s `Material` and threw under a material_ui `Scaffold`. The shell, the Markdown page and the
+  chat list use them; a host building its own `MaterialApp` passes the first two. The bridge's deprecation is
+  ignored at that one call until those packages migrate.
 - 2026-11-25: Material and Cupertino come from the split `material_ui` and `cupertino_ui` packages, which
-  Flutter 3.50 asks for in place of `flutter/material` and `flutter/cupertino`. `framework_localizations.dart`
-  exports `anthologyLocalizationsDelegates`: both copies' Material delegates, because packages such as
-  `markdown_widget` still read `flutter/material`'s `MaterialLocalizations`. A host or test that builds its own
-  `MaterialApp` passes that list, never gen-l10n's `localizationsDelegates`. gen-l10n's output carries an
-  `ignore_for_file: deprecated_member_use` header until it emits the new delegates itself.
+  Flutter 3.50 asks for in place of `flutter/material` and `flutter/cupertino`. A host or test never passes
+  gen-l10n's `localizationsDelegates`, whose Material delegates are the deprecated copy's. gen-l10n's output
+  carries an `ignore_for_file: deprecated_member_use` header until it emits the new delegates itself.
 - `KataglyphisAppShell.preferredLocales` are tried in order after `initialLocale`, matched by language
   code; the first supported one starts the app, and the user's later choice still wins. A web app passes
   the browser's languages, so `?lang=` comes first, then the browser, then the first supported locale.

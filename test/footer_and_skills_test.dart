@@ -9,7 +9,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:anthology/framework_localizations.dart';
+import 'package:anthology/material_compatibility.dart';
 import 'package:anthology/Pages/Footer/default_footer_config.dart';
 import 'package:anthology/Pages/Footer/footer.dart';
 import 'package:anthology/Pages/Footer/footer_page_config.dart';
@@ -156,6 +156,7 @@ void main() {
         await tester.pumpWidget(
           MaterialApp(
             localizationsDelegates: anthologyLocalizationsDelegates,
+            builder: anthologyMaterialBuilder,
             supportedLocales: AnthologyLocalizations.supportedLocales,
             locale: const Locale('en'),
             home: Scaffold(

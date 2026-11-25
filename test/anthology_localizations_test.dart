@@ -1,7 +1,7 @@
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:anthology/framework_localizations.dart';
+import 'package:anthology/material_compatibility.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 
 /// Every catalogue getter with a reader, listed by hand so a new .arb key forces a coverage decision.
@@ -183,6 +183,7 @@ void main() {
         MaterialApp(
           locale: locale,
           localizationsDelegates: anthologyLocalizationsDelegates,
+          builder: anthologyMaterialBuilder,
           supportedLocales: AnthologyLocalizations.supportedLocales,
           home: Builder(
             builder: (BuildContext context) {

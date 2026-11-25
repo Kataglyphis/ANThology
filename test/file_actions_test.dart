@@ -1,4 +1,4 @@
-import 'package:anthology/framework_localizations.dart';
+import 'package:anthology/material_compatibility.dart';
 import 'package:anthology/Media/Download/download_button.dart';
 import 'package:anthology/Media/Files/file_actions.dart';
 import 'package:anthology/Media/Open/open_button.dart';
@@ -28,6 +28,7 @@ Future<void> _mount(WidgetTester tester, FileActions actions) =>
     tester.pumpWidget(
       MaterialApp(
         localizationsDelegates: anthologyLocalizationsDelegates,
+        builder: anthologyMaterialBuilder,
         supportedLocales: AnthologyLocalizations.supportedLocales,
         home: Scaffold(
           body: Column(

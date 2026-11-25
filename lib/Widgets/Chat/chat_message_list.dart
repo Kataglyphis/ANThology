@@ -1,3 +1,4 @@
+import 'package:anthology/material_compatibility.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:markdown_widget/markdown_widget.dart';
 
@@ -65,9 +66,7 @@ class ChatBubble extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final mine = entry.role == ChatRole.user;
     final dark = Theme.of(context).brightness == Brightness.dark;
-    final markdown = dark
-        ? MarkdownConfig.darkConfig
-        : MarkdownConfig.defaultConfig;
+    final markdown = anthologyMarkdownConfig(dark: dark);
     final body = mine
         ? SelectableText(entry.text)
         : MarkdownBlock(data: entry.text, config: markdown);

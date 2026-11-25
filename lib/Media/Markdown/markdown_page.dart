@@ -1,4 +1,5 @@
 import 'dart:developer' as developer;
+import 'package:anthology/material_compatibility.dart';
 import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart' show AssetManifest, rootBundle;
 import 'package:markdown_widget/markdown_widget.dart';
@@ -176,9 +177,10 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final config = isDark
-        ? MarkdownConfig.darkConfig
-        : MarkdownConfig.defaultConfig;
+    final config = anthologyMarkdownConfig(
+      dark: isDark,
+      configs: [isDark ? PreConfig.darkConfig.copy() : PreConfig().copy()],
+    );
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -195,13 +197,7 @@ class MarkdownFilePageState extends State<MarkdownFilePage> {
                     shrinkWrap: true,
                     data: snapshot.data!,
 
-                    config: config.copy(
-                      configs: [
-                        isDark
-                            ? PreConfig.darkConfig.copy()
-                            : PreConfig().copy(),
-                      ],
-                    ),
+                    config: config,
                   ),
                 ),
               );

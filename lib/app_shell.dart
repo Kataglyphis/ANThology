@@ -10,8 +10,7 @@ import 'package:anthology/app_attributes.dart';
 import 'package:anthology/app_attributes_scope.dart';
 import 'package:anthology/app_settings.dart';
 import 'package:anthology/constants.dart';
-import 'package:anthology/l10n/anthology_localizations.dart';
-import 'package:anthology/framework_localizations.dart';
+import 'package:anthology/material_compatibility.dart';
 import 'package:anthology/user_settings.dart';
 
 /// Default font family; package fonts register under the `packages/<name>/` prefix.
@@ -148,7 +147,7 @@ class KataglyphisAppShell<T> extends StatefulWidget {
   /// Turns the loaded data into an [AppAttributes] and a [RoutesCreator].
   final AppShellBindingBuilder<T> buildBinding;
 
-  /// The app's own delegates; the shell appends [AnthologyLocalizations.delegate] and the `Global*Localizations` ones.
+  /// The app's own delegates; the shell appends [anthologyLocalizationsDelegates].
   final List<LocalizationsDelegate<dynamic>> appLocalizationsDelegates;
 
   /// Font family for both generated themes.
@@ -217,8 +216,7 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
   late final List<LocalizationsDelegate<dynamic>> localizationsDelegates = [
     ...widget.appLocalizationsDelegates,
     // Without it AnthologyLocalizations.of(context) is null and every package page throws.
-    AnthologyLocalizations.delegate,
-    ...frameworkLocalizationsDelegates,
+    ...anthologyLocalizationsDelegates,
   ];
 
   @override
@@ -459,8 +457,10 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
             appAttributes.appSettings,
           );
           return MaterialApp.router(
-            builder: (context, child) =>
-                AppAttributesScope(attributes: appAttributes, child: child!),
+            builder: (context, child) => anthologyMaterialBuilder(
+              context,
+              AppAttributesScope(attributes: appAttributes, child: child!),
+            ),
             debugShowCheckedModeBanner: false,
             localizationsDelegates: localizationsDelegates,
             onGenerateTitle: (BuildContext context) =>
