@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Media/DataTable/data_list.dart';
 import 'package:anthology/Media/DataTable/datacell_content_strategies.dart';
 import 'package:anthology/Pages/DataPage/BlockOverviewPage/block_entry.dart';

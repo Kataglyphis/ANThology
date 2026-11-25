@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 import 'package:anthology/Media/DataTable/anthology_table.dart';
 import 'package:anthology/Media/DataTable/anthology_table_info_provider.dart';

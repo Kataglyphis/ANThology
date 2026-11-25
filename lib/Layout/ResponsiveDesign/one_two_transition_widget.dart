@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Layout/Widgets/Transitions/one_two_transition.dart';
 import 'package:anthology/Layout/Widgets/Scrolling/first_component_list.dart';
 import 'package:anthology/Pages/Footer/footer.dart';

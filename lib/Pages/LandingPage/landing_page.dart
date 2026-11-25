@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:anthology/Layout/ResponsiveDesign/one_two_transition_widget.dart';
 import 'package:anthology/Pages/Footer/footer.dart';

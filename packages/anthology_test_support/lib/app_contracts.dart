@@ -1,6 +1,6 @@
 import 'package:anthology/Pages/ErrorPage/error_page.dart';
 import 'package:anthology/Testing/real_fonts.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 

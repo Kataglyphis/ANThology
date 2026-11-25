@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Decoration/Charts/pie_chart.dart';
 import 'package:anthology/Decoration/Charts/pie_chart_data_entry.dart';
 import 'package:anthology/constants.dart';

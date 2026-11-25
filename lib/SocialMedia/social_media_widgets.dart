@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Layout/adaptive_grid.dart';
 import 'package:anthology/SocialMedia/Settings/social_media_settings.dart';
 import 'package:anthology/Url/browser_helper.dart';

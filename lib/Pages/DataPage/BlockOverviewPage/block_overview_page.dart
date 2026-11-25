@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Layout/ResponsiveDesign/single_page.dart';
 import 'package:anthology/Pages/DataPage/BlockOverviewPage/block_entry.dart';
 import 'package:anthology/Pages/DataPage/BlockOverviewPage/block_entry_list.dart';

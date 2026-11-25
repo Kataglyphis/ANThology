@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 // At or above this width NavigationRail is shown, below it NavigationBar.
 const double narrowScreenWidthThreshold = 450;

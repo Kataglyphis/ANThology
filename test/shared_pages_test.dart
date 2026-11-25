@@ -1,6 +1,7 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:anthology/framework_localizations.dart';
 import 'package:anthology/Pages/AboutMePage/Widgets/perfect_day_chart.dart';
 import 'package:anthology/Pages/DataPage/BlockOverviewPage/block_entry.dart';
 import 'package:anthology/Pages/ErrorPage/error_page_stateful_branch_info_provider.dart';
@@ -47,7 +48,7 @@ Future<T> _pumpAndRead<T>(
   await tester.pumpWidget(
     MaterialApp(
       locale: locale,
-      localizationsDelegates: AnthologyLocalizations.localizationsDelegates,
+      localizationsDelegates: anthologyLocalizationsDelegates,
       supportedLocales: AnthologyLocalizations.supportedLocales,
       home: Builder(
         builder: (BuildContext context) {

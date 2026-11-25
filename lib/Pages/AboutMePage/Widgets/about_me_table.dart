@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Decoration/col_divider.dart';
 import 'package:anthology/Decoration/row_divider.dart';
 import 'package:anthology/Media/Image/openable_image.dart';

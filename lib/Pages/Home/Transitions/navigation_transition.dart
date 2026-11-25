@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Pages/Footer/footer.dart';
 
 import 'package:anthology/Pages/Home/Transitions/bar_transition.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Pages/Home/button_names.dart';
 import 'package:anthology/Pages/Home/home_config.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';

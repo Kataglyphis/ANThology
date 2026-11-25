@@ -1,7 +1,8 @@
 import 'dart:convert';
 
 import 'package:anthology/Media/Markdown/markdown_page.dart';
-import 'package:flutter/material.dart';
+import 'package:anthology/framework_localizations.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:markdown_widget/markdown_widget.dart';
@@ -44,6 +45,7 @@ void main() {
     (tester) async {
       final bundle = _Bundle();
       Widget page(Locale locale, {bool light = false}) => MaterialApp(
+        localizationsDelegates: anthologyLocalizationsDelegates,
         home: SingleChildScrollView(
           child: MarkdownFilePage(
             currentLocale: locale,

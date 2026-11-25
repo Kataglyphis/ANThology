@@ -4,11 +4,12 @@ library;
 
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import 'package:anthology/framework_localizations.dart';
 import 'package:anthology/Pages/Footer/default_footer_config.dart';
 import 'package:anthology/Pages/Footer/footer.dart';
 import 'package:anthology/Pages/Footer/footer_page_config.dart';
@@ -154,8 +155,7 @@ void main() {
         addTearDown(tester.view.reset);
         await tester.pumpWidget(
           MaterialApp(
-            localizationsDelegates:
-                AnthologyLocalizations.localizationsDelegates,
+            localizationsDelegates: anthologyLocalizationsDelegates,
             supportedLocales: AnthologyLocalizations.supportedLocales,
             locale: const Locale('en'),
             home: Scaffold(

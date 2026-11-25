@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Layout/Widgets/Animations/offset_animation.dart';
 import 'package:anthology/Layout/Widgets/Animations/size_animation.dart';
 

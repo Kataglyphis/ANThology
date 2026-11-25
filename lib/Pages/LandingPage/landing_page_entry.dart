@@ -7,7 +7,7 @@ import 'package:anthology/Media/Files/file.dart';
 import 'package:anthology/Media/Files/file_tile.dart';
 import 'package:anthology/Media/Image/openable_image.dart';
 import 'package:anthology/Url/browser_helper.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Url/external_link_config.dart';
 
 class LandingPageEntry extends StatefulWidget {

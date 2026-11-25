@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:anthology/Licenses/bundled_licenses.dart';
@@ -12,6 +11,7 @@ import 'package:anthology/app_attributes_scope.dart';
 import 'package:anthology/app_settings.dart';
 import 'package:anthology/constants.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
+import 'package:anthology/framework_localizations.dart';
 import 'package:anthology/user_settings.dart';
 
 /// Default font family; package fonts register under the `packages/<name>/` prefix.
@@ -218,9 +218,7 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
     ...widget.appLocalizationsDelegates,
     // Without it AnthologyLocalizations.of(context) is null and every package page throws.
     AnthologyLocalizations.delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
+    ...frameworkLocalizationsDelegates,
   ];
 
   @override

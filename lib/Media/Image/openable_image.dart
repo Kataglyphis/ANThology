@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Decoration/centered_box_decoration.dart';
 import 'package:anthology/Decoration/row_divider.dart';
 import 'package:anthology/Media/Open/open_button.dart';

@@ -1,13 +1,14 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:anthology/framework_localizations.dart';
 import 'package:anthology/Widgets/Chat/chat_panel.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 
 Widget _app(Widget child, {Locale locale = const Locale('en')}) => MaterialApp(
   locale: locale,
-  localizationsDelegates: AnthologyLocalizations.localizationsDelegates,
+  localizationsDelegates: anthologyLocalizationsDelegates,
   supportedLocales: AnthologyLocalizations.supportedLocales,
   home: Scaffold(body: child),
 );

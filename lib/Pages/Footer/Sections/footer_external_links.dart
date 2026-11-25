@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Layout/adaptive_grid.dart';
 import 'package:anthology/Pages/Footer/footer_config.dart';
 import 'package:anthology/Url/browser_helper.dart';

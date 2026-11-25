@@ -1,3 +1,3 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 
 var rowDivider = const SizedBox(height: 10);

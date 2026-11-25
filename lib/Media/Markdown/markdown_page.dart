@@ -1,5 +1,5 @@
 import 'dart:developer' as developer;
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter/services.dart' show AssetManifest, rootBundle;
 import 'package:markdown_widget/markdown_widget.dart';
 import 'package:anthology/Decoration/row_divider.dart';

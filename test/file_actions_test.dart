@@ -1,8 +1,9 @@
+import 'package:anthology/framework_localizations.dart';
 import 'package:anthology/Media/Download/download_button.dart';
 import 'package:anthology/Media/Files/file_actions.dart';
 import 'package:anthology/Media/Open/open_button.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 class _Actions implements FileActions {
@@ -26,7 +27,7 @@ class _Actions implements FileActions {
 Future<void> _mount(WidgetTester tester, FileActions actions) =>
     tester.pumpWidget(
       MaterialApp(
-        localizationsDelegates: AnthologyLocalizations.localizationsDelegates,
+        localizationsDelegates: anthologyLocalizationsDelegates,
         supportedLocales: AnthologyLocalizations.supportedLocales,
         home: Scaffold(
           body: Column(

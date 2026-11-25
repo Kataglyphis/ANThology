@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:anthology/Pages/Home/Widgets/brightness_button.dart';
 import 'package:anthology/Pages/Home/Widgets/color_seed_button.dart';
 import 'package:anthology/Pages/Home/Widgets/language_button.dart';

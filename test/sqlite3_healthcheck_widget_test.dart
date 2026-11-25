@@ -1,8 +1,9 @@
 // A broken sqlite3.wasm shows only in this status line, so its error text and re-run need a test.
 
-import 'package:flutter/material.dart';
+import 'package:material_ui/material_ui.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import 'package:anthology/framework_localizations.dart';
 import 'package:anthology/Sqlite/sqlite3_healthcheck_widget.dart';
 import 'package:anthology/l10n/anthology_localizations.dart';
 
@@ -10,7 +11,7 @@ Future<void> _pump(WidgetTester tester, Future<String> Function() check) async {
   await tester.pumpWidget(
     MaterialApp(
       locale: const Locale('en'),
-      localizationsDelegates: AnthologyLocalizations.localizationsDelegates,
+      localizationsDelegates: anthologyLocalizationsDelegates,
       supportedLocales: AnthologyLocalizations.supportedLocales,
       home: Scaffold(body: Sqlite3HealthcheckWidget(check: check)),
     ),
