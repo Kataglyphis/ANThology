@@ -124,11 +124,13 @@ KataglyphisAppShell<(AppSettings, UserSettings)> _shell(
   void Function(KataglyphisAppShellRuntime runtime)? onRuntime,
   List<Locale> fallbackLocales = const <Locale>[Locale('en')],
   Locale? initialLocale,
+  List<Locale> preferredLocales = const <Locale>[],
 }) {
   return KataglyphisAppShell<(AppSettings, UserSettings)>(
     loadBootstrapData: load,
     fallbackLocales: fallbackLocales,
     initialLocale: initialLocale,
+    preferredLocales: preferredLocales,
     buildBinding:
         ((AppSettings, UserSettings) data, KataglyphisAppShellRuntime runtime) {
           onRuntime?.call(runtime);
@@ -271,6 +273,88 @@ void main() {
     );
     await tester.pumpAndSettle();
     expect(find.text('locale=de'), findsOneWidget);
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets('preferredLocales start the app on the first supported one', (
+    WidgetTester tester,
+  ) async {
+    late KataglyphisAppShellRuntime runtime;
+    await tester.pumpWidget(
+      _shell(
+        () async => (
+          _appSettings(supportedLocales: <String>['en', 'de']),
+          _userSettings(),
+        ),
+        preferredLocales: const <Locale>[
+          Locale('fr', 'FR'),
+          Locale('de', 'AT'),
+        ],
+        onRuntime: (KataglyphisAppShellRuntime r) => runtime = r,
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('locale=de'), findsOneWidget);
+    expect(runtime.currentLanguageIndex, 1);
+
+    // Only the start: the user's later choice wins.
+    runtime.handleLanguageSelect(0);
+    await tester.pumpAndSettle();
+    expect(find.text('locale=en'), findsOneWidget);
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets('a supported initialLocale wins over preferredLocales', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      _shell(
+        () async => (
+          _appSettings(supportedLocales: <String>['en', 'de']),
+          _userSettings(),
+        ),
+        initialLocale: const Locale('en'),
+        preferredLocales: const <Locale>[Locale('de')],
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('locale=en'), findsOneWidget);
+    await tester.pumpWidget(const SizedBox());
+  });
+
+  testWidgets(
+    'an unsupported initialLocale falls through to preferredLocales',
+    (WidgetTester tester) async {
+      await tester.pumpWidget(
+        _shell(
+          () async => (
+            _appSettings(supportedLocales: <String>['en', 'de']),
+            _userSettings(),
+          ),
+          initialLocale: const Locale('fr'),
+          preferredLocales: const <Locale>[Locale('de', 'DE')],
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(find.text('locale=de'), findsOneWidget);
+      await tester.pumpWidget(const SizedBox());
+    },
+  );
+
+  testWidgets('no supported preferred locale keeps the first', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(
+      _shell(
+        () async => (
+          _appSettings(supportedLocales: <String>['en', 'de']),
+          _userSettings(),
+        ),
+        preferredLocales: const <Locale>[Locale('fr'), Locale('ja')],
+      ),
+    );
+    await tester.pumpAndSettle();
+    expect(find.text('locale=en'), findsOneWidget);
     await tester.pumpWidget(const SizedBox());
   });
 

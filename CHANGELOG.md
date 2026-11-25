@@ -2,6 +2,9 @@
 
 ## [Unreleased]
 
+- `KataglyphisAppShell.preferredLocales` are tried in order after `initialLocale`, matched by language
+  code; the first supported one starts the app, and the user's later choice still wins. A web app passes
+  the browser's languages, so `?lang=` comes first, then the browser, then the first supported locale.
 - 2026-11-25: `KataglyphisAppShell.initialLocale` picks the starting language by its language code
   before the user touches the language menu; an unsupported one keeps the first locale. OmniAccelerANT
   passes `?lang=` from the page address.

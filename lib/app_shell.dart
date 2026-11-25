@@ -137,6 +137,7 @@ class KataglyphisAppShell<T> extends StatefulWidget {
     this.initialColorSeed = ColorSeed.baseColor,
     this.fallbackLocales = const <Locale>[Locale('en')],
     this.initialLocale,
+    this.preferredLocales = const <Locale>[],
     this.loadingBuilder,
     this.errorBuilder,
   });
@@ -163,8 +164,12 @@ class KataglyphisAppShell<T> extends StatefulWidget {
   final List<Locale> fallbackLocales;
 
   /// The language before the user touches the language menu, matched by language code; null, or one
-  /// the app does not support, keeps the first supported locale.
+  /// the app does not support, falls through to [preferredLocales], then to the first supported locale.
   final Locale? initialLocale;
+
+  /// Tried in order after [initialLocale] when that one is null or unsupported, matched by language
+  /// code; the first supported one starts the app. A web app passes the browser's languages here.
+  final List<Locale> preferredLocales;
 
   /// Overrides the default progress indicator.
   final AppShellLoadingBuilder? loadingBuilder;
@@ -298,14 +303,18 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
     });
   }
 
-  /// Once, before the first binding: [KataglyphisAppShell.initialLocale] picks the starting language index.
+  /// Once, before the first binding: [KataglyphisAppShell.initialLocale], then
+  /// [KataglyphisAppShell.preferredLocales], picks the starting language index.
   void _applyInitialLocale(T data) {
     if (_initialLocaleApplied) {
       return;
     }
     _initialLocaleApplied = true;
-    final Locale? wanted = widget.initialLocale;
-    if (wanted == null) {
+    final List<Locale> wanted = <Locale>[
+      ?widget.initialLocale,
+      ...widget.preferredLocales,
+    ];
+    if (wanted.isEmpty) {
       return;
     }
     // The supported locales live in the app's settings, which only a binding exposes; this one is discarded.
@@ -326,11 +335,15 @@ class _KataglyphisAppShellState<T> extends State<KataglyphisAppShell<T>>
         )
         .appAttributes
         .appSettings;
-    final int index = _supportedLocales(
-      appSettings,
-    ).indexWhere((Locale locale) => locale.languageCode == wanted.languageCode);
-    if (index >= 0) {
-      currentLanguageIndex = index;
+    final List<Locale> supported = _supportedLocales(appSettings);
+    for (final Locale candidate in wanted) {
+      final int index = supported.indexWhere(
+        (Locale locale) => locale.languageCode == candidate.languageCode,
+      );
+      if (index >= 0) {
+        currentLanguageIndex = index;
+        return;
+      }
     }
   }
 
